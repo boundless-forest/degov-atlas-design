@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Clickable Atlas DAO directory prototype — filters above list, searchable.">
+<title>DeGov Atlas DAO directory</title>
+<link rel="stylesheet" href="atlas.css">
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="atlas-shell">
+<aside class="atlas-sidebar" aria-label="Atlas navigation">
+<a class="brand" href="index.html" aria-label="DeGov Atlas home"><span class="brand-mark">D</span><span class="brand-copy"><strong>DeGov Atlas</strong><small>Governance intelligence</small></span></a>
+<nav class="sidebar-nav" aria-label="Primary navigation"><a href="index.html"><span class="nav-marker" aria-hidden="true"></span><span>Overview</span></a>
+<a href="dao-list.html" aria-current="page"><span class="nav-marker" aria-hidden="true"></span><span>DAOs</span></a>
+<a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a>
+<a href="newsletters-list.html"><span class="nav-marker" aria-hidden="true"></span><span>Newsletter</span></a></nav>
+<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals.</p><form class="sidebar-signup" aria-label="Weekly briefing signup"><label for="newsletter-email-dao-details">Email address</label><div class="sidebar-signup-row"><input id="newsletter-email-dao-details" type="email" name="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
+<p class="system-note"><span>Static prototype</span><span>Production values replace these samples.</span></p>
+</aside>
+<main id="content" class="atlas-main">
+<section class="atlas-command-strip" aria-label="Atlas command strip">
+  <div class="dashboard-topbar" aria-label="DAO search">
+    <form class="dao-search" role="search">
+      <span aria-hidden="true">⌕</span>
+      <input aria-label="Search DAOs" placeholder="Search DAOs">
+      <button type="submit">Search</button>
+      <div class="search-assist" role="listbox" aria-label="Search suggestions">
+        <div class="search-assist-group" aria-label="Recently active DAOs">
+          <span class="search-assist-heading">Recently active DAOs</span>
+          <a class="search-assist-row" href="daos-detail.html" role="option"><strong>Uniswap</strong><span>7 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Aave</strong><span>5 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Arbitrum</strong><span>4 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Optimism</strong><span>4 active proposals</span></a>
+        </div>
+        <div class="search-assist-group" aria-label="Popular DAOs">
+          <span class="search-assist-heading">Popular DAOs</span>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>ENS</strong><span>3 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>MakerDAO / Sky</strong><span>2 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Compound</strong><span>2 active proposals</span></a>
+        </div>
+        <div class="search-assist-group" aria-label="Governance pages and actions">
+          <span class="search-assist-heading">Governance pages/actions</span>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>View all DAOs</strong><span>Directory</span></a>
+          <a class="search-assist-row" href="governance-feed.html" role="option"><strong>Latest Governance</strong><span>Live feed</span></a>
+        </div>
+      </div>
+    </form>
+    <div class="topbar-actions"><a class="button" href="dao-list.html">Browse DAOs</a><a class="button dark" href="governance-feed.html">Latest governance</a></div>
+  </div>
+  <nav class="market-strip" aria-label="Hot DAO navigation">
+    <a class="chain-pill is-active" href="daos-detail.html">UNISWAP <span class="proposal-count">7</span><span class="dao-tooltip"><span>7 active proposals</span><strong>v4 growth budget renewal</strong><em>Updated 2h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">AAVE <span class="proposal-count">5</span><span class="dao-tooltip"><span>5 active proposals</span><strong>Risk parameter update</strong><em>Updated 4h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">ARBITRUM <span class="proposal-count">4</span><span class="dao-tooltip"><span>4 active proposals</span><strong>DAO grant program cohort</strong><em>Updated 8h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">OPTIMISM <span class="proposal-count">4</span><span class="dao-tooltip"><span>4 active proposals</span><strong>Retro Funding round 6</strong><em>Updated 12h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">ENS <span class="proposal-count">3</span><span class="dao-tooltip"><span>3 active proposals</span><strong>Resolver update discussion</strong><em>Updated 6h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">MAKERDAO / SKY <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>DSR rate adjustment</strong><em>Updated 1d ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">COMPOUND <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>Market parameter update</strong><em>Updated 2d ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">GITCOIN <span class="proposal-count">1</span><span class="dao-tooltip"><span>1 active proposal</span><strong>Grants round operations</strong><em>Updated 3d ago</em></span></a>
+    <a class="chain-pill" href="dao-list.html">LIDO</a>
+    <a class="chain-pill" href="dao-list.html">CURVE</a>
+    <a class="chain-pill" href="dao-list.html">BALANCER</a>
+    <a class="chain-pill" href="dao-list.html">SAFE</a>
+    <a class="chain-pill" href="dao-list.html">POLYGON</a>
+    <a class="chain-pill" href="dao-list.html">STARKNET</a>
+    <a class="chain-pill" href="dao-list.html">SCROLL</a>
+  </nav>
+</section>
+<div class="atlas-dashboard dao-list-dashboard">
+<!-- DAO directory console -->
+<section class="panel table-panel dao-directory-console" aria-labelledby="dao-directory-console-title">
+<div class="directory-console-head">
+<div class="directory-console-title"><p class="eyebrow">DAOs</p><h1 id="dao-directory-console-title">DAO Directory Console</h1><p>Browse DAO governance coverage, activity, source mix, and data health.</p></div>
+<div class="directory-console-status" aria-label="Directory dataset status"><span>128 DAOs</span><span>37 active this week</span><span>84 active this month</span><span>64% fresh</span><span>Updated 2h ago</span></div>
+</div>
+<form class="directory-filter-console" aria-label="Filter DAO directory">
+<label class="directory-search-field"><span>Search DAOs</span><input name="q" placeholder="Search by DAO, source, or governance surface"></label>
+<div class="filter-cluster" aria-label="Activity filters"><span>Refine</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active">All DAOs</button><button type="button" class="filter-chip">Active this week</button><button type="button" class="filter-chip">Active proposals</button><button type="button" class="filter-chip">Ending soon</button><button type="button" class="filter-chip">Fresh 82</button><button type="button" class="filter-chip">Partial 31</button><button type="button" class="filter-chip">Not normalized 15</button></div></div>
+<div class="filter-cluster" aria-label="Source filters"><span>Source</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active">Any source</button><button type="button" class="filter-chip">Snapshot 46%</button><button type="button" class="filter-chip">DeGov Square 31%</button><button type="button" class="filter-chip">Tally / Governor 15%</button><button type="button" class="filter-chip">Forum-linked 8%</button></div></div>
+<div class="directory-order-row" aria-label="Sort DAO directory"><span>Order</span><div class="filter-chip-row order-chip-row"><button type="button" class="filter-chip order-chip is-active">Last proposal ↓</button><button type="button" class="filter-chip order-chip">Active proposals</button><button type="button" class="filter-chip order-chip">Unique voters</button><button type="button" class="filter-chip order-chip">Total proposals</button><button type="button" class="filter-chip order-chip">DAO A–Z</button></div><a class="reset-filter-link" href="dao-list.html">Reset filters</a></div>
+</form>
+<div class="data-table dao-directory-table expanded" role="table" aria-label="DAO profiles">
+<div class="data-row head" role="row"><span>DAO</span><span>Coverage</span><span>Sources</span><span>Total ↕</span><span>Active ↕</span><span>Unique voters ↕</span><span>Last proposal ↓</span></div>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Uniswap</strong><small>Protocol governance · incentives and treasury</small></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>42</span><span>7</span><span>18.4k</span><span>2h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Aave</strong><small>Risk markets and parameter governance</small></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>31</span><span>5</span><span>12.9k</span><span>4h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>ENS</strong><small>Service provider and steward budgets</small></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>18</span><span>3</span><span>8.2k</span><span>6h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Arbitrum</strong><small>Grants, security council, execution tracking</small></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>26</span><span>4</span><span>15.6k</span><span>8h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Optimism</strong><small>Retro funding, grants, and council votes</small></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Agora, forum</span><span>22</span><span>4</span><span>13.1k</span><span>12h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>MakerDAO / Sky</strong><small>Rates, collateral, and treasury controls</small></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, governor</span><span>15</span><span>2</span><span>6.7k</span><span>1d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Compound</strong><small>Collateral factors and Governor proposals</small></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Governor</span><span>11</span><span>2</span><span>4.4k</span><span>2d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Gitcoin</strong><small>Grant rounds and eligibility rules</small></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot, forum</span><span>13</span><span>1</span><span>3.1k</span><span>3d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Lido</strong><small>Treasury movements and operator rewards</small></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>9</span><span>1</span><span>9.8k</span><span>4d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Balancer</strong><small>Gauge weights and liquidity incentives</small></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, Snapshot</span><span>8</span><span>0</span><span>2.2k</span><span>5d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Safe</strong><small>SAFE governance process monitoring</small></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot</span><span>7</span><span>0</span><span>5.6k</span><span>6d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Polygon</strong><small>Forum-only proposal monitoring</small></span><span><span class="state-pill state-not-normalized-yet">Not normalized</span></span><span>Forum</span><span>6</span><span>0</span><span>7.4k</span><span>1w ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Starknet</strong><small>Early coverage with forum context</small></span><span><span class="state-pill state-not-normalized-yet">Not normalized</span></span><span>Forum, Snapshot</span><span>5</span><span>0</span><span>4.1k</span><span>1w ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Scroll</strong><small>Forum monitoring before normalization</small></span><span><span class="state-pill state-not-normalized-yet">Not normalized</span></span><span>Forum</span><span>4</span><span>0</span><span>2.7k</span><span>2w ago</span></a>
+</div>
+</section>
+<!-- States (hidden by default — shown when filters return empty or source fails) -->
+<section class="content-grid two-col dao-list-states">
+<article class="empty-state" role="status"><h2>No matching DAOs</h2><p>Empty state shown when filters return no DAO profiles. Broaden the query or reset filters.</p><a class="button small" href="dao-list.html">Reset filters</a></article>
+<article class="error-state" role="alert"><h2>Source unavailable</h2><p>Directory source request failed. Current filters stay visible for retry.</p><div class="error-actions"><button class="button dark">Retry</button></div></article>
+</section>
+</div>
+<footer class="atlas-footer" aria-label="DeGov Atlas footer">
+  <div class="atlas-footer-line">
+    <span class="footer-brand">@DeGov AI</span>
+    <nav class="footer-skill-guide" aria-label="Agent skill shortcuts"><span>Use agent skills:</span><a href="https://github.com/ringecosystem/degov-agent-skills/tree/main/skills/dao-governance-research" target="_blank" rel="noopener noreferrer">DAO research</a><span aria-hidden="true">·</span><a href="https://github.com/ringecosystem/degov-agent-skills/tree/main/skills/dao-governance-security" target="_blank" rel="noopener noreferrer">Proposal security</a></nav>
+    <nav class="footer-links" aria-label="Footer navigation"><a href="https://square.degov.ai/">DeGov Square</a><span aria-hidden="true">·</span><a href="https://degov.ai/">DeGov</a><span aria-hidden="true">·</span><a href="https://github.com/ringecosystem/degov-agent-skills">Agent Skills</a></nav>
+  </div>
+</footer>
+</main>
+<nav class="mobile-tab-bar" aria-label="Mobile primary navigation"><a href="index.html"><span class="nav-icon">H</span>Overview</a>
+<a href="dao-list.html" aria-current="page"><span class="nav-icon">D</span>DAOs</a>
+<a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a>
+<a href="newsletters-list.html"><span class="nav-icon">N</span>News</a></nav>
+</div>
+</body>
+</html>

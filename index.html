@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Clickable Atlas overview page.">
+<title>DeGov Atlas overview prototype</title>
+<link rel="stylesheet" href="atlas.css">
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="atlas-shell">
+<aside class="atlas-sidebar" aria-label="Atlas navigation">
+<a class="brand" href="index.html" aria-label="DeGov Atlas home"><span class="brand-mark">D</span><span class="brand-copy"><strong>DeGov Atlas</strong><small>Governance intelligence</small></span></a>
+<nav class="sidebar-nav" aria-label="Primary navigation"><a href="index.html" aria-current="page"><span class="nav-marker" aria-hidden="true"></span><span>Overview</span></a>
+<a href="dao-list.html"><span class="nav-marker" aria-hidden="true"></span><span>DAOs</span></a>
+<a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a>
+<a href="newsletters-list.html"><span class="nav-marker" aria-hidden="true"></span><span>Newsletter</span></a></nav>
+</aside>
+<main id="content" class="atlas-main">
+<div class="atlas-dashboard">
+<section class="atlas-command-strip" aria-label="Atlas command strip">
+  <div class="dashboard-topbar" aria-label="DAO search">
+    <form class="dao-search" role="search">
+      <span aria-hidden="true">⌕</span>
+      <input aria-label="Search DAOs" placeholder="Search DAOs">
+      <button type="submit">Search</button>
+      <div class="search-assist" role="listbox" aria-label="Search suggestions">
+        <div class="search-assist-group" aria-label="Recently active DAOs">
+          <span class="search-assist-heading">Recently active DAOs</span>
+          <a class="search-assist-row" href="daos-detail.html" role="option"><strong>Uniswap</strong><span>7 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Aave</strong><span>5 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Arbitrum</strong><span>4 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Optimism</strong><span>4 active proposals</span></a>
+        </div>
+        <div class="search-assist-group" aria-label="Popular DAOs">
+          <span class="search-assist-heading">Popular DAOs</span>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>ENS</strong><span>3 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>MakerDAO / Sky</strong><span>2 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Compound</strong><span>2 active proposals</span></a>
+        </div>
+        <div class="search-assist-group" aria-label="Governance pages and actions">
+          <span class="search-assist-heading">Governance pages/actions</span>
+          <a class="search-assist-row" href="dao-list.html" role="option"><strong>View all DAOs</strong><span>Directory</span></a>
+          <a class="search-assist-row" href="governance-feed.html" role="option"><strong>Latest Governance</strong><span>Live feed</span></a>
+        </div>
+      </div>
+    </form>
+    <div class="topbar-actions"><a class="button" href="dao-list.html">Browse DAOs</a><a class="button dark" href="governance-feed.html">Latest governance</a></div>
+  </div>
+  <nav class="market-strip" aria-label="Hot DAO navigation">
+    <a class="chain-pill is-active" href="daos-detail.html">UNISWAP <span class="proposal-count">7</span><span class="dao-tooltip"><span>7 active proposals</span><strong>v4 growth budget renewal</strong><em>Updated 2h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">AAVE <span class="proposal-count">5</span><span class="dao-tooltip"><span>5 active proposals</span><strong>Risk parameter update</strong><em>Updated 4h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">ARBITRUM <span class="proposal-count">4</span><span class="dao-tooltip"><span>4 active proposals</span><strong>DAO grant program cohort</strong><em>Updated 8h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">OPTIMISM <span class="proposal-count">4</span><span class="dao-tooltip"><span>4 active proposals</span><strong>Retro Funding round 6</strong><em>Updated 12h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">ENS <span class="proposal-count">3</span><span class="dao-tooltip"><span>3 active proposals</span><strong>Resolver update discussion</strong><em>Updated 6h ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">MAKERDAO / SKY <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>DSR rate adjustment</strong><em>Updated 1d ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">COMPOUND <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>Market parameter update</strong><em>Updated 2d ago</em></span></a>
+    <a class="chain-pill is-active" href="dao-list.html">GITCOIN <span class="proposal-count">1</span><span class="dao-tooltip"><span>1 active proposal</span><strong>Grants round operations</strong><em>Updated 3d ago</em></span></a>
+    <a class="chain-pill" href="dao-list.html">LIDO</a>
+    <a class="chain-pill" href="dao-list.html">CURVE</a>
+    <a class="chain-pill" href="dao-list.html">BALANCER</a>
+    <a class="chain-pill" href="dao-list.html">SAFE</a>
+    <a class="chain-pill" href="dao-list.html">POLYGON</a>
+    <a class="chain-pill" href="dao-list.html">STARKNET</a>
+    <a class="chain-pill" href="dao-list.html">SCROLL</a>
+  </nav>
+</section>
+<section class="quad-grid">
+  <article class="panel hero-market-card command-center-panel">
+    <div class="command-copy"><p class="eyebrow">Overview</p><h1>See governance clearly.</h1><p class="hero-support-line">Human-readable. Agent-ready.</p><p>Track DAO decisions while Atlas structures proposals, votes, evidence, and execution context for autonomous research and security workflows.</p></div>
+    <div class="latest-signal-stack latest-signal-minimal" aria-label="Latest governance signals">
+      <a class="latest-signal-line" href="governance-feed.html"><span>Watch</span><strong>Aave risk update ends in 2 days</strong></a>
+      <a class="latest-signal-line" href="governance-feed.html"><span>Active</span><strong>Uniswap v4 growth budget renewal at 34% turnout</strong></a>
+      <a class="latest-signal-line" href="governance-feed.html"><span>Forum</span><strong>ENS service-provider budget debate gaining replies</strong></a>
+    </div>
+    <div class="hero-actions"><a class="button dark" href="governance-feed.html">Latest governance</a><a class="button" href="dao-list.html">Browse DAOs</a><a class="button" href="https://github.com/ringecosystem/degov-agent-skills/tree/main/skills" target="_blank" rel="noopener noreferrer">Browse agent skills</a></div>
+  </article>
+
+  <article class="panel chart-panel" aria-label="Governance activity trend">
+    <div class="panel-heading"><div><p class="eyebrow">Governance activity</p><h2>Governance activity trend</h2><p class="muted">Active proposals, turnout, and DAO coverage with selected-month detail.</p></div><span class="state-pill state-fresh">Source-ready</span></div>
+    <dl class="chart-kpi-strip" aria-label="Governance activity summary"><div><dt>Active proposals</dt><dd>57</dd><small>+12% MoM</small></div><div><dt>Avg turnout</dt><dd>45%</dd><small>+6 pts</small></div><div><dt>Covered DAOs</dt><dd>128</dd><small>stable source set</small></div></dl>
+    <div class="chart-legend"><span class="chart-legend-item"><span class="chart-legend-dot line-solid"></span> Active proposals</span><span class="chart-legend-item"><span class="chart-legend-dot line-dashed"></span> Average turnout %</span><span class="chart-legend-item"><span class="chart-legend-dot area-fill"></span> Covered DAOs</span></div>
+    <div class="governance-chart-layout">
+      <div class="dao-trend-chart governance-chart refined" role="img" aria-label="Monthly governance activity trend with May selected"><svg viewBox="0 0 760 300" aria-hidden="true" focusable="false"><g class="chart-grid"><line x1="64" y1="42" x2="696" y2="42"></line><line x1="64" y1="92" x2="696" y2="92"></line><line x1="64" y1="142" x2="696" y2="142"></line><line x1="64" y1="192" x2="696" y2="192"></line><line x1="64" y1="242" x2="696" y2="242"></line></g><path class="coverage-area" d="M64 242 L64 224 L190 214 L316 198 L442 176 L568 154 L696 132 L696 242 Z"></path><g class="selected-month-marker"><rect x="548" y="42" width="40" height="200"></rect><line x1="568" y1="42" x2="568" y2="242"></line></g><polyline class="active-proposals-line" points="64,218 190,184 316,156 442,128 568,96 696,62"></polyline><polyline class="turnout-line" points="64,170 190,144 316,158 442,116 568,116 696,104"></polyline><g class="chart-labels"><text x="64" y="272">Jan</text><text x="190" y="272">Feb</text><text x="316" y="272">Mar</text><text x="442" y="272">Apr</text><text x="568" y="272">May</text><text x="696" y="272">Jun</text><text x="28" y="246">0</text><text x="22" y="146">30</text><text x="22" y="46">60</text><text class="secondary-scale" x="710" y="246">0%</text><text class="secondary-scale" x="710" y="146">30%</text><text class="secondary-scale" x="710" y="46">60%</text></g><g class="axis-title"><text x="64" y="28">Active proposals</text><text x="696" y="28" text-anchor="end">Turnout %</text></g><g class="chart-hit" tabindex="0"><circle cx="64" cy="218" r="5"></circle><circle class="turnout-point" cx="64" cy="170" r="4"></circle><title>Jan: 18 active proposals, 28% turnout, 72 covered DAOs</title></g><g class="chart-hit" tabindex="0"><circle cx="190" cy="184" r="5"></circle><circle class="turnout-point" cx="190" cy="144" r="4"></circle><title>Feb: 27 active proposals, 34% turnout, 80 covered DAOs</title></g><g class="chart-hit" tabindex="0"><circle cx="316" cy="156" r="5"></circle><circle class="turnout-point" cx="316" cy="158" r="4"></circle><title>Mar: 34 active proposals, 31% turnout, 89 covered DAOs</title></g><g class="chart-hit" tabindex="0"><circle cx="442" cy="128" r="5"></circle><circle class="turnout-point" cx="442" cy="116" r="4"></circle><title>Apr: 41 active proposals, 42% turnout, 101 covered DAOs</title></g><g class="chart-hit is-selected" tabindex="0"><circle cx="568" cy="96" r="6"></circle><circle class="turnout-point" cx="568" cy="116" r="5"></circle><rect class="chart-tooltip" x="380" y="142" width="178" height="64"></rect><text class="chart-tooltip-text" x="392" y="166">May · 49 active proposals</text><text class="chart-tooltip-text muted" x="392" y="186">Turnout 42% · 123 DAOs covered</text><title>May: 49 active proposals, 42% turnout, 123 covered DAOs</title></g><g class="chart-hit" tabindex="0"><circle cx="696" cy="62" r="5"></circle><circle class="turnout-point" cx="696" cy="104" r="4"></circle><title>Jun: 57 active proposals, 45% turnout, 128 covered DAOs</title></g></svg><div class="trend-summary"><strong>57 proposals · 45% turnout · 128 DAOs</strong><span>source-ready · hover points for monthly detail</span></div></div>
+      <aside class="chart-range-inspector" aria-label="Selected chart range"><span>Selected range</span><strong>May 2026</strong><dl><div><dt>Active proposals</dt><dd>49</dd></div><div><dt>Average turnout</dt><dd>42%</dd></div><div><dt>Covered DAOs</dt><dd>123</dd></div></dl></aside>
+    </div>
+  </article>
+
+  <article class="panel agent-ready-panel double-span" aria-label="Agent-ready governance layer">
+    <div class="agent-ready-copy"><p class="eyebrow">Agent-ready governance layer</p><h2>Structured context for research, security review, and paid agent workflows.</h2><p>Proposals, votes, forum signals, execution outcomes, permissions, treasury movement, source freshness, and evidence links are normalized for autonomous agents. Paid skill access is settled through x402.</p></div>
+    <div class="agent-capability-grid" role="list">
+      <a class="agent-capability-card" href="https://github.com/ringecosystem/degov-agent-skills/tree/main/skills/dao-governance-research" target="_blank" rel="noopener noreferrer" role="listitem"><span class="agent-skill-label">Research context</span><strong>Proposal evidence graph</strong><span>Summaries, forum threads, voter activity, DAO history, source links, and evidence-backed governance timelines.</span></a>
+      <a class="agent-capability-card" href="https://github.com/ringecosystem/degov-agent-skills/tree/main/skills/dao-governance-security" target="_blank" rel="noopener noreferrer" role="listitem"><span class="agent-skill-label">Security review</span><strong>Executable-action risk signals</strong><span>Permission changes, treasury movement, contract targets, execution payloads, and proposal risk signals.</span></a>
+      <a class="agent-capability-card x402-card" href="https://www.x402.org/" target="_blank" rel="noopener noreferrer" role="listitem"><span class="agent-skill-label">x402 skill access</span><strong>Metered paid workflows</strong><span>x402-compatible payment flow for DAO research and proposal-security agent skills.</span></a>
+    </div>
+  </article>
+
+  <article class="panel table-panel fill-panel">
+    <div class="panel-heading"><div><p class="eyebrow">Top Active DAOs</p></div><a class="button small" href="dao-list.html">All DAOs</a></div>
+    <div class="data-table top-active-daos-table" role="table" aria-label="Top active DAOs"><div class="data-row head" role="row"><span role="columnheader">DAO</span><span role="columnheader">Active</span><span role="columnheader">Voters</span><span role="columnheader">Last proposal</span></div>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Uniswap</strong></span><span>7 active</span><span>18.4k</span><span>2h ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Aave</strong></span><span>5 active</span><span>12.9k</span><span>4h ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Arbitrum</strong></span><span>4 active</span><span>15.6k</span><span>8h ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Optimism</strong></span><span>4 active</span><span>13.1k</span><span>12h ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>MakerDAO / Sky</strong></span><span>2 active</span><span>6.7k</span><span>1d ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Compound</strong></span><span>2 active</span><span>4.4k</span><span>2d ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Gitcoin</strong></span><span>1 active</span><span>3.1k</span><span>3d ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Lido</strong></span><span>1 tracked</span><span>9.8k</span><span>4d ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Balancer</strong></span><span>Forum active</span><span>2.2k</span><span>5d ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Safe</strong></span><span>Monitoring</span><span>5.6k</span><span>6d ago</span></a></div>
+  </article>
+
+  <article class="panel fill-panel">
+    <div class="panel-heading"><div><p class="eyebrow">Latest Governance Updates</p></div><a class="button small" href="governance-feed.html">Feed</a></div>
+    <div class="governance-update-list"><div class="governance-update-row" aria-disabled="true"><span class="update-time">2h ago</span><span class="update-headline">Uniswap is voting on v4 growth budget renewal — 34% turnout so far</span><span class="state-pill state-active">Active</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">4h ago</span><span class="update-headline">Aave risk parameter update is ending in 2 days</span><span class="state-pill state-ending-soon">Ending soon</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">8h ago</span><span class="update-headline">Arbitrum executed the DAO grant program third cohort</span><span class="state-pill state-executed">Executed</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">12h ago</span><span class="update-headline">Optimism Retro Funding round 6 passed — 91% for</span><span class="state-pill state-passed">Passed</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">1d ago</span><span class="update-headline">MakerDAO / Sky DSR rate adjustment passed — now active on-chain</span><span class="state-pill state-executed">Executed</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">2d ago</span><span class="update-headline">Compound cUSDC collateral factor update failed with 62% against</span><span class="state-pill state-defeated">Defeated</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">3d ago</span><span class="update-headline">Gitcoin GG24 grant eligibility criteria passed with 78% support</span><span class="state-pill state-passed">Passed</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">5d ago</span><span class="update-headline">Balancer forum thread proposes veBAL gauge weight methodology changes</span><span class="state-pill state-fresh">Discussion</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">7d ago</span><span class="update-headline">ENS DAO voted to fund service-provider working group for Q3</span><span class="state-pill state-passed">Passed</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">8d ago</span><span class="update-headline">Curve community signals support for new LEND gauge weight framework</span><span class="state-pill state-fresh">Discussion</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">9d ago</span><span class="update-headline">Optimism token house approved grants council budget for cycle 19</span><span class="state-pill state-executed">Executed</span></div><div class="governance-update-row" aria-disabled="true"><span class="update-time">10d ago</span><span class="update-headline">Aave proposal to onboard cbBTC as collateral asset passed</span><span class="state-pill state-passed">Passed</span></div></div>
+  </article>
+</section>
+</div>
+<footer class="atlas-footer" aria-label="DeGov Atlas footer">
+  <div class="atlas-footer-line">
+    <span class="footer-brand">@DeGov AI</span>
+    <nav class="footer-skill-guide" aria-label="Agent skill shortcuts"><span>Use agent skills:</span><a href="https://github.com/ringecosystem/degov-agent-skills/tree/main/skills/dao-governance-research" target="_blank" rel="noopener noreferrer">DAO research</a><span aria-hidden="true">·</span><a href="https://github.com/ringecosystem/degov-agent-skills/tree/main/skills/dao-governance-security" target="_blank" rel="noopener noreferrer">Proposal security</a></nav>
+    <nav class="footer-links" aria-label="Footer navigation"><a href="https://square.degov.ai/">DeGov Square</a><span aria-hidden="true">·</span><a href="https://degov.ai/">DeGov</a><span aria-hidden="true">·</span><a href="https://github.com/ringecosystem/degov-agent-skills">Agent Skills</a></nav>
+  </div>
+</footer>
+</main>
+<nav class="mobile-tab-bar" aria-label="Mobile primary navigation"><a href="index.html" aria-current="page"><span class="nav-icon">H</span>Overview</a>
+<a href="dao-list.html"><span class="nav-icon">D</span>DAOs</a>
+<a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a>
+<a href="newsletters-list.html"><span class="nav-icon">N</span>News</a></nav>
+</div>
+</body></html>

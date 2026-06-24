@@ -1,0 +1,4 @@
+.od-skills/
+*.artifact.json
+*.png
+.DS_Store
