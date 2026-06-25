@@ -16,7 +16,7 @@
 <a href="dao-list.html" aria-current="page"><span class="nav-marker" aria-hidden="true"></span><span>DAOs</span></a>
 <a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a>
 <a href="newsletters-list.html"><span class="nav-marker" aria-hidden="true"></span><span>Newsletter</span></a></nav>
-<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals.</p><form class="sidebar-signup" aria-label="Weekly briefing signup"><label for="newsletter-email-dao-details">Email address</label><div class="sidebar-signup-row"><input id="newsletter-email-dao-details" type="email" name="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
+<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals. <a class="sidebar-briefing-link" href="newsletters-list.html">Read latest issue <span aria-hidden="true">→</span></a></p><form class="sidebar-signup" aria-label="Weekly briefing signup"><div class="sidebar-signup-row"><input id="newsletter-email-dao-details" type="email" name="email" autocomplete="email" placeholder="email" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
 </aside>
 <main id="content" class="atlas-main">
 <section class="atlas-command-strip" aria-label="Atlas command strip">
@@ -67,6 +67,7 @@
   </nav>
 </section>
 <div class="atlas-dashboard dao-list-dashboard">
+<div class="dao-directory-layout">
 <!-- DAO directory console -->
 <section class="panel table-panel dao-directory-console" aria-labelledby="dao-directory-console-title">
 <div class="directory-console-head">
@@ -77,10 +78,10 @@
 <label class="directory-search-field"><span>Search DAOs</span><input name="q" placeholder="Search by DAO, source, or governance surface"></label>
 <div class="filter-cluster" aria-label="Activity filters"><span>Refine</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active">All DAOs</button><button type="button" class="filter-chip">Active this week</button><button type="button" class="filter-chip">Active proposals</button><button type="button" class="filter-chip">Ending soon</button><button type="button" class="filter-chip">Fresh 82</button><button type="button" class="filter-chip">Partial 31</button><button type="button" class="filter-chip">Not normalized 15</button></div></div>
 <div class="filter-cluster" aria-label="Source filters"><span>Source</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active">Any source</button><button type="button" class="filter-chip">Snapshot 46%</button><button type="button" class="filter-chip">DeGov Square 31%</button><button type="button" class="filter-chip">Tally / Governor 15%</button><button type="button" class="filter-chip">Forum-linked 8%</button></div></div>
-<div class="directory-order-row" aria-label="Sort DAO directory"><span>Order</span><div class="filter-chip-row order-chip-row"><button type="button" class="filter-chip order-chip">Last proposal ↓</button><button type="button" class="filter-chip order-chip is-active">Active proposals</button><button type="button" class="filter-chip order-chip">Unique voters</button><button type="button" class="filter-chip order-chip">Total proposals</button><button type="button" class="filter-chip order-chip">DAO A–Z</button></div><a class="reset-filter-link" href="dao-list.html">Reset filters</a></div>
+<div class="directory-order-row" aria-label="Sort DAO directory"><span>Order</span><div class="filter-chip-row order-chip-row"><button type="button" class="filter-chip order-chip">Last proposal ↓</button><button type="button" class="filter-chip order-chip is-active">Active proposals</button><button type="button" class="filter-chip order-chip">Unique voters</button><button type="button" class="filter-chip order-chip">Total proposals</button><button type="button" class="filter-chip order-chip">A–Z</button></div><a class="reset-filter-link" href="dao-list.html">Reset filters</a></div>
 </form>
-<div class="data-table dao-directory-table expanded" role="table" aria-label="DAO profiles">
-<div class="data-row head" role="row"><span>DAO</span><span>Coverage</span><span>Sources</span><span>Turnout</span><span>Total ↕</span><span>Active ↕</span><span>Unique voters ↕</span><span>Last proposal ↓</span></div>
+<div class="data-table dao-directory-table expanded compact" role="table" aria-label="DAO profiles">
+<div class="data-row head" role="row"><span>DAO</span><span>Health</span><span>Source</span><span>Turnout</span><span>Total</span><span>Live</span><span>Voters</span><span>Last ↓</span></div>
 <a class="data-row" href="daos-detail.html" role="row"><span><strong>Uniswap</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>62%</span><span>42</span><span>7</span><span>18.4k</span><span>2h ago</span></a>
 <a class="data-row" href="daos-detail.html" role="row"><span><strong>Aave</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>58%</span><span>31</span><span>5</span><span>12.9k</span><span>4h ago</span></a>
 <a class="data-row" href="daos-detail.html" role="row"><span><strong>ENS</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>51%</span><span>18</span><span>3</span><span>8.2k</span><span>6h ago</span></a>
@@ -97,6 +98,47 @@
 <a class="data-row" href="daos-detail.html" role="row"><span><strong>Scroll</strong></span><span><span class="state-pill state-not-normalized-yet">Not normalized</span></span><span>Forum</span><span>27%</span><span>4</span><span>0</span><span>2.7k</span><span>2w ago</span></a>
 </div>
 </section>
+<aside class="feed-data-panel dao-data-panel" aria-label="DAO directory data panel">
+<div class="data-panel-card" aria-label="DAO coverage snapshot">
+<p class="data-panel-label">DAO Coverage</p>
+<dl class="data-panel-metrics">
+<div><dt>Total DAOs</dt><dd>128</dd></div>
+<div><dt>Active week</dt><dd>37</dd></div>
+<div><dt>Active month</dt><dd>84</dd></div>
+<div><dt>Fresh</dt><dd>64%</dd></div>
+<div><dt>Live votes</dt><dd>57</dd></div>
+<div><dt>Updated</dt><dd>2h</dd></div>
+</dl>
+</div>
+<div class="data-panel-card" aria-label="DAO activity bands">
+<p class="data-panel-label">Activity Bands</p>
+<ol class="data-panel-dao-list dao-band-list">
+<li><a href="dao-list.html"><strong>High activity</strong><span>37</span></a></li>
+<li><a href="dao-list.html"><strong>Monthly active</strong><span>84</span></a></li>
+<li><a href="dao-list.html"><strong>Ending soon</strong><span>8</span></a></li>
+<li><a href="dao-list.html"><strong>Dormant 30d</strong><span>44</span></a></li>
+<li><a href="dao-list.html"><strong>Needs normalization</strong><span>15</span></a></li>
+</ol>
+</div>
+<div class="data-panel-card" aria-label="Coverage health">
+<p class="data-panel-label">Coverage Health</p>
+<dl class="data-panel-breakdown">
+<div><dt>Fresh</dt><dd><span style="--bar: 64%"></span><strong>82</strong></dd></div>
+<div><dt>Partial</dt><dd><span style="--bar: 24%"></span><strong>31</strong></dd></div>
+<div><dt>Not normalized</dt><dd><span style="--bar: 12%"></span><strong>15</strong></dd></div>
+</dl>
+</div>
+<div class="data-panel-card" aria-label="DAO source mix">
+<p class="data-panel-label">Source Mix</p>
+<dl class="data-panel-breakdown">
+<div><dt>Snapshot</dt><dd><span style="--bar: 46%"></span><strong>46%</strong></dd></div>
+<div><dt>DeGov Square</dt><dd><span style="--bar: 31%"></span><strong>31%</strong></dd></div>
+<div><dt>Tally / Governor</dt><dd><span style="--bar: 15%"></span><strong>15%</strong></dd></div>
+<div><dt>Forum-linked</dt><dd><span style="--bar: 8%"></span><strong>8%</strong></dd></div>
+</dl>
+</div>
+</aside>
+</div>
 <!-- States (hidden by default — shown when filters return empty or source fails) -->
 <section class="content-grid two-col dao-list-states">
 <article class="empty-state" role="status"><h2>No matching DAOs</h2><p>Empty state shown when filters return no DAO profiles. Broaden the query or reset filters.</p><a class="button small" href="dao-list.html">Reset filters</a></article>

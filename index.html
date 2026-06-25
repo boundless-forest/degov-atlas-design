@@ -15,7 +15,7 @@
 <a href="dao-list.html"><span class="nav-marker" aria-hidden="true"></span><span>DAOs</span></a>
 <a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a>
 <a href="newsletters-list.html"><span class="nav-marker" aria-hidden="true"></span><span>Newsletter</span></a></nav>
-<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals.</p><form class="sidebar-signup" aria-label="Weekly briefing signup"><label for="newsletter-email-overview">Email address</label><div class="sidebar-signup-row"><input id="newsletter-email-overview" type="email" name="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
+<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals. <a class="sidebar-briefing-link" href="newsletters-list.html">Read latest issue <span aria-hidden="true">→</span></a></p><form class="sidebar-signup" aria-label="Weekly briefing signup"><div class="sidebar-signup-row"><input id="newsletter-email-overview" type="email" name="email" autocomplete="email" placeholder="email" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
 </aside>
 <main id="content" class="atlas-main">
 <div class="atlas-dashboard">
@@ -108,24 +108,27 @@
 <a class="data-row" href="dao-list.html" role="row"><span><strong>Gitcoin</strong></span><span>1 active</span><span>3.1k</span><span>3d ago</span></a>
 <a class="data-row" href="dao-list.html" role="row"><span><strong>Lido</strong></span><span>1 tracked</span><span>9.8k</span><span>4d ago</span></a>
 <a class="data-row" href="dao-list.html" role="row"><span><strong>Balancer</strong></span><span>Forum active</span><span>2.2k</span><span>5d ago</span></a>
-<a class="data-row" href="dao-list.html" role="row"><span><strong>Safe</strong></span><span>Monitoring</span><span>5.6k</span><span>6d ago</span></a></div>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Safe</strong></span><span>Monitoring</span><span>5.6k</span><span>6d ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>ENS</strong></span><span>1 passed</span><span>8.2k</span><span>7d ago</span></a>
+<a class="data-row" href="dao-list.html" role="row"><span><strong>Curve</strong></span><span>Forum active</span><span>7.4k</span><span>8d ago</span></a></div>
   </article>
 
   <article class="panel fill-panel">
     <div class="panel-heading"><div><p class="eyebrow">Latest Governance Updates</p></div><a class="button small" href="governance-feed.html">Feed</a></div>
-    <div class="governance-update-list">
-      <div class="governance-update-row" data-event-id="evt-proposal-uniswap-v4"><span class="update-time">2h ago</span><span class="update-headline">Uniswap is voting on v4 growth budget renewal — 34% turnout so far</span><span class="state-pill state-active">Active</span></div>
-      <div class="governance-update-row" data-event-id="evt-proposal-aave-risk"><span class="update-time">4h ago</span><span class="update-headline">Aave risk parameter update is ending in 2 days</span><span class="state-pill state-ending-soon">Ending soon</span></div>
-      <div class="governance-update-row" data-event-id="evt-execution-arbitrum-grant"><span class="update-time">8h ago</span><span class="update-headline">Arbitrum executed the DAO grant program third cohort</span><span class="state-pill state-executed">Executed</span></div>
-      <div class="governance-update-row" data-event-id="evt-proposal-optimism-retro"><span class="update-time">12h ago</span><span class="update-headline">Optimism Retro Funding round 6 passed — 91% for</span><span class="state-pill state-passed">Passed</span></div>
-      <div class="governance-update-row" data-event-id="evt-proposal-maker-dsr"><span class="update-time">1d ago</span><span class="update-headline">MakerDAO / Sky DSR rate adjustment passed — now active on-chain</span><span class="state-pill state-executed">Executed</span></div>
-      <div class="governance-update-row" data-event-id="evt-proposal-compound-cusdc"><span class="update-time">2d ago</span><span class="update-headline">Compound cUSDC collateral factor update failed with 62% against</span><span class="state-pill state-defeated">Defeated</span></div>
-      <div class="governance-update-row" data-event-id="evt-proposal-gitcoin-gg24"><span class="update-time">3d ago</span><span class="update-headline">Gitcoin GG24 grant eligibility criteria passed with 78% support</span><span class="state-pill state-passed">Passed</span></div>
-      <div class="governance-update-row" data-event-id="evt-forum-balancer-gauge"><span class="update-time">5d ago</span><span class="update-headline">Balancer forum thread proposes veBAL gauge weight methodology changes</span><span class="state-pill state-fresh">Discussion</span></div>
-      <div class="governance-update-row" data-event-id="evt-proposal-ens-svc"><span class="update-time">7d ago</span><span class="update-headline">ENS DAO voted to fund service-provider working group for Q3</span><span class="state-pill state-passed">Passed</span></div>
-      <div class="governance-update-row" data-event-id="evt-forum-curve-lend"><span class="update-time">8d ago</span><span class="update-headline">Curve community signals support for new LEND gauge weight framework</span><span class="state-pill state-fresh">Discussion</span></div>
-      <div class="governance-update-row" data-event-id="evt-proposal-optimism-grants"><span class="update-time">9d ago</span><span class="update-headline">Optimism token house approved grants council budget for cycle 19</span><span class="state-pill state-executed">Executed</span></div>
-      <div class="governance-update-row" data-event-id="evt-proposal-aave-cbbtc"><span class="update-time">10d ago</span><span class="update-headline">Aave proposal to onboard cbBTC as collateral asset passed</span><span class="state-pill state-passed">Passed</span></div>
+    <div class="governance-update-list" role="table" aria-label="Latest governance updates">
+      <div class="governance-update-row head" role="row"><span role="columnheader">Time</span><span role="columnheader">Update</span><span role="columnheader">Status</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-uniswap-v4" role="row"><span class="update-time">2h ago</span><span class="update-headline">Uniswap is voting on v4 growth budget renewal — 34% turnout so far</span><span class="state-pill state-active">Active</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-aave-risk" role="row"><span class="update-time">4h ago</span><span class="update-headline">Aave risk parameter update is ending in 2 days</span><span class="state-pill state-ending-soon">Ending soon</span></div>
+      <div class="governance-update-row" data-event-id="evt-execution-arbitrum-grant" role="row"><span class="update-time">8h ago</span><span class="update-headline">Arbitrum executed the DAO grant program third cohort</span><span class="state-pill state-executed">Executed</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-optimism-retro" role="row"><span class="update-time">12h ago</span><span class="update-headline">Optimism Retro Funding round 6 passed — 91% for</span><span class="state-pill state-passed">Passed</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-maker-dsr" role="row"><span class="update-time">1d ago</span><span class="update-headline">MakerDAO / Sky DSR rate adjustment passed — now active on-chain</span><span class="state-pill state-executed">Executed</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-compound-cusdc" role="row"><span class="update-time">2d ago</span><span class="update-headline">Compound cUSDC collateral factor update failed with 62% against</span><span class="state-pill state-defeated">Defeated</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-gitcoin-gg24" role="row"><span class="update-time">3d ago</span><span class="update-headline">Gitcoin GG24 grant eligibility criteria passed with 78% support</span><span class="state-pill state-passed">Passed</span></div>
+      <div class="governance-update-row" data-event-id="evt-forum-balancer-gauge" role="row"><span class="update-time">5d ago</span><span class="update-headline">Balancer forum thread proposes veBAL gauge weight methodology changes</span><span class="state-pill state-fresh">Discussion</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-ens-svc" role="row"><span class="update-time">7d ago</span><span class="update-headline">ENS DAO voted to fund service-provider working group for Q3</span><span class="state-pill state-passed">Passed</span></div>
+      <div class="governance-update-row" data-event-id="evt-forum-curve-lend" role="row"><span class="update-time">8d ago</span><span class="update-headline">Curve community signals support for new LEND gauge weight framework</span><span class="state-pill state-fresh">Discussion</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-optimism-grants" role="row"><span class="update-time">9d ago</span><span class="update-headline">Optimism token house approved grants council budget for cycle 19</span><span class="state-pill state-executed">Executed</span></div>
+      <div class="governance-update-row" data-event-id="evt-proposal-aave-cbbtc" role="row"><span class="update-time">10d ago</span><span class="update-headline">Aave proposal to onboard cbBTC as collateral asset passed</span><span class="state-pill state-passed">Passed</span></div>
     </div>
   </article>
 </section>

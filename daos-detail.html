@@ -16,7 +16,7 @@
 <a href="dao-list.html" aria-current="page"><span class="nav-marker" aria-hidden="true"></span><span>DAOs</span></a>
 <a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a>
 <a href="newsletters-list.html"><span class="nav-marker" aria-hidden="true"></span><span>Newsletter</span></a></nav>
-<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals.</p><form class="sidebar-signup" aria-label="Weekly briefing signup"><label for="newsletter-email-dao-detail">Email address</label><div class="sidebar-signup-row"><input id="newsletter-email-dao-detail" type="email" name="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
+<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals. <a class="sidebar-briefing-link" href="newsletters-list.html">Read latest issue <span aria-hidden="true">→</span></a></p><form class="sidebar-signup" aria-label="Weekly briefing signup"><div class="sidebar-signup-row"><input id="newsletter-email-dao-detail" type="email" name="email" autocomplete="email" placeholder="email" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
 </aside>
 <main id="content" class="atlas-main">
 <section class="atlas-command-strip" aria-label="Atlas command strip">
@@ -85,76 +85,55 @@
   </dl>
 </section>
 
-<section class="panel dao-trends-panel" aria-labelledby="dao-trends-title">
+<section class="panel dao-trends-panel dao-insights-panel" aria-labelledby="dao-insights-title">
   <div class="dao-trends-header">
     <div>
-      <p class="eyebrow">Governance trends</p>
-      <h2 id="dao-trends-title">Proposal volume and voter participation over time.</h2>
-      <p class="muted">Charts act as timeline controls: selecting a month highlights the matching proposal history below.</p>
+      <p class="eyebrow">Governance insights</p>
+      <h2 id="dao-insights-title">Two-year read model for proposals, voters, turnout, and outcomes.</h2>
+      <p class="muted">Default view uses the past 24 months from serving metric buckets, proposal rows, vote aggregates, and linked forum topics. No user-selected time window is required.</p>
     </div>
-    <div class="trend-range-controls" aria-label="Trend time range"><button type="button">6M</button><button type="button" class="is-active">1Y</button><button type="button">All</button></div>
+    <span class="state-pill state-covered">24M default</span>
   </div>
 
-  <div class="trend-chart-grid" aria-label="Uniswap governance trend charts">
-    <article class="trend-card" aria-labelledby="proposal-trend-title">
-      <div class="trend-card-head"><div><span>Proposal activity</span><h3 id="proposal-trend-title">New proposals / total proposals</h3></div><strong>42 total</strong></div>
-      <svg class="trend-chart" viewBox="0 0 420 190" role="img" aria-label="Monthly proposals with cumulative total line">
-        <line class="trend-grid-line" x1="34" y1="38" x2="398" y2="38"></line><line class="trend-grid-line" x1="34" y1="88" x2="398" y2="88"></line><line class="trend-grid-line" x1="34" y1="138" x2="398" y2="138"></line>
-        <rect class="trend-band is-selected" x="269" y="24" width="46" height="128"></rect>
-        <rect class="trend-bar" x="52" y="114" width="22" height="38"></rect><rect class="trend-bar" x="96" y="126" width="22" height="26"></rect><rect class="trend-bar" x="140" y="104" width="22" height="48"></rect><rect class="trend-bar" x="184" y="88" width="22" height="64"></rect><rect class="trend-bar is-selected" x="278" y="56" width="22" height="96"></rect><rect class="trend-bar" x="322" y="82" width="22" height="70"></rect><rect class="trend-bar" x="366" y="100" width="22" height="52"></rect>
-        <polyline class="trend-line" points="63,132 107,124 151,112 195,98 289,70 333,58 377,46"></polyline>
-        <a href="#dao-history-title" class="chart-hotspot" aria-label="Select May 2026 proposal activity"><rect x="269" y="24" width="46" height="128"></rect></a>
-        <text class="trend-axis-label" x="40" y="176">Dec</text><text class="trend-axis-label" x="180" y="176">Mar</text><text class="trend-axis-label" x="274" y="176">May</text><text class="trend-axis-label" x="360" y="176">Jun</text>
-      </svg>
-      <p class="trend-note">May spike: 8 new proposals while cumulative total reached 40.</p>
+  <div class="insight-table-grid" aria-label="Uniswap governance insight tables">
+    <article class="insight-table-card insight-table-card-wide" aria-labelledby="metric-buckets-title">
+      <div class="insight-table-head"><div><span>serving_metric_buckets</span><h3 id="metric-buckets-title">Monthly governance health</h3></div><strong>24 months</strong></div>
+      <div class="data-table insight-metric-table" role="table" aria-label="Two-year monthly proposal and voter metrics">
+        <div class="data-row head" role="row"><span>Month</span><span>Created</span><span>Closed</span><span>Votes</span><span>Unique voters</span><span>Avg turnout</span><span>Read</span></div>
+        <div class="data-row is-hot" role="row"><span>Jun 2026</span><span>4</span><span>1</span><span>42.8k</span><span>18.4k</span><span>34%</span><span>Active vote cluster</span></div>
+        <div class="data-row" role="row"><span>May 2026</span><span>8</span><span>6</span><span>71.2k</span><span>11.2k</span><span>48%</span><span>Fee switch spike</span></div>
+        <div class="data-row" role="row"><span>Apr 2026</span><span>3</span><span>4</span><span>31.4k</span><span>8.7k</span><span>39%</span><span>Funding cycle</span></div>
+        <div class="data-row" role="row"><span>Q1 2026</span><span>9</span><span>8</span><span>88.9k</span><span>21.6k</span><span>31%</span><span>Steady participation</span></div>
+      </div>
     </article>
 
-    <article class="trend-card" aria-labelledby="voter-trend-title">
-      <div class="trend-card-head"><div><span>Unique voters</span><h3 id="voter-trend-title">Participation trend</h3></div><strong>18.4k</strong></div>
-      <svg class="trend-chart" viewBox="0 0 420 190" role="img" aria-label="Unique voters over time">
-        <line class="trend-grid-line" x1="34" y1="38" x2="398" y2="38"></line><line class="trend-grid-line" x1="34" y1="88" x2="398" y2="88"></line><line class="trend-grid-line" x1="34" y1="138" x2="398" y2="138"></line>
-        <rect class="trend-band is-selected" x="269" y="24" width="46" height="128"></rect>
-        <path class="trend-area" d="M54 130 L98 118 L142 126 L186 104 L230 96 L290 50 L334 74 L378 66 L378 152 L54 152 Z"></path>
-        <polyline class="trend-line trend-line-voters" points="54,130 98,118 142,126 186,104 230,96 290,50 334,74 378,66"></polyline>
-        <circle class="trend-point is-selected" cx="290" cy="50" r="4"></circle>
-        <a href="#dao-history-title" class="chart-hotspot" aria-label="Select May 2026 voter spike"><rect x="269" y="24" width="46" height="128"></rect></a>
-        <text class="trend-axis-label" x="40" y="176">Dec</text><text class="trend-axis-label" x="180" y="176">Mar</text><text class="trend-axis-label" x="274" y="176">May</text><text class="trend-axis-label" x="360" y="176">Jun</text>
-      </svg>
-      <p class="trend-note">11.2k voters in May, driven by fee switch and funding proposals.</p>
+    <article class="insight-table-card" aria-labelledby="dao-metrics-title">
+      <div class="insight-table-head"><div><span>serving_dao_metrics</span><h3 id="dao-metrics-title">DAO-level aggregates</h3></div><strong>fresh</strong></div>
+      <div class="insight-kpi-list" role="table" aria-label="DAO aggregate metrics">
+        <div class="data-row head" role="row"><span>Metric</span><span>Value</span><span>Use</span></div>
+        <div class="data-row" role="row"><span>Active proposals</span><span>7</span><span>left queue + hot DAO chip</span></div>
+        <div class="data-row" role="row"><span>Quorum attainment</span><span>64%</span><span>participation quality</span></div>
+        <div class="data-row" role="row"><span>Top voter share</span><span>18%</span><span>concentration risk</span></div>
+        <div class="data-row" role="row"><span>Avg turnout</span><span>34%</span><span>vote health baseline</span></div>
+      </div>
     </article>
 
-    <article class="trend-card compact" aria-labelledby="turnout-trend-title">
-      <div class="trend-card-head"><div><span>Turnout / quorum</span><h3 id="turnout-trend-title">Participation quality</h3></div><strong>48%</strong></div>
-      <svg class="trend-chart small" viewBox="0 0 420 150" role="img" aria-label="Turnout percentage compared with quorum">
-        <line class="trend-grid-line" x1="34" y1="42" x2="398" y2="42"></line><line class="trend-grid-line" x1="34" y1="88" x2="398" y2="88"></line>
-        <line class="trend-threshold" x1="34" y1="92" x2="398" y2="92"></line>
-        <rect class="trend-band is-selected" x="269" y="24" width="46" height="94"></rect>
-        <polyline class="trend-line" points="54,96 98,82 142,90 186,72 230,80 290,46 334,64 378,76"></polyline>
-        <text class="trend-axis-label" x="40" y="136">Dec</text><text class="trend-axis-label" x="274" y="136">May</text><text class="trend-axis-label" x="360" y="136">Jun</text>
-      </svg>
-      <p class="trend-note">May turnout cleared quorum across fee-switch and funding proposals.</p>
-    </article>
-
-    <article class="trend-card compact" aria-labelledby="outcome-trend-title">
-      <div class="trend-card-head"><div><span>Outcome mix</span><h3 id="outcome-trend-title">Passed / failed / active</h3></div><strong>5 / 1 / 2</strong></div>
-      <svg class="trend-chart small" viewBox="0 0 420 150" role="img" aria-label="Stacked proposal outcomes by month">
-        <line class="trend-grid-line" x1="34" y1="42" x2="398" y2="42"></line><line class="trend-grid-line" x1="34" y1="88" x2="398" y2="88"></line>
-        <g class="outcome-stack"><rect class="outcome-passed" x="58" y="96" width="28" height="28"></rect><rect class="outcome-failed" x="58" y="82" width="28" height="14"></rect></g>
-        <g class="outcome-stack"><rect class="outcome-passed" x="116" y="86" width="28" height="38"></rect></g>
-        <g class="outcome-stack"><rect class="outcome-passed" x="174" y="72" width="28" height="52"></rect><rect class="outcome-active" x="174" y="56" width="28" height="16"></rect></g>
-        <g class="outcome-stack is-selected"><rect class="outcome-passed" x="282" y="54" width="28" height="70"></rect><rect class="outcome-failed" x="282" y="40" width="28" height="14"></rect><rect class="outcome-active" x="282" y="24" width="28" height="16"></rect></g>
-        <g class="outcome-stack"><rect class="outcome-passed" x="340" y="72" width="28" height="52"></rect><rect class="outcome-active" x="340" y="54" width="28" height="18"></rect></g>
-        <a href="#dao-history-title" class="chart-hotspot" aria-label="Select May 2026 outcomes"><rect x="272" y="18" width="48" height="112"></rect></a>
-        <text class="trend-axis-label" x="52" y="142">Dec</text><text class="trend-axis-label" x="276" y="142">May</text><text class="trend-axis-label" x="336" y="142">Jun</text>
-      </svg>
-      <p class="trend-note">May concentrated passed proposals, one defeat, and two active follow-ups.</p>
+    <article class="insight-table-card" aria-labelledby="proposal-model-title">
+      <div class="insight-table-head"><div><span>serving_proposals + vote aggregates</span><h3 id="proposal-model-title">Outcome read model</h3></div><strong>42 rows</strong></div>
+      <div class="insight-kpi-list outcome-read-list" role="table" aria-label="Proposal outcome read model">
+        <div class="data-row head" role="row"><span>Status</span><span>Count</span><span>Surface</span></div>
+        <div class="data-row" role="row"><span>Active / ending</span><span>7 / 2</span><span>left proposal queue</span></div>
+        <div class="data-row" role="row"><span>Passed / executed</span><span>24 / 9</span><span>right timeline only</span></div>
+        <div class="data-row" role="row"><span>Failed / canceled</span><span>6 / 1</span><span>right timeline context</span></div>
+        <div class="data-row" role="row"><span>Linked forums</span><span>18</span><span>open topic rows</span></div>
+      </div>
     </article>
   </div>
 
-  <div class="selected-range-inspector" aria-label="Selected trend range">
-    <div><span>Selected range · May 2026</span><strong>8 proposals · 11.2k unique voters · 48% avg turnout</strong></div>
-    <p>Fee switch and working group funding drove the participation spike. Outcome mix: 5 passed, 1 defeated, 2 active follow-ups.</p>
-    <a class="button small" href="#dao-history-title">View in timeline ↓</a>
+  <div class="selected-range-inspector insight-model-note" aria-label="Governance insight model note">
+    <div><span>Default range · past 24 months</span><strong>42 proposals · 18.4k unique voters · 34% current avg turnout</strong></div>
+    <p>Tables map directly to backend read models: monthly buckets carry trend values, DAO metrics carry aggregate health, and proposal rows decide what belongs in the live queue versus the historical timeline.</p>
+    <a class="button small" href="#dao-history-title">Timeline context ↓</a>
   </div>
 </section>
 

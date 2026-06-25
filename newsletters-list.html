@@ -20,11 +20,10 @@
   </nav>
   <div class="sidebar-section sidebar-briefing">
    <p class="sidebar-label">Weekly briefing</p>
-   <p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals.</p>
+   <p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals. <a class="sidebar-briefing-link" href="newsletters-list.html">Read latest issue <span aria-hidden="true">→</span></a></p>
    <form class="sidebar-signup" aria-label="Weekly briefing signup">
-     <label for="newsletter-email-side">Email address</label>
      <div class="sidebar-signup-row">
-       <input id="newsletter-email-side" type="email" name="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address">
+       <input id="newsletter-email-side" type="email" name="email" autocomplete="email" placeholder="email" aria-label="Email address">
        <button type="submit">Subscribe</button>
      </div>
    </form>
@@ -78,68 +77,132 @@
     <a class="chain-pill" href="dao-list.html">SCROLL</a>
   </nav>
 </section>
-  <div class="newsletter-dashboard stack">
-    <section class="panel newsletter-briefing-console" aria-labelledby="newsletter-title">
-      <div class="briefing-console-meta" aria-label="Newsletter publishing status">
-        <span class="eyebrow">Weekly governance briefings</span>
-        <span class="tag neutral">Latest issue</span>
-        <span>Published Jun 18</span>
-        <span>New issue every Friday</span>
-      </div>
-      <div class="briefing-console-grid">
-        <div class="briefing-console-copy">
-          <h1 id="newsletter-title">What mattered this week in DAO governance.</h1>
-          <p>A concise weekly briefing for active votes, key proposals, forum debates, DAO spotlights, and governance risk signals across tracked DAOs.</p>
-          <div class="latest-issue-summary" aria-labelledby="latest-issue-title">
-            <span>Latest issue</span>
-            <h2 id="latest-issue-title">No. 6 — Governance activity concentrated around incentives and risk.</h2>
-            <p>This issue covers a week where DAO activity concentrated around incentive budgets, lending-risk controls, grant execution, and forum debates moving toward formal votes.</p>
+  <div class="newsletter-dashboard">
+    <div class="newsletter-layout newsletter-reader-layout">
+      <article id="issue-reader" class="newsletter-issue-page stack newsletter-inline-reader" aria-labelledby="newsletter-title">
+        <section class="issue-masthead issue-reader-masthead">
+          <div class="issue-reader-copy">
+            <p class="eyebrow" data-issue-kicker>Weekly · No. 6 · Jun 18, 2026</p>
+            <h1 id="newsletter-title" class="detail-title" data-issue-title>Incentive budgets and risk controls dominated governance this week.</h1>
+            <p class="muted" data-issue-deck>Aave, Uniswap, Arbitrum, and MakerDAO / Sky anchor this issue, with active votes, execution follow-through, and forum debates moving toward formal proposals.</p>
           </div>
-        </div>
-        <aside class="briefing-action-panel" aria-label="Latest issue action">
-          <span>Readable archive · issue-focused analysis</span>
-          <strong>Start with No. 6, then browse prior weeks below.</strong>
-          <p>Latest issue: 18 DAOs, 57 items, 23 topics, 8 minute read.</p>
-          <a class="button dark" href="newsletter-detail.html">Read full issue</a>
-        </aside>
-      </div>
-      <dl class="briefing-metric-strip" aria-label="Latest issue metadata">
-        <div><dt>Date</dt><dd>Jun 18</dd></div>
-        <div><dt>DAOs</dt><dd>18</dd></div>
-        <div><dt>Items</dt><dd>57</dd></div>
-        <div><dt>Topics</dt><dd>23</dd></div>
-        <div><dt>Read</dt><dd>8m</dd></div>
-      </dl>
-      <div class="briefing-contents-row">
-        <div class="issue-contents compact" aria-label="In this issue">
-          <p class="eyebrow">In this issue</p>
-          <ul>
-            <li>Aave risk parameter update enters the final voting window.</li>
-            <li>Uniswap delegates review the v4 growth budget renewal.</li>
-            <li>Arbitrum completes grant cohort execution.</li>
-            <li>ENS forum debate signals a possible service-provider budget proposal.</li>
-            <li>MakerDAO / Sky rate adjustment passes and moves on-chain.</li>
-          </ul>
-        </div>
+          <dl class="issue-reader-metrics" aria-label="Issue metrics">
+            <div><dt>Items</dt><dd data-issue-items>57</dd></div>
+            <div><dt>DAOs</dt><dd data-issue-daos>18</dd></div>
+            <div><dt>Proposals</dt><dd data-issue-proposals>34</dd></div>
+            <div><dt>Forum topics</dt><dd data-issue-forums>23</dd></div>
+            <div><dt>Read time</dt><dd data-issue-read>8 min</dd></div>
+          </dl>
+        </section>
 
-      </div>
-    </section>
+        <nav class="panel issue-toc" aria-label="Issue sections">
+          <a href="#brief">Brief</a>
+          <a href="#items" aria-current="page">DAO browser</a>
+        </nav>
 
-    <section class="panel archive-panel" aria-labelledby="archive-title">
-      <div class="panel-heading">
-        <div><p class="eyebrow">Archive</p><h2 id="archive-title">Published issues</h2></div>
-        <a class="button small" href="newsletter-detail.html">Latest issue</a>
-      </div>
-      <div class="data-table newsletter-archive-table" role="table" aria-label="Newsletter archive">
-        <div class="data-row head" role="row"><span>Issue</span><span>Date</span><span>Main theme</span><span>DAOs</span><span>Items</span><span>Read time</span><span>State</span></div>
-        <a class="data-row" href="newsletter-detail.html" role="row"><span>No. 6</span><span>Jun 18, 2026</span><span>Incentives and risk</span><span>18 DAOs</span><span>57 items</span><span>8 min</span><span class="state-pill state-fresh">Latest</span></a>
-        <a class="data-row" href="newsletter-detail.html" role="row"><span>No. 5</span><span>Jun 11, 2026</span><span>Treasury votes and L2 grants</span><span>14 DAOs</span><span>42 items</span><span>7 min</span><span class="state-pill state-fresh">Published</span></a>
-        <a class="data-row" href="newsletter-detail.html" role="row"><span>No. 4</span><span>Jun 4, 2026</span><span>Risk parameter reviews</span><span>11 DAOs</span><span>38 items</span><span>6 min</span><span class="state-pill state-fresh">Published</span></a>
-        <a class="data-row" href="newsletter-detail.html" role="row"><span>No. 3</span><span>May 28, 2026</span><span>Forum topics outnumbered proposals</span><span>16 DAOs</span><span>51 items</span><span>8 min</span><span class="state-pill state-fresh">Published</span></a>
-        <a class="data-row" href="newsletter-detail.html" role="row"><span>No. 2</span><span>May 21, 2026</span><span>Delegation and treasury diversification</span><span>12 DAOs</span><span>36 items</span><span>6 min</span><span class="state-pill state-fresh">Published</span></a>
-        <a class="data-row" href="newsletter-detail.html" role="row"><span>No. 1</span><span>May 14, 2026</span><span>Inaugural governance briefing</span><span>10 DAOs</span><span>29 items</span><span>5 min</span><span class="state-pill state-fresh">Published</span></a>
-      </div>
-    </section>
+        <section id="brief" class="detail-section issue-opening-brief">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Opening brief</p>
+              <h2 data-issue-brief-title>What mattered this week</h2>
+            </div>
+          </div>
+          <div class="markdown-report issue-brief-copy">
+            <p data-issue-brief-one>This week's governance activity clustered around two themes: incentive spending and protocol risk. Several DAOs moved budget renewals or grant programs forward, while lending and infrastructure communities focused on parameter updates, forum review, and execution follow-through.</p>
+            <p data-issue-brief-two>Start with Aave's risk parameter update ending this week, Uniswap's v4 growth budget renewal under active delegate review, and Arbitrum's completed cohort-three grant execution. Together they show how current DAO activity is balancing growth programs against operational and market-risk controls.</p>
+          </div>
+        </section>
+
+        <section id="items" class="detail-section" aria-labelledby="items-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Issue browser</p>
+              <h2 id="items-title">Issue No. 6 — DAO issue browser</h2>
+              <p class="muted">Select a DAO on the left to focus its proposal, forum, execution, and treasury updates from this issue. Past issue selections reuse this same reader surface instead of opening a detail page.</p>
+            </div>
+          </div>
+          <div class="issue-dao-browser" aria-label="Issue DAO browser">
+            <nav class="issue-dao-selector" aria-label="DAOs in this issue">
+              <button type="button" class="issue-dao-option is-active" aria-current="true"><span class="dao-option-main"><strong>Aave</strong><span class="state-pill state-ending-soon">Urgent</span></span><span>1 item · risk parameters</span><em>Lending markets</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Uniswap</strong><span class="state-pill state-active">Active</span></span><span>1 item · incentives</span><em>v4 growth budget</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Arbitrum</strong><span class="state-pill state-executed">2 items</span></span><span>executed + passed</span><em>Grants · participation</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>ENS</strong><span class="state-pill state-fresh">Forum</span></span><span>1 item · discussion</span><em>Delegation</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Gitcoin</strong><span class="state-pill state-passed">Passed</span></span><span>1 item · grants</span><em>Eligibility rules</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Optimism</strong><span class="state-pill state-passed">Passed</span></span><span>1 item · funding</span><em>Retro round scope</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>MakerDAO / Sky</strong><span class="state-pill state-executed">Executed</span></span><span>1 item · risk</span><em>DSR adjustment</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Lido</strong><span class="state-pill state-fresh">Tracked</span></span><span>1 item · treasury</span><em>Operator rewards</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Compound</strong><span class="state-pill state-defeated">Defeated</span></span><span>1 item · collateral</span><em>cUSDC factor</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Balancer</strong><span class="state-pill state-fresh">Forum</span></span><span>1 item · incentives</span><em>Gauge weights</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Curve</strong><span class="state-pill state-active">Active</span></span><span>2 items · emissions</span><em>Gauge vote cadence</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Safe</strong><span class="state-pill state-fresh">Review</span></span><span>2 items · delegation</span><em>Signer policy</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Polygon</strong><span class="state-pill state-passed">Passed</span></span><span>1 item · treasury</span><em>Ecosystem allocation</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Starknet</strong><span class="state-pill state-fresh">Forum</span></span><span>2 items · grants</span><em>Builder program</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Scroll</strong><span class="state-pill state-active">Active</span></span><span>1 item · sequencer</span><em>Decentralization roadmap</em></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Gnosis</strong><span class="state-pill state-fresh">Tracked</span></span><span>1 item · treasury</span><em>Liquidity operations</em></button>
+            </nav>
+            <section class="issue-dao-detail" aria-labelledby="selected-dao-title">
+              <header class="issue-dao-detail-head">
+                <div>
+                  <p class="eyebrow">Selected DAO</p>
+                  <h3 id="selected-dao-title">Aave</h3>
+                  <p>Risk parameters · lending markets</p>
+                </div>
+                <dl class="selected-dao-stats" aria-label="Selected DAO issue summary">
+                  <div><dt>Items</dt><dd>12</dd></div>
+                  <div><dt>Status</dt><dd>Ending soon</dd></div>
+                  <div><dt>Priority</dt><dd>3 picks</dd></div>
+                </dl>
+              </header>
+              <div class="selected-dao-updates" role="list" aria-label="Aave governance updates in this issue">
+                <div class="issue-item-row issue-item-row--pick" role="listitem" aria-disabled="true"><span class="issue-item-meta">Proposal</span><span class="issue-item-body"><strong>Risk parameter update for long-tail markets</strong><em>Risk parameters · Editor pick</em></span><span class="state-pill state-ending-soon">Ending soon</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Risk service provider expands LT/LTV methodology notes</strong><em>Forum context · 56 replies</em></span><span class="state-pill state-fresh">Context</span></div>
+                <div class="issue-item-row issue-item-row--pick" role="listitem" aria-disabled="true"><span class="issue-item-meta">Vote</span><span class="issue-item-body"><strong>Freeze reserve factor increase for isolated collateral pools</strong><em>Market risk · Editor pick</em></span><span class="state-pill state-active">Active</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Oracle</span><span class="issue-item-body"><strong>Chaos Labs posts oracle deviation monitoring thresholds</strong><em>Oracle health · 18 replies</em></span><span class="state-pill state-fresh">Review</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Treasury</span><span class="issue-item-body"><strong>Safety module liquidity budget enters temperature check</strong><em>Treasury runway · Snapshot</em></span><span class="state-pill state-active">Active</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Delegation</span><span class="issue-item-body"><strong>Delegate block summarizes risk-off voting rationale</strong><em>Delegate signal · 9 voters cited</em></span><span class="state-pill state-fresh">Signal</span></div>
+                <div class="issue-item-row issue-item-row--pick" role="listitem" aria-disabled="true"><span class="issue-item-meta">Execution</span><span class="issue-item-body"><strong>Previous caps update queued for payload execution review</strong><em>Execution watch · Editor pick</em></span><span class="state-pill state-executed">Queued</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Parameter</span><span class="issue-item-body"><strong>Borrow cap reduction proposed for low-liquidity assets</strong><em>Risk parameters · Long-tail markets</em></span><span class="state-pill state-ending-soon">Soon</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Community asks for liquidation-bot impact analysis</strong><em>Forum context · 31 replies</em></span><span class="state-pill state-fresh">Context</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Watch</span><span class="issue-item-body"><strong>Stablecoin reserve exposure remains below escalation threshold</strong><em>Health monitor · No action</em></span><span class="state-pill state-passed">Stable</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Snapshot</span><span class="issue-item-body"><strong>ARFC sentiment split narrows after risk provider update</strong><em>Signal watch · 62% support</em></span><span class="state-pill state-active">Watching</span></div>
+                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Integrator feedback requests migration timing buffer</strong><em>Implementation notes · 14 replies</em></span><span class="state-pill state-fresh">Context</span></div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </article>
+      <aside class="feed-data-panel newsletter-archive-rail" aria-label="Newsletter issue archive">
+        <div class="data-panel-card" aria-label="Past newsletter issues">
+          <p class="data-panel-label">Past Issues</p>
+          <ol class="data-panel-dao-list newsletter-issue-link-list">
+            <li><button type="button" class="is-active" data-newsletter-issue="6" aria-current="true"><strong>No. 6</strong><span>Jun 18</span><em>Incentives and risk</em></button></li>
+            <li><button type="button" data-newsletter-issue="5"><strong>No. 5</strong><span>Jun 11</span><em>Treasury votes and L2 grants</em></button></li>
+            <li><button type="button" data-newsletter-issue="4"><strong>No. 4</strong><span>Jun 4</span><em>Risk parameter reviews</em></button></li>
+            <li><button type="button" data-newsletter-issue="3"><strong>No. 3</strong><span>May 28</span><em>Forum topics outnumber proposals</em></button></li>
+            <li><button type="button" data-newsletter-issue="2"><strong>No. 2</strong><span>May 21</span><em>Delegation and treasuries</em></button></li>
+            <li><button type="button" data-newsletter-issue="1"><strong>No. 1</strong><span>May 14</span><em>Inaugural briefing</em></button></li>
+          </ol>
+        </div>
+        <div class="data-panel-card" aria-label="Latest newsletter issue deltas">
+          <p class="data-panel-label" data-issue-delta-label>Vs No. 5</p>
+          <dl class="data-panel-metrics">
+            <div><dt>DAOs</dt><dd data-issue-delta-daos>+4</dd></div>
+            <div><dt>Items</dt><dd data-issue-delta-items>+15</dd></div>
+            <div><dt>Risk</dt><dd data-issue-delta-risk>+9pp</dd></div>
+            <div><dt>Read</dt><dd data-issue-delta-read>+1m</dd></div>
+          </dl>
+        </div>
+        <div class="data-panel-card" aria-label="Latest issue topic mix">
+          <p class="data-panel-label">Topic Mix</p>
+          <dl class="data-panel-breakdown">
+            <div><dt>Risk</dt><dd><span data-topic-risk style="--bar: 34%"></span><strong data-topic-risk-value>34%</strong></dd></div>
+            <div><dt>Incentives</dt><dd><span data-topic-incentives style="--bar: 28%"></span><strong data-topic-incentives-value>28%</strong></dd></div>
+            <div><dt>Grants</dt><dd><span data-topic-grants style="--bar: 21%"></span><strong data-topic-grants-value>21%</strong></dd></div>
+            <div><dt>Forum</dt><dd><span data-topic-forum style="--bar: 17%"></span><strong data-topic-forum-value>17%</strong></dd></div>
+          </dl>
+        </div>
+      </aside>
+    </div>
   </div>
 <footer class="atlas-footer" aria-label="DeGov Atlas footer">
   <div class="atlas-footer-line">
@@ -155,6 +218,120 @@
   <a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a>
   <a href="newsletters-list.html" aria-current="page"><span class="nav-icon">N</span>News</a>
 </nav>
+<script>
+  (() => {
+    const issues = {
+      "6": {
+        kicker: "Weekly · No. 6 · Jun 18, 2026",
+        title: "Incentive budgets and risk controls dominated governance this week.",
+        deck: "Aave, Uniswap, Arbitrum, and MakerDAO / Sky anchor this issue, with active votes, execution follow-through, and forum debates moving toward formal proposals.",
+        items: "57", daos: "18", proposals: "34", forums: "23", read: "8 min",
+        briefTitle: "What mattered this week",
+        briefOne: "This week's governance activity clustered around two themes: incentive spending and protocol risk. Several DAOs moved budget renewals or grant programs forward, while lending and infrastructure communities focused on parameter updates, forum review, and execution follow-through.",
+        briefTwo: "Start with Aave's risk parameter update ending this week, Uniswap's v4 growth budget renewal under active delegate review, and Arbitrum's completed cohort-three grant execution. Together they show how current DAO activity is balancing growth programs against operational and market-risk controls.",
+        deltaLabel: "Vs No. 5", deltaDaos: "+4", deltaItems: "+15", deltaRisk: "+9pp", deltaRead: "+1m",
+        topicRisk: "34%", topicIncentives: "28%", topicGrants: "21%", topicForum: "17%"
+      },
+      "5": {
+        kicker: "Weekly · No. 5 · Jun 11, 2026",
+        title: "Treasury votes and L2 grants set the governance agenda.",
+        deck: "Arbitrum, Optimism, Uniswap, and ENS led a week focused on grants, budget execution, and delegate coordination.",
+        items: "42", daos: "14", proposals: "25", forums: "17", read: "7 min",
+        briefTitle: "What mattered in No. 5",
+        briefOne: "The week centered on treasury stewardship and L2 ecosystem funding. Grant programs moved from debate to execution while delegate forums clarified budget scope and reporting expectations.",
+        briefTwo: "Read this issue for a clean view of how public funding programs translated governance intent into operational timelines.",
+        deltaLabel: "Vs No. 4", deltaDaos: "+3", deltaItems: "+4", deltaRisk: "-2pp", deltaRead: "+1m",
+        topicRisk: "25%", topicIncentives: "22%", topicGrants: "38%", topicForum: "15%"
+      },
+      "4": {
+        kicker: "Weekly · No. 4 · Jun 4, 2026",
+        title: "Risk parameter reviews moved from forum debate to voting queues.",
+        deck: "Aave, Compound, MakerDAO / Sky, and Lido shaped a risk-heavy week of proposal review and execution monitoring.",
+        items: "38", daos: "11", proposals: "22", forums: "16", read: "6 min",
+        briefTitle: "What mattered in No. 4",
+        briefOne: "Protocol risk dominated the week as lending markets reviewed collateral factors, rate settings, and treasury exposure.",
+        briefTwo: "The issue is useful for tracking where parameter debates harden into formal votes and how execution readiness is communicated.",
+        deltaLabel: "Vs No. 3", deltaDaos: "-5", deltaItems: "-13", deltaRisk: "+18pp", deltaRead: "-2m",
+        topicRisk: "48%", topicIncentives: "12%", topicGrants: "18%", topicForum: "22%"
+      },
+      "3": {
+        kicker: "Weekly · No. 3 · May 28, 2026",
+        title: "Forum topics outnumbered proposals as DAO debate widened.",
+        deck: "ENS, Balancer, Polygon, and Starknet drove a conversation-heavy week before formal proposal conversion.",
+        items: "51", daos: "16", proposals: "24", forums: "27", read: "8 min",
+        briefTitle: "What mattered in No. 3",
+        briefOne: "Governance attention shifted toward forums, with service-provider budgets, gauge methodology, and decentralization roadmaps gathering replies before votes.",
+        briefTwo: "Use this issue as the archive point for early signals that later became formal proposals or execution work.",
+        deltaLabel: "Vs No. 2", deltaDaos: "+4", deltaItems: "+15", deltaRisk: "+1pp", deltaRead: "+2m",
+        topicRisk: "30%", topicIncentives: "20%", topicGrants: "18%", topicForum: "32%"
+      },
+      "2": {
+        kicker: "Weekly · No. 2 · May 21, 2026",
+        title: "Delegation and treasury diversification shaped the weekly signal.",
+        deck: "DAO operators balanced delegate participation, treasury safety, and early budget planning across major governance forums.",
+        items: "36", daos: "12", proposals: "21", forums: "15", read: "6 min",
+        briefTitle: "What mattered in No. 2",
+        briefOne: "This issue tracked a quieter but important week where delegate coordination and treasury risk showed up as recurring governance constraints.",
+        briefTwo: "It is the best past issue for understanding the archive's baseline view of governance operations before the latest risk-heavy cycle.",
+        deltaLabel: "Vs No. 1", deltaDaos: "+2", deltaItems: "+7", deltaRisk: "+4pp", deltaRead: "+1m",
+        topicRisk: "29%", topicIncentives: "18%", topicGrants: "24%", topicForum: "29%"
+      },
+      "1": {
+        kicker: "Weekly · No. 1 · May 14, 2026",
+        title: "Inaugural governance briefing established the Atlas weekly baseline.",
+        deck: "The first issue introduced the weekly editorial cadence across proposals, forum debates, executions, and treasury signals.",
+        items: "29", daos: "10", proposals: "17", forums: "12", read: "5 min",
+        briefTitle: "What mattered in No. 1",
+        briefOne: "The inaugural issue set the archive structure: compact issue metrics, editorial opening brief, and item-level governance signals grouped by DAO.",
+        briefTwo: "It remains useful as the reference point for comparing how coverage breadth and topic density expanded in later weeks.",
+        deltaLabel: "Baseline", deltaDaos: "—", deltaItems: "—", deltaRisk: "—", deltaRead: "—",
+        topicRisk: "25%", topicIncentives: "20%", topicGrants: "25%", topicForum: "30%"
+      }
+    };
+    const setText = (selector, value) => {
+      const node = document.querySelector(selector);
+      if (node) node.textContent = value;
+    };
+    const setTopic = (name, value) => {
+      const bar = document.querySelector(`[data-topic-${name}]`);
+      const label = document.querySelector(`[data-topic-${name}-value]`);
+      if (bar) bar.style.setProperty("--bar", value);
+      if (label) label.textContent = value;
+    };
+    const activateIssue = (id) => {
+      const issue = issues[id] || issues["6"];
+      setText("[data-issue-kicker]", issue.kicker);
+      setText("[data-issue-title]", issue.title);
+      setText("[data-issue-deck]", issue.deck);
+      setText("[data-issue-items]", issue.items);
+      setText("[data-issue-daos]", issue.daos);
+      setText("[data-issue-proposals]", issue.proposals);
+      setText("[data-issue-forums]", issue.forums);
+      setText("[data-issue-read]", issue.read);
+      setText("[data-issue-brief-title]", issue.briefTitle);
+      setText("[data-issue-brief-one]", issue.briefOne);
+      setText("[data-issue-brief-two]", issue.briefTwo);
+      setText("[data-issue-delta-label]", issue.deltaLabel);
+      setText("[data-issue-delta-daos]", issue.deltaDaos);
+      setText("[data-issue-delta-items]", issue.deltaItems);
+      setText("[data-issue-delta-risk]", issue.deltaRisk);
+      setText("[data-issue-delta-read]", issue.deltaRead);
+      setTopic("risk", issue.topicRisk);
+      setTopic("incentives", issue.topicIncentives);
+      setTopic("grants", issue.topicGrants);
+      setTopic("forum", issue.topicForum);
+      document.querySelectorAll("[data-newsletter-issue]").forEach((button) => {
+        const active = button.dataset.newsletterIssue === id;
+        button.classList.toggle("is-active", active);
+        if (active) button.setAttribute("aria-current", "true");
+        else button.removeAttribute("aria-current");
+      });
+    };
+    document.querySelectorAll("[data-newsletter-issue]").forEach((button) => {
+      button.addEventListener("click", () => activateIssue(button.dataset.newsletterIssue));
+    });
+  })();
+</script>
 </div>
 </body>
 </html>
