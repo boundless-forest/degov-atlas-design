@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Governance feed — bulletin-style proposal updates.">
+<meta name="description" content="Governance feed — past 7 days of proposal, forum, execution, and treasury activity.">
 <title>DeGov Atlas · Governance feed</title>
 <link rel="stylesheet" href="atlas.css">
 </head>
@@ -84,105 +84,122 @@
   <div class="feed-console-meta" aria-label="Feed status">
     <span class="eyebrow">Governance Feed</span>
     <span class="tag neutral">Live Feed</span>
-    <span>Synced 2m ago</span>
-    <span>128 DAOs tracked</span>
+    <span class="feed-window-badge">Past 7 days</span>
+    <span class="feed-sync-status">Synced 2m ago · 128 DAOs tracked</span>
   </div>
-  <div class="feed-console-grid">
-    <div class="feed-command-copy">
-      <h1 id="governance-feed-title">Live governance feed</h1>
-      <p>Realtime proposals, forum threads, executions, treasury moves, and vote outcomes across tracked DAOs.</p>
-    </div>
-    <a class="telegram-signal-card realtime-signal-panel" href="https://t.me/degov_realtime_signal" target="_blank" rel="noopener noreferrer" aria-label="Open DeGov Realtime Signal Telegram channel">
-      <span class="telegram-signal-kicker">Realtime Signal</span>
-      <strong>Telegram-native governance alerts</strong>
-      <p>Follow urgent proposal, voting, execution, and forum signals as they happen.</p>
-      <span>@degov_realtime_signal</span>
-      <em>Open Telegram Channel ↗</em>
-    </a>
+  <div class="feed-command-copy">
+    <h1 id="governance-feed-title">Live governance feed</h1>
+    <p>Proposals, forum threads, executions, treasury moves, and vote outcomes across tracked DAOs — last 7 days.</p>
   </div>
-  <dl class="feed-console-metrics" aria-label="Governance feed metrics">
-    <div><dt>Active votes</dt><dd>57</dd></div>
-    <div><dt>Ending soon</dt><dd>8</dd></div>
-    <div><dt>Forum threads</dt><dd>23</dd></div>
-    <div><dt>Executions</dt><dd>6</dd></div>
-    <div><dt>Passed</dt><dd>14</dd></div>
-    <div><dt>Failed</dt><dd>2</dd></div>
-  </dl>
 </header>
 
-<section class="priority-signal-strip" aria-labelledby="priority-signals-title">
-  <div class="priority-signal-head">
-    <p class="eyebrow" id="priority-signals-title">Priority Signals</p>
-    <span>Watchlist from active governance surfaces</span>
+<div class="feed-layout">
+
+  <!-- LEFT: Feed + Priority Signals -->
+  <div class="feed-main">
+
+    <section class="priority-signal-strip" aria-labelledby="priority-signals-title">
+      <div class="priority-signal-head">
+        <p class="eyebrow" id="priority-signals-title">Priority Signals</p>
+        <span>Watchlist from active governance surfaces</span>
+      </div>
+      <div class="priority-signal-list" role="list">
+        <div role="listitem" data-event-id="evt-priority-aave-risk"><span>Watch</span><strong>Aave risk update ends in 2 days</strong></div>
+        <div role="listitem" data-event-id="evt-priority-uniswap-v4"><span>Active</span><strong>Uniswap v4 growth budget renewal at 34% turnout</strong></div>
+        <a href="javascript:void(0)" role="listitem" data-event-id="evt-priority-ens-budget"><span>Forum</span><strong>ENS service-provider budget debate gaining replies</strong></a>
+      </div>
+    </section>
+
+    <div class="feed-bulletin" role="list" aria-label="Governance activity — past 7 days">
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-uniswap-v4">
+        <span class="bulletin-meta">2h ago<span aria-hidden="true"> · </span>Proposal<span class="bulletin-live">Live</span></span>
+        <span class="bulletin-headline">Uniswap is voting on v4 growth budget renewal — active with 34% turnout so far<span class="bulletin-status-inline"><span class="state-pill state-active">Active</span></span></span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-aave-risk">
+        <span class="bulletin-meta">4h ago<span aria-hidden="true"> · </span>Proposal</span>
+        <span class="bulletin-headline">Aave opened a risk parameter update for long-tail markets — ending in 2 days<span class="bulletin-status-inline"><span class="state-pill state-ending-soon">Ending soon</span></span></span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-forum-ens-budget">
+        <span class="bulletin-meta">6h ago<span aria-hidden="true"> · </span>Forum</span>
+        <span class="bulletin-headline">ENS stewards are discussing the service provider budget adjustment — 31 replies</span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-execution-arbitrum-grant">
+        <span class="bulletin-meta">8h ago<span aria-hidden="true"> · </span>Execution</span>
+        <span class="bulletin-headline">Arbitrum executed the DAO grant program third cohort — $2.4M distributed<span class="bulletin-status-inline"><span class="state-pill state-executed">Executed</span></span></span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-optimism-retro">
+        <span class="bulletin-meta">12h ago<span aria-hidden="true"> · </span>Proposal</span>
+        <span class="bulletin-headline">Optimism Retro Funding round 6 scope passed — 91% for, 48% turnout<span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-treasury-lido-ldo">
+        <span class="bulletin-meta">18h ago<span aria-hidden="true"> · </span>Treasury</span>
+        <span class="bulletin-headline">Lido treasury moved 840k LDO to the node operator rewards contract</span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-maker-dsr">
+        <span class="bulletin-meta">1d ago<span aria-hidden="true"> · </span>Proposal</span>
+        <span class="bulletin-headline">MakerDAO / Sky DSR rate adjustment for Q3 passed — now active on-chain<span class="bulletin-status-inline"><span class="state-pill state-executed">Executed</span></span></span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-compound-cusdc">
+        <span class="bulletin-meta">2d ago<span aria-hidden="true"> · </span>Proposal</span>
+        <span class="bulletin-headline">Compound cUSDC collateral factor update failed with 62% against<span class="bulletin-status-inline"><span class="state-pill state-defeated">Defeated</span></span></span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-gitcoin-gg24">
+        <span class="bulletin-meta">3d ago<span aria-hidden="true"> · </span>Proposal</span>
+        <span class="bulletin-headline">Gitcoin GG24 grant round eligibility criteria passed with 78% support<span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
+      </div>
+
+      <div class="bulletin-item" role="listitem" data-event-id="evt-forum-balancer-gauge">
+        <span class="bulletin-meta">5d ago<span aria-hidden="true"> · </span>Forum</span>
+        <span class="bulletin-headline">Balancer is discussing veBAL gauge weight methodology changes — 22 replies</span>
+      </div>
+
+    </div>
   </div>
-  <div class="priority-signal-list" role="list">
-    <div  role="listitem" aria-disabled="true"><span>Watch</span><strong>Aave risk update ends in 2 days</strong></div>
-    <div  role="listitem" aria-disabled="true"><span>Active</span><strong>Uniswap v4 growth budget renewal at 34% turnout</strong></div>
-    <a href="dao-list.html" role="listitem"><span>Forum</span><strong>ENS service-provider budget debate gaining replies</strong></a>
-  </div>
-</section>
 
-<div class="feed-bulletin" role="list" aria-label="Live governance updates">
+  <!-- RIGHT: Data Panel -->
+  <aside class="feed-data-panel" aria-label="Governance feed data panel">
 
-<div class="bulletin-item"  role="listitem" aria-disabled="true">
-  <span class="bulletin-meta">2h ago<span aria-hidden="true"> · </span>Proposal<span class="bulletin-live">Live</span></span>
-  <span class="bulletin-headline">Uniswap is voting on v4 growth budget renewal — active with 34% turnout so far</span>
-  <span class="bulletin-status"><span class="state-pill state-active">Active</span></span>
-</div>
+    <div class="data-panel-card" aria-label="Feed metrics — past 7 days">
+      <p class="data-panel-label">Past 7 Days</p>
+      <dl class="data-panel-metrics">
+        <div><dt>Active votes</dt><dd>57</dd></div>
+        <div><dt>Ending soon</dt><dd>8</dd></div>
+        <div><dt>Forum threads</dt><dd>23</dd></div>
+        <div><dt>Executions</dt><dd>6</dd></div>
+        <div><dt>Passed</dt><dd>14</dd></div>
+        <div><dt>Failed</dt><dd>2</dd></div>
+      </dl>
+    </div>
 
-<div class="bulletin-item"  role="listitem" aria-disabled="true">
-  <span class="bulletin-meta">4h ago<span aria-hidden="true"> · </span>Proposal</span>
-  <span class="bulletin-headline">Aave opened a risk parameter update for long-tail markets — ending in 2 days</span>
-  <span class="bulletin-status"><span class="state-pill state-ending-soon">Ending soon</span></span>
-</div>
+    <div class="data-panel-card" aria-label="Top DAOs by activity">
+      <p class="data-panel-label">Most Active DAOs</p>
+      <ol class="data-panel-dao-list">
+        <li><a href="daos-detail.html"><strong>Uniswap</strong><span>7</span></a></li>
+        <li><a href="dao-list.html"><strong>Aave</strong><span>5</span></a></li>
+        <li><a href="dao-list.html"><strong>Arbitrum</strong><span>4</span></a></li>
+        <li><a href="dao-list.html"><strong>Optimism</strong><span>4</span></a></li>
+        <li><a href="dao-list.html"><strong>ENS</strong><span>3</span></a></li>
+      </ol>
+    </div>
 
-<a class="bulletin-item" href="dao-list.html" role="listitem">
-  <span class="bulletin-meta">6h ago<span aria-hidden="true"> · </span>Forum</span>
-  <span class="bulletin-headline">ENS stewards are discussing the service provider budget adjustment — 31 replies</span>
-  <span class="bulletin-status" aria-hidden="true"></span>
-</a>
+    <a class="data-panel-card telegram-signal-panel-card" href="https://t.me/degov_realtime_signal" target="_blank" rel="noopener noreferrer" aria-label="Open DeGov Realtime Signal Telegram channel">
+      <span class="data-panel-label">Realtime Signal</span>
+      <strong>Telegram-native governance alerts</strong>
+      <p>Follow urgent proposal, voting, execution, and forum signals as they happen.</p>
+      <span class="telegram-handle">@degov_realtime_signal</span>
+      <em>Open Telegram Channel ↗</em>
+    </a>
 
-<div class="bulletin-item"  role="listitem" aria-disabled="true">
-  <span class="bulletin-meta">8h ago<span aria-hidden="true"> · </span>Execution</span>
-  <span class="bulletin-headline">Arbitrum executed the DAO grant program third cohort — $2.4M distributed</span>
-  <span class="bulletin-status"><span class="state-pill state-executed">Executed</span></span>
-</div>
-
-<div class="bulletin-item"  role="listitem" aria-disabled="true">
-  <span class="bulletin-meta">12h ago<span aria-hidden="true"> · </span>Proposal</span>
-  <span class="bulletin-headline">Optimism Retro Funding round 6 scope passed — 91% for, 48% turnout</span>
-  <span class="bulletin-status"><span class="state-pill state-passed">Passed</span></span>
-</div>
-
-<div class="bulletin-item"  role="listitem" aria-disabled="true">
-  <span class="bulletin-meta">18h ago<span aria-hidden="true"> · </span>Treasury</span>
-  <span class="bulletin-headline">Lido treasury moved 840k LDO to the node operator rewards contract</span>
-  <span class="bulletin-status" aria-hidden="true"></span>
-</div>
-
-<div class="bulletin-item"  role="listitem" aria-disabled="true">
-  <span class="bulletin-meta">1d ago<span aria-hidden="true"> · </span>Proposal</span>
-  <span class="bulletin-headline">MakerDAO / Sky DSR rate adjustment for Q3 passed — now active on-chain</span>
-  <span class="bulletin-status"><span class="state-pill state-executed">Executed</span></span>
-</div>
-
-<div class="bulletin-item"  role="listitem" aria-disabled="true">
-  <span class="bulletin-meta">2d ago<span aria-hidden="true"> · </span>Proposal</span>
-  <span class="bulletin-headline">Compound cUSDC collateral factor update failed with 62% against</span>
-  <span class="bulletin-status"><span class="state-pill state-defeated">Defeated</span></span>
-</div>
-
-<div class="bulletin-item"  role="listitem" aria-disabled="true">
-  <span class="bulletin-meta">3d ago<span aria-hidden="true"> · </span>Proposal</span>
-  <span class="bulletin-headline">Gitcoin GG24 grant round eligibility criteria passed with 78% support</span>
-  <span class="bulletin-status"><span class="state-pill state-passed">Passed</span></span>
-</div>
-
-<a class="bulletin-item" href="dao-list.html" role="listitem">
-  <span class="bulletin-meta">5d ago<span aria-hidden="true"> · </span>Forum</span>
-  <span class="bulletin-headline">Balancer is discussing veBAL gauge weight methodology changes — 22 replies</span>
-  <span class="bulletin-status" aria-hidden="true"></span>
-</a>
+  </aside>
 
 </div>
 </div>
@@ -202,5 +219,15 @@
 <a href="newsletters-list.html"><span class="nav-icon">N</span>News</a>
 </nav>
 </div>
+
+<!-- Event detail slide-out panel -->
+<div id="event-detail-panel" class="event-detail-panel" role="dialog" aria-label="Governance event detail" aria-hidden="true" inert>
+  <div class="event-panel-backdrop" data-panel-close></div>
+  <div class="event-panel-content">
+    <div class="event-panel-body" id="event-panel-body"></div>
+  </div>
+</div>
+
+<script src="atlas.js" defer></script>
 </body>
 </html>
