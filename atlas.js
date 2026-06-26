@@ -1,6 +1,6 @@
 /**
- * File overview: Shared Atlas UI scripts — event detail panel, event delegation,
- * focus trapping, keyboard shortcuts, and mock event data (Phase 1 static prototype).
+ * File overview: Shared Atlas UI scripts — event and agent capability detail panel,
+ * event delegation, focus trapping, keyboard shortcuts, and mock data (Phase 1 static prototype).
  *
  * The mock data below mirrors the shape the backend /atlas/feed and
  * /atlas/proposals/:id endpoints would return.  Every field marked with an
@@ -715,6 +715,190 @@ function treasuryEvent(id, overrides) {
     },
   });
 
+  registry["cap-research-context"] = {
+    id: "cap-research-context",
+    type: "agent-skill",
+    eventType: "agent_capability",
+    title: "Proposal evidence graph",
+    description:
+      "Atlas packages proposal summaries, forum threads, voter movement, DAO history, freshness metadata, and source links into one research-ready context layer.",
+    happenedAt: Date.now(),
+    status: "active",
+    capability: {
+      label: "Research context",
+      inputs: "proposal · forum · votes · DAO history",
+      outputs: "timeline · evidence links · source freshness",
+      workflow:
+        "Use this panel as the entry point for DAO research agents that need explainable, citation-backed governance context before drafting memos or comparing proposals.",
+    },
+    links: {
+      external: "https://github.com/ringecosystem/degov-agent-skills/tree/main/skills/dao-governance-research",
+      externalLabel: "Open DAO research skill ↗",
+    },
+  };
+
+  registry["cap-security-review"] = {
+    id: "cap-security-review",
+    type: "agent-skill",
+    eventType: "agent_capability",
+    title: "Executable-action risk signals",
+    description:
+      "Atlas highlights permission changes, treasury movement, contract targets, execution payloads, and high-impact governance signals for proposal-security review.",
+    happenedAt: Date.now(),
+    status: "active",
+    capability: {
+      label: "Security review",
+      inputs: "execution payload · targets · permissions",
+      outputs: "risk signals · contract context · review checklist",
+      workflow:
+        "Open this when a proposal needs security-oriented triage before voting, execution, or paid agent review.",
+    },
+    links: {
+      external: "https://github.com/ringecosystem/degov-agent-skills/tree/main/skills/dao-governance-security",
+      externalLabel: "Open proposal security skill ↗",
+    },
+  };
+
+  registry["cap-x402-access"] = {
+    id: "cap-x402-access",
+    type: "agent-skill",
+    eventType: "agent_capability",
+    title: "Metered paid workflows",
+    description:
+      "Paid research and proposal-security skills can be gated with x402-compatible payment flow while keeping governance context source-ready for autonomous agents.",
+    happenedAt: Date.now(),
+    status: "active",
+    capability: {
+      label: "x402 skill access",
+      inputs: "wallet payment · paid endpoint · skill request",
+      outputs: "metered access · settled workflow · agent response",
+      workflow:
+        "Use x402 as the access and settlement layer for premium DAO research or security workflows without turning the module into a marketing banner.",
+    },
+    links: {
+      external: "https://www.x402.org/",
+      externalLabel: "Open x402 protocol ↗",
+      skillIndex: "https://github.com/ringecosystem/degov-agent-skills/tree/main/skills",
+      skillIndexLabel: "Browse agent skills ↗",
+    },
+  };
+
+
+  /* ── Newsletter issue browser items (newsletters-list.html) ── */
+  const newsletterBaseTime = Date.now() - 4 * 3600 * 1000;
+  function newsletterLinks(id) {
+    return {
+      detail: "#",
+      external: "https://snapshot.org/#/aave/proposal/" + id,
+      externalLabel: "Open source ↗",
+      forum: "https://governance.aave.com/t/" + id,
+    };
+  }
+  function newsletterProposal(id, title, description, status, hoursAgo, extra) {
+    registry[id] = proposalEvent(id, {
+      daoId: "aave",
+      daoName: "Aave",
+      daoCategory: "lending",
+      eventType: "newsletter_issue_item",
+      eventKind: "newsletter_issue_item",
+      title,
+      description,
+      happenedAt: newsletterBaseTime - hoursAgo * 3600 * 1000,
+      status,
+      importanceScore: extra?.score ?? 74,
+      importanceBand: extra?.band ?? "medium",
+      importanceReason: extra?.reason ?? "Selected for Issue No. 6 because it changes live risk, voting, or execution context.",
+      sourceUrl: "https://snapshot.org/#/aave/proposal/" + id,
+      proposal: extra?.proposal,
+      links: newsletterLinks(id),
+    });
+  }
+  function newsletterForum(id, title, description, hoursAgo, replies) {
+    registry[id] = forumEvent(id, {
+      daoId: "aave",
+      daoName: "Aave",
+      title,
+      description,
+      happenedAt: newsletterBaseTime - hoursAgo * 3600 * 1000,
+      importanceScore: 58,
+      importanceBand: "medium",
+      importanceReason: "Selected for Issue No. 6 as supporting context for active Aave risk decisions.",
+      sourceUrl: "https://governance.aave.com/t/" + id,
+      forum: {
+        replyCount: replies,
+        participantCount: Math.max(6, Math.round(replies / 2)),
+        category: "risk",
+        excerpt: description,
+        topReplier: "risk steward",
+      },
+      links: { external: "https://governance.aave.com/t/" + id, externalLabel: "Open forum ↗" },
+    });
+  }
+  function newsletterExecution(id, title, description, hoursAgo) {
+    registry[id] = executionEvent(id, {
+      daoId: "aave",
+      daoName: "Aave",
+      title,
+      description,
+      happenedAt: newsletterBaseTime - hoursAgo * 3600 * 1000,
+      importanceScore: 70,
+      importanceBand: "medium",
+      importanceReason: "Execution follow-through from an earlier Aave governance decision.",
+      execution: { txHash: "0x7a9c5e2f4a1b3d8c9e0f1234567890abcdef1234", targetContract: "Aave Payload Executor" },
+      links: { external: "https://etherscan.io/tx/0x7a9c5e2f4a1b3d8c9e0f1234567890abcdef1234", externalLabel: "Open execution ↗" },
+    });
+  }
+  function newsletterTreasury(id, title, description, hoursAgo, status) {
+    registry[id] = treasuryEvent(id, {
+      daoId: "aave",
+      daoName: "Aave",
+      title,
+      description,
+      happenedAt: newsletterBaseTime - hoursAgo * 3600 * 1000,
+      status,
+      importanceScore: 64,
+      importanceBand: "medium",
+      importanceReason: "Treasury or budget signal that affects Aave's operational runway.",
+      treasury: { amount: "2.1M", token: "GHO", from: "Safety module", to: "service providers" },
+      links: newsletterLinks(id),
+    });
+  }
+
+  newsletterProposal("evt-newsletter-aave-risk-params", "Risk parameter update for long-tail markets", "Risk providers recommend lower caps and tighter collateral settings across thin-liquidity markets. This row opens the same slide-out panel used by live feed events, with source links moved into Quick Links.", "ending-soon", 0, {
+    score: 91,
+    band: "high",
+    reason: "Ending soon and directly changes long-tail collateral risk.",
+    proposal: {
+      startAt: Date.now() - 4 * 86400000,
+      endAt: Date.now() + 2 * 86400000,
+      quorumRequired: "320k AAVE",
+      currentQuorum: "298k AAVE",
+      totalVotes: "380k AAVE",
+      uniqueVoters: 12900,
+      voteDistribution: { for: 92, against: 8, abstain: 0 },
+      turnout: 41,
+      passingThreshold: "Quorum + simple majority",
+      aiSummary: "Aave's issue-browser item opens a detail panel rather than navigating away. The panel keeps the source and discussion links available while preserving the newsletter reading flow.",
+    },
+  });
+  newsletterForum("evt-newsletter-aave-methodology", "Risk service provider expands LT/LTV methodology notes", "The forum thread explains how liquidation thresholds and LTV recommendations were derived for the active risk update.", 1, 34);
+  newsletterProposal("evt-newsletter-aave-reserve-factor", "Freeze reserve factor increase for isolated collateral pools", "Delegates are voting on whether to freeze a proposed reserve-factor increase for isolated pools while liquidity data is reviewed.", "active", 2);
+  newsletterProposal("evt-newsletter-aave-oracle-thresholds", "Chaos Labs posts oracle deviation monitoring thresholds", "Risk contributors posted review thresholds for oracle deviation monitoring before additional parameter changes move to vote.", "discussion", 3);
+  newsletterTreasury("evt-newsletter-aave-safety-module", "Safety module liquidity budget enters temperature check", "A liquidity budget for the safety module is in temperature check before advancing to a formal vote.", 4, "active");
+  newsletterForum("evt-newsletter-aave-delegate-risk-off", "Delegate block summarizes risk-off voting rationale", "A delegate summary explains the conservative voting rationale across the risk-off parameter bundle.", 5, 18);
+  newsletterExecution("evt-newsletter-aave-caps-execution", "Previous caps update queued for payload execution review", "The prior cap update has moved into payload review, so readers can inspect execution details without leaving the newsletter.", 6);
+  newsletterProposal("evt-newsletter-aave-borrow-cap", "Borrow cap reduction proposed for low-liquidity assets", "Borrow caps are proposed to move lower for assets with shallow liquidity and elevated liquidation risk.", "ending-soon", 7);
+  newsletterForum("evt-newsletter-aave-liquidation-bot", "Community asks for liquidation-bot impact analysis", "Community members request additional analysis on how bot concentration may affect liquidations under the new caps.", 8, 27);
+  newsletterProposal("evt-newsletter-aave-reserve-exposure", "Stablecoin reserve exposure remains below escalation threshold", "Stablecoin reserve exposure is being watched but remains below the escalation threshold for this issue.", "passed", 9);
+  newsletterProposal("evt-newsletter-aave-arfc-sentiment", "ARFC sentiment split narrows after risk provider update", "Snapshot and forum sentiment narrowed after the latest risk-provider update clarified market-specific assumptions.", "active", 10);
+  newsletterForum("evt-newsletter-aave-integrator-buffer", "Integrator feedback requests migration timing buffer", "Integrators requested a timing buffer before migration deadlines connected to the risk parameter changes.", 11, 22);
+  newsletterProposal("evt-newsletter-aave-stable-debt-cleanup", "Stable debt token cleanup proposal enters delegate review", "A stable debt token cleanup proposal entered delegate review as part of the same maintenance cycle.", "active", 12);
+  newsletterForum("evt-newsletter-aave-staged-rollout", "Risk stewards request staged rollout for cap decreases", "Risk stewards are asking for staged cap decreases to reduce operational disruption.", 13, 15);
+  newsletterProposal("evt-newsletter-aave-heartbeat-exception", "Price-feed heartbeat exception moves to monitoring queue", "An oracle heartbeat exception moved to monitoring before it can be included in a formal payload.", "discussion", 14);
+  newsletterTreasury("evt-newsletter-aave-runway-report", "Service-provider runway report flags next quarter spend", "The service-provider runway report highlights next-quarter spend requirements and review timing.", 15, "passed");
+  newsletterForum("evt-newsletter-aave-conservative-path", "Large delegates converge around conservative parameter path", "Large delegates are converging around a conservative parameter path after the risk provider update.", 16, 20);
+  newsletterExecution("evt-newsletter-aave-payload-simulation", "Payload simulation confirms no cross-market migration errors", "Payload simulation reports no cross-market migration errors before execution readiness review.", 17);
+
 
   /* ── Assign to global ── */
   Object.assign(MOCK_EVENTS, registry);
@@ -892,6 +1076,23 @@ const EventPanel = (function () {
       );
     }
 
+    /* Agent capability detail */
+    if (evt.type === "agent-skill" && evt.capability) {
+      const c = evt.capability;
+      lines.push('<hr class="event-panel-divider">');
+      lines.push('<div class="event-panel-section-label">Capability Layer</div>');
+      lines.push('<div class="event-panel-metric-grid">');
+      if (c.label) lines.push(metricCard("Layer", esc(c.label), ""));
+      if (c.inputs) lines.push(metricCard("Inputs", esc(c.inputs), ""));
+      if (c.outputs) lines.push(metricCard("Outputs", esc(c.outputs), ""));
+      lines.push(metricCard("Access", evt.id === "cap-x402-access" ? "x402" : "Agent skill", "source-ready"));
+      lines.push("</div>");
+      if (c.workflow) {
+        lines.push('<div class="event-panel-section-label">Workflow Use</div>');
+        lines.push('<div class="event-panel-summary"><p>' + esc(c.workflow) + "</p></div>");
+      }
+    }
+
     /* Proposal metrics grid */
     if (evt.type === "proposal" && evt.proposal) {
       lines.push('<hr class="event-panel-divider">');
@@ -1004,13 +1205,23 @@ const EventPanel = (function () {
         lines.push(
           '<a class="event-panel-link" href="' +
             esc(evt.links.external) +
-            '" target="_blank" rel="noopener noreferrer">View on governance platform &nearr;</a>'
+            '" target="_blank" rel="noopener noreferrer">' +
+            esc(evt.links.externalLabel ?? (evt.type === "proposal" ? "Open Snapshot ↗" : "View source ↗")) +
+            "</a>"
+        );
+      if (evt.links.skillIndex)
+        lines.push(
+          '<a class="event-panel-link" href="' +
+            esc(evt.links.skillIndex) +
+            '" target="_blank" rel="noopener noreferrer">' +
+            esc(evt.links.skillIndexLabel ?? "Browse agent skills ↗") +
+            "</a>"
         );
       if (evt.links.forum)
         lines.push(
           '<a class="event-panel-link" href="' +
             esc(evt.links.forum) +
-            '" target="_blank" rel="noopener noreferrer">View forum discussion &nearr;</a>'
+            '" target="_blank" rel="noopener noreferrer">Open Forum &nearr;</a>'
         );
       if (evt.sourceUrl && !evt.links.external)
         lines.push(
@@ -1061,6 +1272,7 @@ const EventPanel = (function () {
       forum: "Forum",
       execution: "Execution",
       treasury: "Treasury",
+      "agent-skill": "Agent-ready layer",
     };
     return map[type] ?? type;
   }
@@ -1124,6 +1336,95 @@ const EventPanel = (function () {
   return { init, open, close };
 })();
 
+
+/* ── DAO search prototype ─────────────────────────────────────────── */
+function initDaoSearch() {
+  const forms = document.querySelectorAll("[data-dao-search]");
+  if (!forms.length) return;
+
+  function normalize(value) {
+    return (value || "")
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+      .replace(/\s+/g, " ");
+  }
+
+  function compact(value) {
+    return normalize(value).replace(/\s+/g, "");
+  }
+
+  function fuzzyMatch(needle, haystack) {
+    let cursor = 0;
+    for (const char of haystack) {
+      if (char === needle[cursor]) cursor += 1;
+      if (cursor === needle.length) return true;
+    }
+    return false;
+  }
+
+  forms.forEach((form) => {
+    const input = form.querySelector("input");
+    const heading = form.querySelector("[data-search-heading]");
+    const empty = form.querySelector(".search-assist-empty");
+    const options = Array.from(form.querySelectorAll("[data-dao-option]"));
+    if (!input || !heading || !empty || !options.length) return;
+
+    function score(option, query) {
+      const normalized = normalize(query);
+      const tight = compact(query);
+      const label = compact(option.querySelector("strong")?.textContent || "");
+      const haystack = compact(`${option.textContent || ""} ${option.dataset.search || ""}`);
+      if (!normalized || !tight) return Number(option.dataset.defaultRank || 99);
+      if (label === tight) return 0;
+      if (label.startsWith(tight)) return 1;
+      const index = haystack.indexOf(tight);
+      if (index >= 0) return 5 + index / 100;
+      if (tight.length < 4) return Infinity;
+      return fuzzyMatch(tight, haystack) ? 40 : Infinity;
+    }
+
+    function render() {
+      const query = input.value;
+      const isQuery = Boolean(normalize(query));
+      const ranked = options
+        .map((option) => ({ option, score: score(option, query) }))
+        .filter((entry) => Number.isFinite(entry.score))
+        .sort((left, right) => left.score - right.score)
+        .slice(0, isQuery ? 7 : 7);
+      const visible = new Set(ranked.map((entry) => entry.option));
+      options.forEach((option) => {
+        option.hidden = !visible.has(option);
+        option.classList.toggle("is-selected", ranked[0]?.option === option);
+      });
+      heading.textContent = isQuery ? "Matching DAOs" : "Recently active DAOs";
+      empty.hidden = ranked.length > 0;
+    }
+
+    const previewSearch = new URLSearchParams(window.location.hash.replace(/^#/, "")).get("search");
+    if (previewSearch && !input.value) {
+      input.value = previewSearch;
+      form.classList.add("is-search-preview");
+    }
+
+    input.addEventListener("input", render);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        input.value = "";
+        render();
+      }
+    });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const selected = form.querySelector("[data-dao-option].is-selected:not([hidden])");
+      if (selected instanceof HTMLAnchorElement) selected.click();
+    });
+    render();
+  });
+}
+
 /* ── Event delegation ─────────────────────────────────────────────── */
 
 function initEventPanelTriggers() {
@@ -1133,6 +1434,11 @@ function initEventPanelTriggers() {
     ".bulletin-item",
     ".governance-update-row",
     ".latest-signal-line",
+    ".dao-latest-signal",
+    ".compact-line-list > a",
+    ".history-timeline-row",
+    ".issue-item-row",
+    ".agent-capability-card",
     ".priority-signal-list > a",
     ".priority-signal-list > div",
   ].join(", ");
@@ -1154,8 +1460,13 @@ function initEventPanelTriggers() {
 
 /* ── Bootstrap ────────────────────────────────────────────────────── */
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initEventPanelTriggers);
-} else {
+function initAtlasPrototype() {
+  initDaoSearch();
   initEventPanelTriggers();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAtlasPrototype);
+} else {
+  initAtlasPrototype();
 }

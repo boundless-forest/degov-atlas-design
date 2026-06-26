@@ -21,29 +21,36 @@
 <main id="content" class="atlas-main">
 <section class="atlas-command-strip" aria-label="Atlas command strip">
   <div class="dashboard-topbar" aria-label="DAO search">
-    <form class="dao-search" role="search">
-      <span aria-hidden="true">⌕</span>
-      <input aria-label="Search DAOs" placeholder="Search DAOs">
+    <form class="dao-search" role="search" data-dao-search>
+      <span class="dao-search-prompt" aria-hidden="true">&gt;</span>
+      <input aria-label="Search DAOs" placeholder="Search DAOs" autocomplete="off" aria-autocomplete="list">
       <button type="submit">Search</button>
       <div class="search-assist" role="listbox" aria-label="Search suggestions">
-        <div class="search-assist-group" aria-label="Recently active DAOs">
-          <span class="search-assist-heading">Recently active DAOs</span>
-          <a class="search-assist-row" href="daos-detail.html" role="option"><strong>Uniswap</strong><span>7 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Aave</strong><span>5 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Arbitrum</strong><span>4 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Optimism</strong><span>4 active proposals</span></a>
-        </div>
-        <div class="search-assist-group" aria-label="Popular DAOs">
-          <span class="search-assist-heading">Popular DAOs</span>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>ENS</strong><span>3 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>MakerDAO / Sky</strong><span>2 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Compound</strong><span>2 active proposals</span></a>
+        <div class="search-assist-group" aria-label="DAO suggestions" data-dao-result-group>
+          <span class="search-assist-heading" data-search-heading>Recently active DAOs</span>
+          <a class="search-assist-row is-selected" href="daos-detail.html" role="option" data-dao-option data-search="uniswap uni dex governance" data-default-rank="1"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Uniswap</strong><span>7 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="aave lending risk parameters" data-default-rank="2"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Aave</strong><span>5 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="arbitrum arb layer2 grants" data-default-rank="3"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Arbitrum</strong><span>4 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="optimism op retro funding layer2" data-default-rank="4"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Optimism</strong><span>4 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="ens ethereum name service service-provider budget" data-default-rank="5"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>ENS</strong><span>3 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="makerdao sky maker mkr dsr stablecoin" data-default-rank="6"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>MakerDAO / Sky</strong><span>2 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="compound comp governor market parameter" data-default-rank="7"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Compound</strong><span>2 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="gitcoin grants public goods" data-default-rank="8"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Gitcoin</strong><span>1 active proposal</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="lido staking eth" data-default-rank="9"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Lido</strong><span>1 tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="curve crv lending gauges" data-default-rank="10"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Curve</strong><span>Forum active</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="balancer bal ve bal gauge" data-default-rank="11"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Balancer</strong><span>Forum active</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="safe multisig treasury" data-default-rank="12"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Safe</strong><span>Monitoring</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="polygon matic forum" data-default-rank="13"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Polygon</strong><span>Tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="starknet stark layer2" data-default-rank="14"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Starknet</strong><span>Tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="scroll layer2 zk" data-default-rank="15"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Scroll</strong><span>Tracked</span></a>
+          <p class="search-assist-empty" hidden>No DAO match. Try name, slug, ticker, or ecosystem tag.</p>
         </div>
         <div class="search-assist-group" aria-label="Governance pages and actions">
           <span class="search-assist-heading">Governance pages/actions</span>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>View all DAOs</strong><span>Directory</span></a>
-          <a class="search-assist-row" href="governance-feed.html" role="option"><strong>Latest Governance</strong><span>Live feed</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><span class="search-assist-marker" aria-hidden="true">·</span><strong>View all DAOs</strong><span>Directory</span></a>
+          <a class="search-assist-row" href="governance-feed.html" role="option"><span class="search-assist-marker" aria-hidden="true">·</span><strong>Latest Governance</strong><span>Live feed</span></a>
         </div>
+        <div class="search-assist-hint">↑↓ navigate · Enter select · Esc clear</div>
       </div>
     </form>
     <div class="topbar-actions"><a class="button" href="dao-list.html">Browse DAOs</a><a class="button dark" href="governance-feed.html">Latest governance</a></div>
@@ -67,119 +74,159 @@
   </nav>
 </section>
 <div class="atlas-dashboard dao-detail-dashboard dao-situation-room">
-<section class="panel dao-overview-console" aria-labelledby="dao-title">
-  <div class="dao-overview-copy">
-    <p class="eyebrow">DAOs / Uniswap</p>
-    <h1 id="dao-title">Uniswap</h1>
-    <p class="muted">Governance activity, active proposals, voting participation, and recent DAO events.</p>
-    <div class="dao-latest-signal"><span>Latest signal</span><strong>v4 growth budget renewal is active with 34% turnout.</strong></div>
-    <div class="dao-overview-meta" aria-label="DAO metadata"><span>Updated 2h ago</span><span>Snapshot</span><span>Forum linked</span></div>
-  </div>
-  <dl class="dao-overview-metrics" aria-label="Uniswap governance metrics">
-    <div><dt>Active proposals</dt><dd>7</dd></div>
-    <div><dt>Ending soon</dt><dd>2</dd></div>
-    <div><dt>Unique voters</dt><dd>18.4k</dd></div>
-    <div><dt>Avg turnout</dt><dd>34%</dd></div>
-    <div><dt>Total proposals</dt><dd>42</dd></div>
-    <div><dt>Forum activity</dt><dd>High</dd></div>
-  </dl>
-</section>
-
-<section class="panel dao-trends-panel dao-insights-panel" aria-labelledby="dao-insights-title">
-  <div class="dao-trends-header">
-    <div>
-      <p class="eyebrow">Governance insights</p>
-      <h2 id="dao-insights-title">Two-year read model for proposals, voters, turnout, and outcomes.</h2>
-      <p class="muted">Default view uses the past 24 months from serving metric buckets, proposal rows, vote aggregates, and linked forum topics. No user-selected time window is required.</p>
+<section class="dao-detail-top-grid" aria-label="Uniswap DAO overview and proposal timeline">
+  <section class="panel dao-overview-console" aria-labelledby="dao-title">
+    <div class="dao-overview-copy">
+      <p class="eyebrow">DAOs / Uniswap</p>
+      <h1 id="dao-title">Uniswap</h1>
+      <p class="muted">Governance activity, active proposals, voting participation, and recent DAO events.</p>
+      <a class="dao-latest-signal" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4"><span>Latest signal</span><strong>v4 growth budget renewal is active with 34% turnout.</strong><em>Inspect proposal</em></a>
+      <div class="dao-overview-meta" aria-label="DAO metadata"><span>Updated 2h ago</span><span>Snapshot linked</span><span>Forum linked</span></div>
     </div>
-    <span class="state-pill state-covered">24M default</span>
-  </div>
-
-  <div class="insight-table-grid" aria-label="Uniswap governance insight tables">
-    <article class="insight-table-card insight-table-card-wide" aria-labelledby="metric-buckets-title">
-      <div class="insight-table-head"><div><span>serving_metric_buckets</span><h3 id="metric-buckets-title">Monthly governance health</h3></div><strong>24 months</strong></div>
-      <div class="data-table insight-metric-table" role="table" aria-label="Two-year monthly proposal and voter metrics">
-        <div class="data-row head" role="row"><span>Month</span><span>Created</span><span>Closed</span><span>Votes</span><span>Unique voters</span><span>Avg turnout</span><span>Read</span></div>
-        <div class="data-row is-hot" role="row"><span>Jun 2026</span><span>4</span><span>1</span><span>42.8k</span><span>18.4k</span><span>34%</span><span>Active vote cluster</span></div>
-        <div class="data-row" role="row"><span>May 2026</span><span>8</span><span>6</span><span>71.2k</span><span>11.2k</span><span>48%</span><span>Fee switch spike</span></div>
-        <div class="data-row" role="row"><span>Apr 2026</span><span>3</span><span>4</span><span>31.4k</span><span>8.7k</span><span>39%</span><span>Funding cycle</span></div>
-        <div class="data-row" role="row"><span>Q1 2026</span><span>9</span><span>8</span><span>88.9k</span><span>21.6k</span><span>31%</span><span>Steady participation</span></div>
+    <div class="dao-shape-snapshot" aria-label="Uniswap governance shape snapshot">
+      <div class="shape-snapshot-head">
+        <div><p class="eyebrow">DAO shape snapshot</p><h2>Governance pulse.</h2></div>
+        <strong>24M</strong>
       </div>
-    </article>
-
-    <article class="insight-table-card" aria-labelledby="dao-metrics-title">
-      <div class="insight-table-head"><div><span>serving_dao_metrics</span><h3 id="dao-metrics-title">DAO-level aggregates</h3></div><strong>fresh</strong></div>
-      <div class="insight-kpi-list" role="table" aria-label="DAO aggregate metrics">
-        <div class="data-row head" role="row"><span>Metric</span><span>Value</span><span>Use</span></div>
-        <div class="data-row" role="row"><span>Active proposals</span><span>7</span><span>left queue + hot DAO chip</span></div>
-        <div class="data-row" role="row"><span>Quorum attainment</span><span>64%</span><span>participation quality</span></div>
-        <div class="data-row" role="row"><span>Top voter share</span><span>18%</span><span>concentration risk</span></div>
-        <div class="data-row" role="row"><span>Avg turnout</span><span>34%</span><span>vote health baseline</span></div>
+      <div class="shape-tile-grid" aria-label="Uniswap qualitative DAO shape signals">
+        <div data-tooltip="Most closed proposals in the 24M window passed. Exact counts are in Governance Insights below."><span>Decisions</span><strong>Pass-leaning</strong><em>most pass</em></div>
+        <div data-tooltip="Recent proposal and forum activity is above normal, so this DAO is in an active governance period."><span>Activity</span><strong>Busy now</strong><em>high cadence</em></div>
+        <div data-tooltip="Some active votes are close to quorum. Watch turnout before the voting window closes."><span>Participation</span><strong>Watch quorum</strong><em>needs attention</em></div>
+        <div data-tooltip="Voting power is spread across many delegates instead of being dominated by one wallet."><span>Voters</span><strong>Broad base</strong><em>distributed</em></div>
       </div>
-    </article>
-
-    <article class="insight-table-card" aria-labelledby="proposal-model-title">
-      <div class="insight-table-head"><div><span>serving_proposals + vote aggregates</span><h3 id="proposal-model-title">Outcome read model</h3></div><strong>42 rows</strong></div>
-      <div class="insight-kpi-list outcome-read-list" role="table" aria-label="Proposal outcome read model">
-        <div class="data-row head" role="row"><span>Status</span><span>Count</span><span>Surface</span></div>
-        <div class="data-row" role="row"><span>Active / ending</span><span>7 / 2</span><span>left proposal queue</span></div>
-        <div class="data-row" role="row"><span>Passed / executed</span><span>24 / 9</span><span>right timeline only</span></div>
-        <div class="data-row" role="row"><span>Failed / canceled</span><span>6 / 1</span><span>right timeline context</span></div>
-        <div class="data-row" role="row"><span>Linked forums</span><span>18</span><span>open topic rows</span></div>
-      </div>
-    </article>
-  </div>
-
-  <div class="selected-range-inspector insight-model-note" aria-label="Governance insight model note">
-    <div><span>Default range · past 24 months</span><strong>42 proposals · 18.4k unique voters · 34% current avg turnout</strong></div>
-    <p>Tables map directly to backend read models: monthly buckets carry trend values, DAO metrics carry aggregate health, and proposal rows decide what belongs in the live queue versus the historical timeline.</p>
-    <a class="button small" href="#dao-history-title">Timeline context ↓</a>
-  </div>
-</section>
-
-<section class="dao-workspace-grid" aria-label="Uniswap governance workspace">
-  <div class="dao-current-column">
-    <article class="panel current-governance-panel" aria-labelledby="current-governance-title">
-      <div class="panel-heading"><div><p class="eyebrow">Current governance</p><h2 id="current-governance-title">Open decisions</h2></div><a class="button small" href="governance-feed.html">Feed</a></div>
-      <div class="current-governance-summary" aria-label="Current governance summary">
-        <div><span>Latest signal</span><strong>v4 growth budget renewal is active with 34% turnout.</strong></div>
-        <div><span>Attention</span><strong>1 proposal ending soon · 1 risk-parameter update.</strong></div>
-        <div><span>Participation</span><strong>Active proposals average 34% turnout.</strong></div>
-      </div>
-      <div class="data-table current-governance-table" role="table" aria-label="Active Uniswap governance proposals">
-        <div class="data-row head" role="row"><span>Proposal</span><span>Status</span><span>Ends</span><span>Turnout / quorum</span><span>Signal</span></div>
-        <div class="data-row"  role="row" aria-disabled="true"><span><strong>v4 growth budget renewal</strong><small>Growth incentives and reporting cadence</small></span><span><span class="state-pill state-active">Active</span></span><span>4d</span><span>34% · met</span><span>For leading · high activity</span></div>
-        <div class="data-row"  role="row" aria-disabled="true"><span><strong>Long-tail market risk update</strong><small>Collateral and parameter review</small></span><span><span class="state-pill state-ending-soon">Soon</span></span><span>2d</span><span>41% · pending</span><span>For leading · security-sensitive</span></div>
-        <div class="data-row"  role="row" aria-disabled="true"><span><strong>Delegate incentive renewal</strong><small>Forum-linked delegate funding continuation</small></span><span><span class="state-pill state-active">Active</span></span><span>6d</span><span>22% · tracking</span><span>Mixed · forum active</span></div>
-        <div class="data-row"  role="row" aria-disabled="true"><span><strong>Protocol fee switch temperature check</strong><small>Follow-up signaling for fee policy</small></span><span><span class="state-pill state-active">Active</span></span><span>9d</span><span>18% · tracking</span><span>For leading · low urgency</span></div>
-      </div>
-    </article>
-  </div>
-
-  <aside class="panel dao-history-timeline" aria-labelledby="dao-history-title">
-    <div class="timeline-header">
-      <div><p class="eyebrow">DAO history</p><h2 id="dao-history-title">Proposal timeline</h2></div>
-      <span class="state-pill state-covered">42 proposals</span>
+      <div class="shape-readout" data-tooltip="This card is a quick status read. Use Governance Insights for the exact numbers and charts."><span>At-a-glance only</span><strong>Busy DAO · quorum watch · broad voter base</strong></div>
     </div>
-    <p class="timeline-copy">Scroll the historical proposal record to understand how Uniswap governance evolved over time.</p>
-    <div class="timeline-controls" aria-label="Timeline controls">
-      <div class="timeline-range"><span>2019</span><input type="range" min="2019" max="2026" value="2026" aria-label="Timeline year"><span>2026</span></div>
-      <div class="timeline-filter-row" aria-label="Timeline range filters"><button type="button" class="is-active">All</button><button type="button">1Y</button><button type="button">90D</button></div>
-    </div>
-    <div class="timeline-scroll" role="list" aria-label="Uniswap proposal history timeline">
-      <div class="timeline-item is-active"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Jun 2026</span><strong>v4 growth budget renewal</strong><em>Active · 34% turnout · Snapshot</em></div>
-      <div class="timeline-item is-ending"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Jun 2026</span><strong>Long-tail market risk update</strong><em>Ending soon · security-sensitive · Tally</em></div>
-      <div class="timeline-item is-active"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Jun 2026</span><strong>Delegate incentive renewal</strong><em>Active · forum discussion · Snapshot</em></div>
-      <div class="timeline-item is-passed is-selected"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">May 2026</span><strong>Protocol fee switch temperature check</strong><em>Passed · 91% for · 48% turnout</em></div>
-      <div class="timeline-item is-executed"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Apr 2026</span><strong>Working group funding round 3</strong><em>Executed · funding · Governor</em></div>
-      <div class="timeline-item is-passed"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Feb 2026</span><strong>Bridge risk parameter adjustment</strong><em>Passed · quorum met · Snapshot</em></div>
-      <div class="timeline-item is-defeated"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Nov 2025</span><strong>Liquidity mining extension</strong><em>Defeated · 62% against</em></div>
-      <div class="timeline-item is-passed"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Aug 2025</span><strong>Delegate compensation framework</strong><em>Passed · governance operations</em></div>
-      <div class="timeline-item is-executed"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Mar 2025</span><strong>Treasury diversification pilot</strong><em>Executed · treasury</em></div>
-      <div class="timeline-item is-passed"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Sep 2024</span><strong>Uniswap Accountability Committee renewal</strong><em>Passed · service providers</em></div>
-      <div class="timeline-item is-passed"  role="listitem" aria-disabled="true"><span class="timeline-marker"></span><span class="timeline-date">Dec 2023</span><strong>Governance process update</strong><em>Passed · process</em></div>
-    </div>
+  </section>
+
+  <aside class="panel dao-history-rail" aria-labelledby="dao-history-title">
+    <section class="history-rail-section" aria-labelledby="dao-history-title">
+      <div class="rail-section-heading"><p class="eyebrow">DAO history</p><h2 id="dao-history-title">Proposal timeline</h2></div>
+      <div class="history-range-tabs" aria-label="Timeline range filters"><button type="button">1Y</button><button type="button" class="is-active">3Y</button><button type="button">5Y</button><button type="button">All</button></div>
+      <p class="history-rail-copy">Browse live votes, closed proposals, and execution state.</p>
+    </section>
+
+    <section class="history-rail-section" aria-label="Recent proposal history">
+      <h3>Recent history</h3>
+      <div class="history-timeline-list" role="list" aria-label="Uniswap proposal history timeline">
+        <a class="history-timeline-row is-live" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem"><span>Now</span><strong>v4 growth budget renewal</strong><em>Live vote · 34% turnout</em></a>
+        <a class="history-timeline-row is-ending" href="javascript:void(0)" data-event-id="evt-proposal-aave-risk" role="listitem"><span>31h</span><strong>Cross-chain parameter set</strong><em>Ending soon · execution queued</em></a>
+        <a class="history-timeline-row is-live" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span>Jun</span><strong>Delegate incentive renewal</strong><em>Active · forum linked</em></a>
+        <a class="history-timeline-row is-live" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span>Jun</span><strong>UNI telemetry budget</strong><em>Active · analytics funding</em></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem"><span>May</span><strong>Protocol fee switch check</strong><em>Passed · 91% for</em></a>
+        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem"><span>Apr</span><strong>Working group funding R3</strong><em>Executed · Governor</em></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem"><span>Feb</span><strong>Bridge risk parameters</strong><em>Passed · quorum met</em></a>
+        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem"><span>Nov</span><strong>Liquidity mining extension</strong><em>Defeated · 62% against</em></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-ens-svc" role="listitem"><span>Aug</span><strong>Delegate compensation framework</strong><em>Passed · operations</em></a>
+        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-proposal-maker-dsr" role="listitem"><span>Jul</span><strong>Treasury diversification pilot</strong><em>Executed · treasury</em></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-gitcoin-gg24" role="listitem"><span>May</span><strong>Accountability committee renewal</strong><em>Passed · service providers</em></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-grants" role="listitem"><span>Mar</span><strong>Governance process update</strong><em>Passed · process</em></a>
+        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem"><span>Jan</span><strong>Liquidity incentive extension</strong><em>Defeated · turnout low</em></a>
+      </div>
+      <div class="history-rail-footer"><span>3Y window</span><strong>Older proposals →</strong></div>
+    </section>
   </aside>
+</section>
+
+<section class="dao-detail-main-grid" aria-label="Uniswap governance intelligence workspace">
+  <div class="dao-detail-left-column">
+    <section class="panel dao-insights-panel charted-insights-panel" aria-labelledby="dao-insights-title">
+      <div class="dao-trends-header">
+        <div>
+          <p class="eyebrow">Governance insights</p>
+          <h2 id="dao-insights-title">Two-year voting shape.</h2>
+          <p class="muted">Tempo · participation · outcomes · concentration.</p>
+        </div>
+        <span class="state-pill state-covered">24M default</span>
+      </div>
+
+      <div class="insight-kpi-strip" aria-label="Authoritative two-year governance summary">
+        <div data-tooltip="42 proposals were reviewed in the last 24 months. That is 17% more than the prior 24M window."><span>Proposals reviewed</span><strong>42</strong><em>+17% vs prior window</em></div>
+        <div data-tooltip="7 votes are currently active. 2 end soon, so they should be checked first."><span>Active votes</span><strong>7</strong><em>2 ending soon</em></div>
+        <div data-tooltip="18.4k wallets voted at least once in this window. May was the peak month for unique voters."><span>Voters reached</span><strong>18.4k</strong><em>11.2k May peak</em></div>
+        <div data-tooltip="Average turnout across recent votes is 34%. 64% of closed votes met quorum."><span>Avg turnout</span><strong>34%</strong><em>64% quorum hit-rate</em></div>
+      </div>
+
+      <div class="insight-chart-grid" aria-label="Uniswap governance insight charts">
+        <article class="insight-chart-card insight-chart-card-wide" aria-labelledby="proposal-tempo-title" data-tooltip="May 2026 was the busiest month: 8 proposals, 11.2k unique voters, and 71.2k total votes.">
+          <div class="insight-chart-head"><div><span>Activity trend</span><h3 id="proposal-tempo-title">Proposal activity over time</h3></div><strong>24M</strong></div>
+          <svg class="insight-wide-chart" viewBox="0 0 760 250" role="img" aria-label="Two-year monthly proposals with voter participation line">
+            <line class="trend-grid-line" x1="42" y1="46" x2="724" y2="46"></line><line class="trend-grid-line" x1="42" y1="104" x2="724" y2="104"></line><line class="trend-grid-line" x1="42" y1="162" x2="724" y2="162"></line><line class="trend-grid-line" x1="42" y1="220" x2="724" y2="220"></line>
+            <rect class="insight-window" x="536" y="28" width="158" height="196"></rect>
+            <g class="insight-bars">
+              <rect x="58" y="190" width="14" height="30"></rect><rect x="86" y="178" width="14" height="42"></rect><rect x="114" y="202" width="14" height="18"></rect><rect x="142" y="168" width="14" height="52"></rect><rect x="170" y="180" width="14" height="40"></rect><rect x="198" y="150" width="14" height="70"></rect><rect x="226" y="174" width="14" height="46"></rect><rect x="254" y="186" width="14" height="34"></rect><rect x="282" y="160" width="14" height="60"></rect><rect x="310" y="144" width="14" height="76"></rect><rect x="338" y="176" width="14" height="44"></rect><rect x="366" y="128" width="14" height="92"></rect><rect x="394" y="156" width="14" height="64"></rect><rect x="422" y="170" width="14" height="50"></rect><rect x="450" y="138" width="14" height="82"></rect><rect x="478" y="116" width="14" height="104"></rect><rect x="506" y="154" width="14" height="66"></rect><rect class="is-selected" x="548" y="92" width="14" height="128"></rect><rect class="is-selected" x="576" y="72" width="14" height="148"></rect><rect class="is-selected" x="604" y="106" width="14" height="114"></rect><rect class="is-live" x="632" y="122" width="14" height="98"></rect><rect class="is-live" x="660" y="100" width="14" height="120"></rect><rect class="is-live" x="688" y="136" width="14" height="84"></rect>
+            </g>
+            <polyline class="trend-line trend-line-voters" points="65,188 93,174 121,184 149,166 177,178 205,142 233,158 261,166 289,150 317,132 345,146 373,118 401,136 429,144 457,120 485,96 513,126 555,82 583,62 611,84 639,108 667,88 695,112"></polyline>
+            <circle class="trend-point is-selected" cx="583" cy="62" r="4"></circle>
+            <text class="trend-axis-label" x="55" y="240">Jul 24</text><text class="trend-axis-label" x="310" y="240">Jan 25</text><text class="trend-axis-label" x="548" y="240">May 26</text><text class="trend-axis-label" x="674" y="240">Jun 26</text>
+          </svg>
+          <div class="insight-chart-caption"><strong>May spike:</strong><span>8 proposals · 11.2k voters. June remains live.</span></div>
+        </article>
+
+        <article class="insight-chart-card" aria-labelledby="outcome-mix-title" data-tooltip="Shows how proposals ended: passed, active, failed, or queued/other. Exact counts are in the legend.">
+          <div class="insight-chart-head"><div><span>Outcome breakdown</span><h3 id="outcome-mix-title">How proposals resolved</h3></div><strong>final states</strong></div>
+          <div class="donut-chart" role="img" aria-label="Proposal outcome mix: passed 57, active 17, failed 14, queued or other 12 percent"><span>57%</span></div>
+          <div class="chart-legend compact"><span><i class="legend-green"></i>Passed 24</span><span><i class="legend-amber"></i>Active 7</span><span><i class="legend-red"></i>Failed 6</span><span><i class="legend-blue"></i>Queued/other 5</span></div>
+        </article>
+
+        <article class="insight-chart-card" aria-labelledby="turnout-quorum-title" data-tooltip="Compares turnout with quorum expectations. Higher turnout means the vote is more likely to clear quorum.">
+          <div class="insight-chart-head"><div><span>Participation quality</span><h3 id="turnout-quorum-title">Turnout vs quorum</h3></div><strong>34%</strong></div>
+          <svg class="insight-small-chart" viewBox="0 0 360 160" role="img" aria-label="Turnout against quorum threshold">
+            <line class="trend-grid-line" x1="28" y1="34" x2="336" y2="34"></line><line class="trend-grid-line" x1="28" y1="82" x2="336" y2="82"></line><line class="trend-threshold" x1="28" y1="98" x2="336" y2="98"></line>
+            <polyline class="trend-line" points="34,108 70,92 106,104 142,78 178,88 214,62 250,44 286,68 322,84"></polyline>
+            <path class="trend-area" d="M34 108 L70 92 L106 104 L142 78 L178 88 L214 62 L250 44 L286 68 L322 84 L322 132 L34 132 Z"></path>
+            <text class="trend-axis-label" x="32" y="148">Q4</text><text class="trend-axis-label" x="174" y="148">Q1</text><text class="trend-axis-label" x="282" y="148">Now</text>
+          </svg>
+          <div class="insight-chart-caption"><strong>64% quorum hit-rate</strong><span>Ending-soon votes sit above median.</span></div>
+        </article>
+
+        <article class="insight-chart-card" aria-labelledby="voter-shape-title" data-tooltip="Shows whether voting power is broad or concentrated across large delegates and wallets.">
+          <div class="insight-chart-head"><div><span>Voter breadth</span><h3 id="voter-shape-title">Delegate and voter spread</h3></div><strong>18%</strong></div>
+          <div class="rail-progress-list compact-bars" aria-label="Voter concentration bars">
+            <div data-tooltip="The largest single voter controlled 18% of voting weight in this window."><span>Largest voter share</span><strong>18%</strong><i style="--bar: 18%"></i></div>
+            <div data-tooltip="The top 10 voters together controlled 46% of voting weight."><span>Top 10 share</span><strong>46%</strong><i style="--bar: 46%"></i></div>
+            <div data-tooltip="312 delegates cast at least one vote in this period."><span>Delegates active</span><strong>312</strong><i style="--bar: 72%"></i></div>
+            <div data-tooltip="1.9k wallets appeared as new voters in the last 30 days."><span>New voters 30d</span><strong>1.9k</strong><i style="--bar: 39%"></i></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel current-governance-compact" aria-labelledby="current-governance-title">
+      <div class="panel-heading"><div><p class="eyebrow">Current proposals</p><h2 id="current-governance-title">Live voting queue</h2><p class="muted">Rows open the detail panel; external links stay inside.</p></div><a class="button small" href="governance-feed.html">Feed</a></div>
+      <div class="compact-governance-tabs" role="tablist" aria-label="Current governance tabs"><button type="button" class="is-active" role="tab" aria-selected="true" aria-controls="current-proposals-panel" data-current-tab="proposals">Proposals</button><button type="button" role="tab" aria-selected="false" aria-controls="current-forum-panel" data-current-tab="forum">Forum topics</button></div>
+
+      <div class="compact-tab-panels" aria-label="Proposal and forum topic compact queues">
+        <div class="compact-current-panel compact-tab-panel is-active" id="current-proposals-panel" role="tabpanel" aria-label="Voting proposals" data-current-panel="proposals">
+          <div class="compact-panel-title"><span>Proposal voting queue</span><strong>active / ending soon only</strong></div>
+          <div class="compact-line-list" role="list">
+            <a href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem"><span class="state-dot state-dot-live"></span><strong>v4 growth budget renewal</strong><em>Active · 4d · 34% · Snapshot</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-proposal-aave-risk" role="listitem"><span class="state-dot state-dot-soon"></span><strong>Long-tail market risk update</strong><em>Soon · 2d · 41% · quorum pending · Governor</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span class="state-dot state-dot-live"></span><strong>Delegate incentive renewal</strong><em>Active · 6d · 22% · mixed · forum linked</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span class="state-dot state-dot-live"></span><strong>Protocol fee switch follow-up vote</strong><em>Active · 9d · 18% · low urgency</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span class="state-dot state-dot-live"></span><strong>Bridge provider accountability review</strong><em>Active · 11d · 27% · risk review</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span class="state-dot state-dot-live"></span><strong>UNI incentives telemetry budget</strong><em>Active · 12d · 16% · analytics funding</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-proposal-aave-risk" role="listitem"><span class="state-dot state-dot-soon"></span><strong>Cross-chain deployment parameter set</strong><em>Soon · 31h · 36% · execution queued</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span class="state-dot state-dot-live"></span><strong>Governance working group signer rotation</strong><em>Active · 14d · 12% · ops maintenance</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span class="state-dot state-dot-live"></span><strong>Stablecoin pool fee pilot extension</strong><em>Active · 16d · 9% · treasury impact</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><span class="state-dot state-dot-live"></span><strong>Foundation reporting cadence update</strong><em>Active · 18d · 8% · process update</em><span class="proposal-inspect-link">Inspect</span></a>
+          </div>
+        </div>
+
+        <div class="compact-current-panel compact-tab-panel is-hidden" id="current-forum-panel" role="tabpanel" aria-label="Open forum topics" data-current-panel="forum">
+          <div class="compact-panel-title"><span>Forum topics</span><strong>open / recently active only</strong></div>
+          <div class="compact-line-list forum-lines" role="list">
+            <a href="javascript:void(0)" data-event-id="evt-forum-ens-budget" role="listitem"><span class="state-dot state-dot-forum"></span><strong>Delegate incentive renewal discussion</strong><em>38 replies · 2.1k views · updated 3h ago</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-forum-balancer-gauge" role="listitem"><span class="state-dot state-dot-forum"></span><strong>Bridge provider accountability review</strong><em>24 replies · 980 views · updated 8h ago</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem"><span class="state-dot state-dot-forum"></span><strong>v4 growth budget telemetry requirements</strong><em>52 replies · 3.4k views · updated 11h ago</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-forum-curve-lend" role="listitem"><span class="state-dot state-dot-forum"></span><strong>Protocol fee switch disclosure language</strong><em>71 replies · 5.8k views · updated 1d ago</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-forum-balancer-gauge" role="listitem"><span class="state-dot state-dot-forum"></span><strong>Delegate code of conduct edits</strong><em>19 replies · 640 views · updated 2d ago</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-forum-curve-lend" role="listitem"><span class="state-dot state-dot-forum"></span><strong>Liquidity mining retrospection thread</strong><em>44 replies · 1.7k views · updated 3d ago</em><span class="proposal-inspect-link">Inspect</span></a>
+            <a href="javascript:void(0)" data-event-id="evt-forum-ens-budget" role="listitem"><span class="state-dot state-dot-forum"></span><strong>Working group budget reporting template</strong><em>16 replies · 522 views · updated 4d ago</em><span class="proposal-inspect-link">Inspect</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </section>
 
 </div>
@@ -191,10 +238,33 @@
   </div>
 </footer>
 </main>
+<div id="event-detail-panel" class="event-detail-panel" role="dialog" aria-label="Governance proposal detail" aria-hidden="true" inert>
+  <div class="event-panel-backdrop" data-panel-close></div>
+  <div class="event-panel-content">
+    <div class="event-panel-body" id="event-panel-body"></div>
+  </div>
+</div>
 <nav class="mobile-tab-bar" aria-label="Mobile primary navigation"><a href="index.html"><span class="nav-icon">H</span>Overview</a>
 <a href="dao-list.html" aria-current="page"><span class="nav-icon">D</span>DAOs</a>
 <a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a>
 <a href="newsletters-list.html"><span class="nav-icon">N</span>News</a></nav>
 </div>
+<script>
+document.querySelectorAll('[data-current-tab]').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.currentTab;
+    document.querySelectorAll('[data-current-tab]').forEach((item) => {
+      const selected = item.dataset.currentTab === target;
+      item.classList.toggle('is-active', selected);
+      item.setAttribute('aria-selected', String(selected));
+    });
+    document.querySelectorAll('[data-current-panel]').forEach((panel) => {
+      panel.classList.toggle('is-active', panel.dataset.currentPanel === target);
+      panel.classList.toggle('is-hidden', panel.dataset.currentPanel !== target);
+    });
+  });
+});
+</script>
+<script src="atlas.js" defer></script>
 </body>
 </html>

@@ -32,29 +32,36 @@
 <main id="content" class="atlas-main">
 <section class="atlas-command-strip" aria-label="Atlas command strip">
   <div class="dashboard-topbar" aria-label="DAO search">
-    <form class="dao-search" role="search">
-      <span aria-hidden="true">⌕</span>
-      <input aria-label="Search DAOs" placeholder="Search DAOs">
+    <form class="dao-search" role="search" data-dao-search>
+      <span class="dao-search-prompt" aria-hidden="true">&gt;</span>
+      <input aria-label="Search DAOs" placeholder="Search DAOs" autocomplete="off" aria-autocomplete="list">
       <button type="submit">Search</button>
       <div class="search-assist" role="listbox" aria-label="Search suggestions">
-        <div class="search-assist-group" aria-label="Recently active DAOs">
-          <span class="search-assist-heading">Recently active DAOs</span>
-          <a class="search-assist-row" href="daos-detail.html" role="option"><strong>Uniswap</strong><span>7 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Aave</strong><span>5 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Arbitrum</strong><span>4 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Optimism</strong><span>4 active proposals</span></a>
-        </div>
-        <div class="search-assist-group" aria-label="Popular DAOs">
-          <span class="search-assist-heading">Popular DAOs</span>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>ENS</strong><span>3 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>MakerDAO / Sky</strong><span>2 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Compound</strong><span>2 active proposals</span></a>
+        <div class="search-assist-group" aria-label="DAO suggestions" data-dao-result-group>
+          <span class="search-assist-heading" data-search-heading>Recently active DAOs</span>
+          <a class="search-assist-row is-selected" href="daos-detail.html" role="option" data-dao-option data-search="uniswap uni dex governance" data-default-rank="1"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Uniswap</strong><span>7 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="aave lending risk parameters" data-default-rank="2"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Aave</strong><span>5 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="arbitrum arb layer2 grants" data-default-rank="3"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Arbitrum</strong><span>4 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="optimism op retro funding layer2" data-default-rank="4"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Optimism</strong><span>4 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="ens ethereum name service service-provider budget" data-default-rank="5"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>ENS</strong><span>3 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="makerdao sky maker mkr dsr stablecoin" data-default-rank="6"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>MakerDAO / Sky</strong><span>2 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="compound comp governor market parameter" data-default-rank="7"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Compound</strong><span>2 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="gitcoin grants public goods" data-default-rank="8"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Gitcoin</strong><span>1 active proposal</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="lido staking eth" data-default-rank="9"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Lido</strong><span>1 tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="curve crv lending gauges" data-default-rank="10"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Curve</strong><span>Forum active</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="balancer bal ve bal gauge" data-default-rank="11"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Balancer</strong><span>Forum active</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="safe multisig treasury" data-default-rank="12"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Safe</strong><span>Monitoring</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="polygon matic forum" data-default-rank="13"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Polygon</strong><span>Tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="starknet stark layer2" data-default-rank="14"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Starknet</strong><span>Tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="scroll layer2 zk" data-default-rank="15"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Scroll</strong><span>Tracked</span></a>
+          <p class="search-assist-empty" hidden>No DAO match. Try name, slug, ticker, or ecosystem tag.</p>
         </div>
         <div class="search-assist-group" aria-label="Governance pages and actions">
           <span class="search-assist-heading">Governance pages/actions</span>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>View all DAOs</strong><span>Directory</span></a>
-          <a class="search-assist-row" href="governance-feed.html" role="option"><strong>Latest Governance</strong><span>Live feed</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><span class="search-assist-marker" aria-hidden="true">·</span><strong>View all DAOs</strong><span>Directory</span></a>
+          <a class="search-assist-row" href="governance-feed.html" role="option"><span class="search-assist-marker" aria-hidden="true">·</span><strong>Latest Governance</strong><span>Live feed</span></a>
         </div>
+        <div class="search-assist-hint">↑↓ navigate · Enter select · Esc clear</div>
       </div>
     </form>
     <div class="topbar-actions"><a class="button" href="dao-list.html">Browse DAOs</a><a class="button dark" href="governance-feed.html">Latest governance</a></div>

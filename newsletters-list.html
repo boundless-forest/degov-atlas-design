@@ -32,29 +32,36 @@
   <main id="content" class="atlas-main">
   <section class="atlas-command-strip" aria-label="Atlas command strip">
   <div class="dashboard-topbar" aria-label="DAO search">
-    <form class="dao-search" role="search">
-      <span aria-hidden="true">⌕</span>
-      <input aria-label="Search DAOs" placeholder="Search DAOs">
+    <form class="dao-search" role="search" data-dao-search>
+      <span class="dao-search-prompt" aria-hidden="true">&gt;</span>
+      <input aria-label="Search DAOs" placeholder="Search DAOs" autocomplete="off" aria-autocomplete="list">
       <button type="submit">Search</button>
       <div class="search-assist" role="listbox" aria-label="Search suggestions">
-        <div class="search-assist-group" aria-label="Recently active DAOs">
-          <span class="search-assist-heading">Recently active DAOs</span>
-          <a class="search-assist-row" href="daos-detail.html" role="option"><strong>Uniswap</strong><span>7 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Aave</strong><span>5 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Arbitrum</strong><span>4 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Optimism</strong><span>4 active proposals</span></a>
-        </div>
-        <div class="search-assist-group" aria-label="Popular DAOs">
-          <span class="search-assist-heading">Popular DAOs</span>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>ENS</strong><span>3 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>MakerDAO / Sky</strong><span>2 active proposals</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>Compound</strong><span>2 active proposals</span></a>
+        <div class="search-assist-group" aria-label="DAO suggestions" data-dao-result-group>
+          <span class="search-assist-heading" data-search-heading>Recently active DAOs</span>
+          <a class="search-assist-row is-selected" href="daos-detail.html" role="option" data-dao-option data-search="uniswap uni dex governance" data-default-rank="1"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Uniswap</strong><span>7 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="aave lending risk parameters" data-default-rank="2"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Aave</strong><span>5 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="arbitrum arb layer2 grants" data-default-rank="3"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Arbitrum</strong><span>4 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="optimism op retro funding layer2" data-default-rank="4"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Optimism</strong><span>4 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="ens ethereum name service service-provider budget" data-default-rank="5"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>ENS</strong><span>3 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="makerdao sky maker mkr dsr stablecoin" data-default-rank="6"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>MakerDAO / Sky</strong><span>2 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="compound comp governor market parameter" data-default-rank="7"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Compound</strong><span>2 active proposals</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="gitcoin grants public goods" data-default-rank="8"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Gitcoin</strong><span>1 active proposal</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="lido staking eth" data-default-rank="9"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Lido</strong><span>1 tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="curve crv lending gauges" data-default-rank="10"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Curve</strong><span>Forum active</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="balancer bal ve bal gauge" data-default-rank="11"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Balancer</strong><span>Forum active</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="safe multisig treasury" data-default-rank="12"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Safe</strong><span>Monitoring</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="polygon matic forum" data-default-rank="13"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Polygon</strong><span>Tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="starknet stark layer2" data-default-rank="14"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Starknet</strong><span>Tracked</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="scroll layer2 zk" data-default-rank="15"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Scroll</strong><span>Tracked</span></a>
+          <p class="search-assist-empty" hidden>No DAO match. Try name, slug, ticker, or ecosystem tag.</p>
         </div>
         <div class="search-assist-group" aria-label="Governance pages and actions">
           <span class="search-assist-heading">Governance pages/actions</span>
-          <a class="search-assist-row" href="dao-list.html" role="option"><strong>View all DAOs</strong><span>Directory</span></a>
-          <a class="search-assist-row" href="governance-feed.html" role="option"><strong>Latest Governance</strong><span>Live feed</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option"><span class="search-assist-marker" aria-hidden="true">·</span><strong>View all DAOs</strong><span>Directory</span></a>
+          <a class="search-assist-row" href="governance-feed.html" role="option"><span class="search-assist-marker" aria-hidden="true">·</span><strong>Latest Governance</strong><span>Live feed</span></a>
         </div>
+        <div class="search-assist-hint">↑↓ navigate · Enter select · Esc clear</div>
       </div>
     </form>
     <div class="topbar-actions"><a class="button" href="dao-list.html">Browse DAOs</a><a class="button dark" href="governance-feed.html">Latest governance</a></div>
@@ -95,11 +102,6 @@
           </dl>
         </section>
 
-        <nav class="panel issue-toc" aria-label="Issue sections">
-          <a href="#brief">Brief</a>
-          <a href="#items" aria-current="page">DAO browser</a>
-        </nav>
-
         <section id="brief" class="detail-section issue-opening-brief">
           <div class="section-heading">
             <div>
@@ -117,28 +119,28 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">Issue browser</p>
-              <h2 id="items-title">Issue No. 6 — DAO issue browser</h2>
-              <p class="muted">Select a DAO on the left to focus its proposal, forum, execution, and treasury updates from this issue. Past issue selections reuse this same reader surface instead of opening a detail page.</p>
+              <h2 id="items-title" data-issue-browser-title>Issue No. 6 — DAO issue browser</h2>
+              <p class="muted">Select a DAO on the left to focus its proposal, forum, execution, and treasury updates from this issue. Click any item to open the detail panel; source and discussion links live inside the panel.</p>
             </div>
           </div>
           <div class="issue-dao-browser" aria-label="Issue DAO browser">
             <nav class="issue-dao-selector" aria-label="DAOs in this issue">
-              <button type="button" class="issue-dao-option is-active" aria-current="true"><span class="dao-option-main"><strong>Aave</strong><span class="state-pill state-ending-soon">Urgent</span></span><span>1 item · risk parameters</span><em>Lending markets</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Uniswap</strong><span class="state-pill state-active">Active</span></span><span>1 item · incentives</span><em>v4 growth budget</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Arbitrum</strong><span class="state-pill state-executed">2 items</span></span><span>executed + passed</span><em>Grants · participation</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>ENS</strong><span class="state-pill state-fresh">Forum</span></span><span>1 item · discussion</span><em>Delegation</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Gitcoin</strong><span class="state-pill state-passed">Passed</span></span><span>1 item · grants</span><em>Eligibility rules</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Optimism</strong><span class="state-pill state-passed">Passed</span></span><span>1 item · funding</span><em>Retro round scope</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>MakerDAO / Sky</strong><span class="state-pill state-executed">Executed</span></span><span>1 item · risk</span><em>DSR adjustment</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Lido</strong><span class="state-pill state-fresh">Tracked</span></span><span>1 item · treasury</span><em>Operator rewards</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Compound</strong><span class="state-pill state-defeated">Defeated</span></span><span>1 item · collateral</span><em>cUSDC factor</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Balancer</strong><span class="state-pill state-fresh">Forum</span></span><span>1 item · incentives</span><em>Gauge weights</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Curve</strong><span class="state-pill state-active">Active</span></span><span>2 items · emissions</span><em>Gauge vote cadence</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Safe</strong><span class="state-pill state-fresh">Review</span></span><span>2 items · delegation</span><em>Signer policy</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Polygon</strong><span class="state-pill state-passed">Passed</span></span><span>1 item · treasury</span><em>Ecosystem allocation</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Starknet</strong><span class="state-pill state-fresh">Forum</span></span><span>2 items · grants</span><em>Builder program</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Scroll</strong><span class="state-pill state-active">Active</span></span><span>1 item · sequencer</span><em>Decentralization roadmap</em></button>
-              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Gnosis</strong><span class="state-pill state-fresh">Tracked</span></span><span>1 item · treasury</span><em>Liquidity operations</em></button>
+              <button type="button" class="issue-dao-option is-active" aria-current="true"><span class="dao-option-main"><strong>Aave</strong><span class="state-pill state-ending-soon">12 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Uniswap</strong><span class="state-pill state-active">7 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Arbitrum</strong><span class="state-pill state-executed">6 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>ENS</strong><span class="state-pill state-fresh">5 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Gitcoin</strong><span class="state-pill state-passed">4 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Optimism</strong><span class="state-pill state-passed">4 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>MakerDAO / Sky</strong><span class="state-pill state-executed">4 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Lido</strong><span class="state-pill state-fresh">3 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Compound</strong><span class="state-pill state-defeated">3 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Balancer</strong><span class="state-pill state-fresh">2 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Curve</strong><span class="state-pill state-active">2 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Safe</strong><span class="state-pill state-fresh">2 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Polygon</strong><span class="state-pill state-passed">2 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Starknet</strong><span class="state-pill state-fresh">2 items</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Scroll</strong><span class="state-pill state-active">1 item</span></span></button>
+              <button type="button" class="issue-dao-option"><span class="dao-option-main"><strong>Gnosis</strong><span class="state-pill state-fresh">1 item</span></span></button>
             </nav>
             <section class="issue-dao-detail" aria-labelledby="selected-dao-title">
               <header class="issue-dao-detail-head">
@@ -148,24 +150,30 @@
                   <p>Risk parameters · lending markets</p>
                 </div>
                 <dl class="selected-dao-stats" aria-label="Selected DAO issue summary">
-                  <div><dt>Items</dt><dd>12</dd></div>
-                  <div><dt>Status</dt><dd>Ending soon</dd></div>
-                  <div><dt>Priority</dt><dd>3 picks</dd></div>
+                  <div><dt>Items</dt><dd>18</dd></div>
+                  <div><dt>Live votes</dt><dd>3</dd></div>
+                  <div><dt>Ending soon</dt><dd>2</dd></div>
                 </dl>
               </header>
               <div class="selected-dao-updates" role="list" aria-label="Aave governance updates in this issue">
-                <div class="issue-item-row issue-item-row--pick" role="listitem" aria-disabled="true"><span class="issue-item-meta">Proposal</span><span class="issue-item-body"><strong>Risk parameter update for long-tail markets</strong><em>Risk parameters · Editor pick</em></span><span class="state-pill state-ending-soon">Ending soon</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Risk service provider expands LT/LTV methodology notes</strong><em>Forum context · 56 replies</em></span><span class="state-pill state-fresh">Context</span></div>
-                <div class="issue-item-row issue-item-row--pick" role="listitem" aria-disabled="true"><span class="issue-item-meta">Vote</span><span class="issue-item-body"><strong>Freeze reserve factor increase for isolated collateral pools</strong><em>Market risk · Editor pick</em></span><span class="state-pill state-active">Active</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Oracle</span><span class="issue-item-body"><strong>Chaos Labs posts oracle deviation monitoring thresholds</strong><em>Oracle health · 18 replies</em></span><span class="state-pill state-fresh">Review</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Treasury</span><span class="issue-item-body"><strong>Safety module liquidity budget enters temperature check</strong><em>Treasury runway · Snapshot</em></span><span class="state-pill state-active">Active</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Delegation</span><span class="issue-item-body"><strong>Delegate block summarizes risk-off voting rationale</strong><em>Delegate signal · 9 voters cited</em></span><span class="state-pill state-fresh">Signal</span></div>
-                <div class="issue-item-row issue-item-row--pick" role="listitem" aria-disabled="true"><span class="issue-item-meta">Execution</span><span class="issue-item-body"><strong>Previous caps update queued for payload execution review</strong><em>Execution watch · Editor pick</em></span><span class="state-pill state-executed">Queued</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Parameter</span><span class="issue-item-body"><strong>Borrow cap reduction proposed for low-liquidity assets</strong><em>Risk parameters · Long-tail markets</em></span><span class="state-pill state-ending-soon">Soon</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Community asks for liquidation-bot impact analysis</strong><em>Forum context · 31 replies</em></span><span class="state-pill state-fresh">Context</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Watch</span><span class="issue-item-body"><strong>Stablecoin reserve exposure remains below escalation threshold</strong><em>Health monitor · No action</em></span><span class="state-pill state-passed">Stable</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Snapshot</span><span class="issue-item-body"><strong>ARFC sentiment split narrows after risk provider update</strong><em>Signal watch · 62% support</em></span><span class="state-pill state-active">Watching</span></div>
-                <div class="issue-item-row" role="listitem" aria-disabled="true"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Integrator feedback requests migration timing buffer</strong><em>Implementation notes · 14 replies</em></span><span class="state-pill state-fresh">Context</span></div>
+                <button type="button" class="issue-item-row issue-item-row--pick" role="listitem" data-event-id="evt-newsletter-aave-risk-params" aria-label="Open detail panel for Risk parameter update for long-tail markets"><span class="issue-item-meta">Proposal</span><span class="issue-item-body"><strong>Risk parameter update for long-tail markets</strong></span><span class="state-pill state-ending-soon">Ending soon</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-methodology" aria-label="Open detail panel for Risk service provider expands LT/LTV methodology notes"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Risk service provider expands LT/LTV methodology notes</strong></span><span class="state-pill state-fresh">Context</span></button>
+                <button type="button" class="issue-item-row issue-item-row--pick" role="listitem" data-event-id="evt-newsletter-aave-reserve-factor" aria-label="Open detail panel for Freeze reserve factor increase for isolated collateral pools"><span class="issue-item-meta">Vote</span><span class="issue-item-body"><strong>Freeze reserve factor increase for isolated collateral pools</strong></span><span class="state-pill state-active">Active</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-oracle-thresholds" aria-label="Open detail panel for Chaos Labs posts oracle deviation monitoring thresholds"><span class="issue-item-meta">Oracle</span><span class="issue-item-body"><strong>Chaos Labs posts oracle deviation monitoring thresholds</strong></span><span class="state-pill state-fresh">Review</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-safety-module" aria-label="Open detail panel for Safety module liquidity budget enters temperature check"><span class="issue-item-meta">Treasury</span><span class="issue-item-body"><strong>Safety module liquidity budget enters temperature check</strong></span><span class="state-pill state-active">Active</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-delegate-risk-off" aria-label="Open detail panel for Delegate block summarizes risk-off voting rationale"><span class="issue-item-meta">Delegation</span><span class="issue-item-body"><strong>Delegate block summarizes risk-off voting rationale</strong></span><span class="state-pill state-fresh">Signal</span></button>
+                <button type="button" class="issue-item-row issue-item-row--pick" role="listitem" data-event-id="evt-newsletter-aave-caps-execution" aria-label="Open detail panel for Previous caps update queued for payload execution review"><span class="issue-item-meta">Execution</span><span class="issue-item-body"><strong>Previous caps update queued for payload execution review</strong></span><span class="state-pill state-executed">Queued</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-borrow-cap" aria-label="Open detail panel for Borrow cap reduction proposed for low-liquidity assets"><span class="issue-item-meta">Parameter</span><span class="issue-item-body"><strong>Borrow cap reduction proposed for low-liquidity assets</strong></span><span class="state-pill state-ending-soon">Soon</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-liquidation-bot" aria-label="Open detail panel for Community asks for liquidation-bot impact analysis"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Community asks for liquidation-bot impact analysis</strong></span><span class="state-pill state-fresh">Context</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-reserve-exposure" aria-label="Open detail panel for Stablecoin reserve exposure remains below escalation threshold"><span class="issue-item-meta">Watch</span><span class="issue-item-body"><strong>Stablecoin reserve exposure remains below escalation threshold</strong></span><span class="state-pill state-passed">Stable</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-arfc-sentiment" aria-label="Open detail panel for ARFC sentiment split narrows after risk provider update"><span class="issue-item-meta">Snapshot</span><span class="issue-item-body"><strong>ARFC sentiment split narrows after risk provider update</strong></span><span class="state-pill state-active">Watching</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-integrator-buffer" aria-label="Open detail panel for Integrator feedback requests migration timing buffer"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Integrator feedback requests migration timing buffer</strong></span><span class="state-pill state-fresh">Context</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-stable-debt-cleanup" aria-label="Open detail panel for Stable debt token cleanup proposal enters delegate review"><span class="issue-item-meta">Vote</span><span class="issue-item-body"><strong>Stable debt token cleanup proposal enters delegate review</strong></span><span class="state-pill state-active">Active</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-staged-rollout" aria-label="Open detail panel for Risk stewards request staged rollout for cap decreases"><span class="issue-item-meta">Forum</span><span class="issue-item-body"><strong>Risk stewards request staged rollout for cap decreases</strong></span><span class="state-pill state-fresh">Context</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-heartbeat-exception" aria-label="Open detail panel for Price-feed heartbeat exception moves to monitoring queue"><span class="issue-item-meta">Oracle</span><span class="issue-item-body"><strong>Price-feed heartbeat exception moves to monitoring queue</strong></span><span class="state-pill state-fresh">Review</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-runway-report" aria-label="Open detail panel for Service-provider runway report flags next quarter spend"><span class="issue-item-meta">Treasury</span><span class="issue-item-body"><strong>Service-provider runway report flags next quarter spend</strong></span><span class="state-pill state-passed">Filed</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-conservative-path" aria-label="Open detail panel for Large delegates converge around conservative parameter path"><span class="issue-item-meta">Delegate</span><span class="issue-item-body"><strong>Large delegates converge around conservative parameter path</strong></span><span class="state-pill state-fresh">Signal</span></button>
+                <button type="button" class="issue-item-row" role="listitem" data-event-id="evt-newsletter-aave-payload-simulation" aria-label="Open detail panel for Payload simulation confirms no cross-market migration errors"><span class="issue-item-meta">Execution</span><span class="issue-item-body"><strong>Payload simulation confirms no cross-market migration errors</strong></span><span class="state-pill state-executed">Ready</span></button>
               </div>
             </section>
           </div>
@@ -175,12 +183,12 @@
         <div class="data-panel-card" aria-label="Past newsletter issues">
           <p class="data-panel-label">Past Issues</p>
           <ol class="data-panel-dao-list newsletter-issue-link-list">
-            <li><button type="button" class="is-active" data-newsletter-issue="6" aria-current="true"><strong>No. 6</strong><span>Jun 18</span><em>Incentives and risk</em></button></li>
-            <li><button type="button" data-newsletter-issue="5"><strong>No. 5</strong><span>Jun 11</span><em>Treasury votes and L2 grants</em></button></li>
-            <li><button type="button" data-newsletter-issue="4"><strong>No. 4</strong><span>Jun 4</span><em>Risk parameter reviews</em></button></li>
-            <li><button type="button" data-newsletter-issue="3"><strong>No. 3</strong><span>May 28</span><em>Forum topics outnumber proposals</em></button></li>
-            <li><button type="button" data-newsletter-issue="2"><strong>No. 2</strong><span>May 21</span><em>Delegation and treasuries</em></button></li>
-            <li><button type="button" data-newsletter-issue="1"><strong>No. 1</strong><span>May 14</span><em>Inaugural briefing</em></button></li>
+            <li><button type="button" class="is-active" data-newsletter-issue="6" aria-current="true"><strong>No. 6</strong><span>Jun 18</span></button></li>
+            <li><button type="button" data-newsletter-issue="5"><strong>No. 5</strong><span>Jun 11</span></button></li>
+            <li><button type="button" data-newsletter-issue="4"><strong>No. 4</strong><span>Jun 4</span></button></li>
+            <li><button type="button" data-newsletter-issue="3"><strong>No. 3</strong><span>May 28</span></button></li>
+            <li><button type="button" data-newsletter-issue="2"><strong>No. 2</strong><span>May 21</span></button></li>
+            <li><button type="button" data-newsletter-issue="1"><strong>No. 1</strong><span>May 14</span></button></li>
           </ol>
         </div>
         <div class="data-panel-card" aria-label="Latest newsletter issue deltas">
@@ -311,6 +319,7 @@
       setText("[data-issue-brief-title]", issue.briefTitle);
       setText("[data-issue-brief-one]", issue.briefOne);
       setText("[data-issue-brief-two]", issue.briefTwo);
+      setText("[data-issue-browser-title]", `Issue No. ${id} — DAO issue browser`);
       setText("[data-issue-delta-label]", issue.deltaLabel);
       setText("[data-issue-delta-daos]", issue.deltaDaos);
       setText("[data-issue-delta-items]", issue.deltaItems);
@@ -332,6 +341,13 @@
     });
   })();
 </script>
+<div id="event-detail-panel" class="event-detail-panel" role="dialog" aria-label="Newsletter issue item detail" aria-hidden="true" inert>
+  <div class="event-panel-backdrop" data-panel-close></div>
+  <div class="event-panel-content" role="document">
+    <div class="event-panel-body" id="event-panel-body"></div>
+  </div>
+</div>
+<script src="atlas.js" defer></script>
 </div>
 </body>
 </html>
