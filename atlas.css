@@ -1156,14 +1156,6 @@ summary:focus-visible {
 .overview-table-heading > div {
   display: grid;
 }
-.overview-table-heading h2 {
-  margin-top: 2px;
-  color: var(--atlas-muted);
-  font-family: var(--atlas-mono);
-  font-size: 0.72rem;
-  line-height: 1.35;
-  letter-spacing: 0.2px;
-}
 .overview-table-heading .button {
   align-self: start;
 }
