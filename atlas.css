@@ -1143,7 +1143,7 @@ summary:focus-visible {
   letter-spacing: 1px;
 }
 .top-active-daos-table .data-row {
-  grid-template-columns: minmax(170px, 1.25fr) 0.62fr 0.58fr 0.72fr;
+  grid-template-columns: minmax(150px, 1.15fr) 0.82fr 0.72fr 0.56fr;
 }
 .top-active-daos-table .data-row span:nth-child(n + 2) {
   font-family: var(--atlas-mono);
@@ -1155,6 +1155,14 @@ summary:focus-visible {
 }
 .overview-table-heading > div {
   display: grid;
+}
+.overview-table-heading h2 {
+  margin-top: 2px;
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  letter-spacing: 0.2px;
 }
 .overview-table-heading .button {
   align-self: start;
