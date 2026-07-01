@@ -1216,6 +1216,7 @@ const EventPanel = (function () {
         lines.push(metricCard("Ending", formatPanelDate(p.endAt), endingSub));
       }
       lines.push("</div>");
+      lines.push(...renderEvidenceLinks(evt, "Quick Links"));
       return lines;
     }
 
@@ -1225,6 +1226,7 @@ const EventPanel = (function () {
       if (evt.happenedAt) lines.push(metricCard("Updated", formatPanelDate(evt.happenedAt), formatTime(evt.happenedAt)));
       if (evt.forum.replyCount != null) lines.push(metricCard("Replies", esc(String(evt.forum.replyCount)), evt.forum.participantCount != null ? esc(String(evt.forum.participantCount)) + " participants" : ""));
       lines.push("</div>");
+      lines.push(...renderEvidenceLinks(evt, "Quick Links"));
     }
     return lines;
   }
@@ -1254,7 +1256,7 @@ const EventPanel = (function () {
         '<a class="event-panel-link" href="' +
           esc(evt.links.external) +
           '" target="_blank" rel="noopener noreferrer">' +
-          esc(evt.links.externalLabel ?? (evt.type === "proposal" ? "Open Snapshot ↗" : "View source ↗")) +
+          esc(evt.links.externalLabel ?? (evt.type === "proposal" ? "Open proposal ↗" : evt.type === "forum" ? "Open discussion ↗" : "View source ↗")) +
           "</a>"
       );
     }
