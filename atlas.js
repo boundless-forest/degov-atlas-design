@@ -778,8 +778,8 @@ function treasuryEvent(id, overrides) {
     links: {
       external: "https://www.x402.org/",
       externalLabel: "Open x402 protocol ↗",
-      skillIndex: "https://github.com/ringecosystem/degov-agent-skills/tree/main/skills",
-      skillIndexLabel: "Browse agent skills ↗",
+      skillIndex: "https://docs.cdp.coinbase.com/x402/welcome",
+      skillIndexLabel: "Read x402 docs ↗",
     },
   };
 
@@ -1070,134 +1070,16 @@ const EventPanel = (function () {
     );
 
     /* Description */
-    if (evt.description) {
+    if (evt.description && evt.type !== "proposal" && evt.type !== "forum" && evt.type !== "agent-skill") {
       lines.push(
         '<p class="event-panel-description">' + esc(evt.description) + "</p>"
       );
     }
 
-    /* Universal read model: available for proposals, forum topics, newsletter items, and agent cards. */
-    lines.push('<div class="event-panel-read-model" aria-label="Event data model summary">');
-    lines.push(
-      '<div><dt>Item</dt><dd>' + esc(formatEventType(evt.type)) + '</dd><small>' + esc(formatEventKind(evt.eventKind || evt.eventType)) + '</small></div>'
-    );
-    lines.push(
-      '<div><dt>Status</dt><dd>' + esc(formatStatusLabel(evt.status || "unknown")) + '</dd><small>governance state</small></div>'
-    );
-    lines.push(
-      '<div><dt>Coverage</dt><dd>' + esc(formatCoverageLabel(evt.coverageState)) + '</dd><small>source freshness</small></div>'
-    );
-    lines.push(
-      '<div><dt>Priority</dt><dd>' + esc(evt.importanceBand ? evt.importanceBand : "context") + '</dd><small>' + esc(evt.importanceScore != null ? evt.importanceScore + "/100" : "not scored") + '</small></div>'
-    );
-    lines.push("</div>");
-
-    if (evt.importanceReason) {
-      lines.push('<section class="event-panel-rationale" aria-label="Why this matters">');
-      lines.push('<span>Why this matters</span>');
-      lines.push('<p>' + esc(evt.importanceReason) + '</p>');
-      lines.push('</section>');
-    }
-
-    lines.push(...renderEvidenceLinks(evt));
-
-    /* Agent capability detail */
     if (evt.type === "agent-skill" && evt.capability) {
-      const c = evt.capability;
-      lines.push('<hr class="event-panel-divider">');
-      lines.push('<div class="event-panel-section-label">Capability Layer</div>');
-      lines.push('<div class="event-panel-metric-grid">');
-      if (c.label) lines.push(metricCard("Layer", esc(c.label), ""));
-      if (c.inputs) lines.push(metricCard("Inputs", esc(c.inputs), ""));
-      if (c.outputs) lines.push(metricCard("Outputs", esc(c.outputs), ""));
-      lines.push(metricCard("Access", evt.id === "cap-x402-access" ? "x402" : "Agent skill", "source-ready"));
-      lines.push("</div>");
-      if (c.workflow) {
-        lines.push('<div class="event-panel-section-label">Workflow Use</div>');
-        lines.push('<div class="event-panel-summary"><p>' + esc(c.workflow) + "</p></div>");
-      }
-    }
-
-    /* Proposal metrics grid */
-    if (evt.type === "proposal" && evt.proposal) {
-      lines.push('<hr class="event-panel-divider">');
-      lines.push('<div class="event-panel-section-label">Decision Snapshot</div>');
-      lines.push('<div class="event-panel-metric-grid">');
-
-      const p = evt.proposal;
-      if (p.turnout != null)
-        lines.push(metricCard("Turnout", p.turnout + "%", p.uniqueVoters ? esc(fmt(p.uniqueVoters)) + " voters" : ""));
-      if (p.voteDistribution) {
-        const dist = p.voteDistribution;
-        if (dist.for != null)
-          lines.push(metricCard("For", dist.for + "%", ""));
-        if (dist.against != null)
-          lines.push(metricCard("Against", dist.against + "%", ""));
-      }
-      if (p.quorumRequired)
-        lines.push(
-          metricCard("Quorum", p.currentQuorum ?? "—", "Required: " + esc(p.quorumRequired))
-        );
-      if (p.endAt && p.endAt > Date.now()) {
-        const remaining = p.endAt - Date.now();
-        lines.push(metricCard("Ends in", formatDuration(remaining), ""));
-      }
-      if (p.totalVotes)
-        lines.push(metricCard("Total votes", esc(p.totalVotes), ""));
-      if (p.passingThreshold)
-        lines.push(metricCard("Threshold", esc(p.passingThreshold), ""));
-
-      lines.push("</div>");
-
-      if (p.voteDistribution) {
-        const dist = p.voteDistribution;
-        const forPct = dist.for ?? 0;
-        const againstPct = dist.against ?? 0;
-        const abstainPct = dist.abstain ?? 0;
-        lines.push('<div class="event-panel-section-label">Vote Shape</div>');
-        lines.push('<div class="event-panel-vote-meter" aria-label="Vote distribution">');
-        lines.push('<span class="vote-meter-for" style="--bar:' + esc(forPct) + '%"><strong>For</strong><em>' + esc(forPct) + '%</em></span>');
-        lines.push('<span class="vote-meter-against" style="--bar:' + esc(againstPct) + '%"><strong>Against</strong><em>' + esc(againstPct) + '%</em></span>');
-        if (abstainPct > 0) lines.push('<span class="vote-meter-abstain" style="--bar:' + esc(abstainPct) + '%"><strong>Abstain</strong><em>' + esc(abstainPct) + '%</em></span>');
-        lines.push('</div>');
-      }
-
-      /* AI summary */
-      if (p.aiSummary) {
-        lines.push('<div class="event-panel-section-label">Summary</div>');
-        lines.push(
-          '<div class="event-panel-summary">' +
-            '<span class="event-panel-summary-label">AI-generated</span>' +
-            "<p>" + esc(p.aiSummary) + "</p>" +
-            "</div>"
-        );
-      }
-    }
-
-    /* Forum metrics */
-    if (evt.type === "forum" && evt.forum) {
-      lines.push('<hr class="event-panel-divider">');
-      lines.push('<div class="event-panel-section-label">Forum Snapshot</div>');
-      lines.push('<div class="event-panel-metric-grid">');
-      const f = evt.forum;
-      if (f.replyCount != null)
-        lines.push(metricCard("Replies", esc(String(f.replyCount)), ""));
-      if (f.participantCount != null)
-        lines.push(metricCard("Participants", esc(String(f.participantCount)), ""));
-      if (f.category)
-        lines.push(metricCard("Category", esc(f.category), ""));
-      if (f.topReplier)
-        lines.push(metricCard("Top replier", esc(f.topReplier), ""));
-      lines.push("</div>");
-
-      if (f.excerpt) {
-        lines.push('<div class="event-panel-section-label">Discussion Context</div>');
-        lines.push(
-          '<blockquote class="event-panel-excerpt">' +
-            esc(f.excerpt) +
-            "</blockquote>"
-        );
-      }
+      lines.push(...renderAgentCapabilityPanel(evt));
+    } else if (evt.type === "proposal" || evt.type === "forum") {
+      lines.push(...renderSignalPanel(evt));
     }
 
     /* Execution metrics */
@@ -1254,6 +1136,86 @@ const EventPanel = (function () {
     return String(n);
   }
 
+  function renderAgentCapabilityPanel(evt) {
+    const c = evt.capability || {};
+    const lines = [];
+    const intros = {
+      "cap-research-context":
+        "Use this when an agent needs to turn Atlas proposal, forum, vote, and DAO-history context into a cited governance research memo or comparison.",
+      "cap-security-review":
+        "Use this when an agent needs to inspect executable proposal risk: permission changes, contracts touched, treasury movement, and payload review steps.",
+      "cap-x402-access":
+        "x402 is an open payment protocol for HTTP-native paid requests. It lets agents pay for premium API calls or governance workflows at request time, without a separate dashboard account or subscription flow.",
+    };
+    lines.push('<hr class="event-panel-divider">');
+    lines.push('<section class="agent-panel-intro" aria-label="Agent-ready panel introduction">');
+    lines.push('<span>' + esc(evt.id === "cap-x402-access" ? "Payment access" : c.label || "Agent skill") + '</span>');
+    lines.push('<p>' + esc(intros[evt.id] || c.workflow || evt.description || "Agent-ready governance workflow.") + '</p>');
+    lines.push('</section>');
+
+    if (evt.id === "cap-research-context" || evt.id === "cap-security-review") {
+      const skillName = evt.id === "cap-research-context" ? "dao-governance-research" : "dao-governance-security";
+      const skillUrl = evt.links?.external || "https://github.com/ringecosystem/degov-agent-skills/tree/main/skills";
+      const installMessage =
+        "Install the " +
+        skillName +
+        " skill from " +
+        skillUrl +
+        " and use it with DeGov Atlas context for this DAO or proposal.";
+      lines.push('<div class="event-panel-section-label">Install with your agent</div>');
+      lines.push('<div class="agent-install-box">');
+      lines.push('<span>Copy this message to your agent to install this skill</span>');
+      lines.push('<code>' + esc(installMessage) + '</code>');
+      lines.push('</div>');
+      lines.push('<div class="event-panel-section-label">What it uses</div>');
+      lines.push('<div class="event-panel-metric-grid agent-panel-grid">');
+      if (c.inputs) lines.push(metricCard("Inputs", esc(c.inputs), "Atlas context"));
+      if (c.outputs) lines.push(metricCard("Outputs", esc(c.outputs), "agent-ready"));
+      lines.push("</div>");
+      lines.push(...renderEvidenceLinks(evt, "Skill Links"));
+      return lines;
+    }
+
+    lines.push('<div class="event-panel-section-label">How x402 fits here</div>');
+    lines.push('<div class="x402-link-stack">');
+    lines.push('<p>Atlas can keep free public discovery separate from paid, agent-grade endpoints. x402 provides the payment handshake for those metered requests, while the response still returns normal HTTP data.</p>');
+    lines.push('</div>');
+    lines.push(...renderEvidenceLinks(evt, "External Links"));
+    return lines;
+  }
+
+  function renderSignalPanel(evt) {
+    const lines = [];
+    const summary = evt.proposal?.aiSummary || evt.description || evt.forum?.excerpt || evt.importanceReason || evt.title;
+    lines.push('<hr class="event-panel-divider">');
+    lines.push('<div class="event-panel-section-label">AI Summary</div>');
+    lines.push('<div class="event-panel-summary event-panel-summary-primary"><p>' + esc(summary) + '</p></div>');
+
+    if (evt.type === "proposal" && evt.proposal) {
+      const p = evt.proposal;
+      lines.push('<div class="event-panel-section-label">Vote Window</div>');
+      lines.push('<div class="event-panel-metric-grid event-panel-metric-grid-simple">');
+      if (p.totalVotes) lines.push(metricCard("Votes", esc(p.totalVotes), p.uniqueVoters ? esc(fmt(p.uniqueVoters)) + " voters" : ""));
+      else if (p.uniqueVoters) lines.push(metricCard("Voters", esc(fmt(p.uniqueVoters)), ""));
+      if (p.startAt) lines.push(metricCard("Start", formatPanelDate(p.startAt), ""));
+      if (p.endAt) {
+        const endingSub = p.endAt > Date.now() ? formatDuration(p.endAt - Date.now()) + " left" : "closed";
+        lines.push(metricCard("Ending", formatPanelDate(p.endAt), endingSub));
+      }
+      lines.push("</div>");
+      return lines;
+    }
+
+    if (evt.type === "forum" && evt.forum) {
+      lines.push('<div class="event-panel-section-label">Discussion Window</div>');
+      lines.push('<div class="event-panel-metric-grid event-panel-metric-grid-simple">');
+      if (evt.happenedAt) lines.push(metricCard("Updated", formatPanelDate(evt.happenedAt), formatTime(evt.happenedAt)));
+      if (evt.forum.replyCount != null) lines.push(metricCard("Replies", esc(String(evt.forum.replyCount)), evt.forum.participantCount != null ? esc(String(evt.forum.participantCount)) + " participants" : ""));
+      lines.push("</div>");
+    }
+    return lines;
+  }
+
   function metricCard(label, value, sub) {
     return (
       '<div class="event-panel-metric">' +
@@ -1268,11 +1230,11 @@ const EventPanel = (function () {
     );
   }
 
-  function renderEvidenceLinks(evt) {
+  function renderEvidenceLinks(evt, label) {
     const lines = [];
     if ((!evt.links || Object.keys(evt.links).length === 0) && !evt.sourceUrl) return lines;
     lines.push('<hr class="event-panel-divider event-panel-divider-compact">');
-    lines.push('<div class="event-panel-section-label">Evidence Links</div>');
+    lines.push('<div class="event-panel-section-label">' + esc(label || "Evidence Links") + '</div>');
     lines.push('<div class="event-panel-links event-panel-links-compact">');
     if (evt.links?.external) {
       lines.push(
@@ -1377,6 +1339,16 @@ const EventPanel = (function () {
     return new Date(ts).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
+    });
+  }
+
+  function formatPanelDate(ts) {
+    if (!ts) return "—";
+    return new Date(ts).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   }
 

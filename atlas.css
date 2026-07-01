@@ -2881,6 +2881,61 @@ summary:focus-visible {
   font-size: 0.82rem;
   line-height: 1.5;
 }
+.event-panel-summary-primary {
+  border-left: 2px solid var(--atlas-green-line);
+  background: rgba(153, 255, 153, 0.028);
+}
+.agent-panel-intro,
+.x402-link-stack,
+.agent-install-box {
+  padding: 10px 12px;
+  border: 1px solid var(--atlas-line);
+  background: rgba(255, 255, 255, 0.018);
+}
+.agent-panel-intro {
+  border-left: 2px solid var(--atlas-green-line);
+}
+.agent-panel-intro span,
+.agent-install-box span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.agent-panel-intro p,
+.x402-link-stack p {
+  margin: 0;
+  color: var(--atlas-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+.agent-install-box {
+  display: grid;
+  gap: 8px;
+  border-color: rgba(153, 255, 153, 0.18);
+  background: rgba(153, 255, 153, 0.035);
+}
+.agent-install-box code {
+  display: block;
+  padding: 9px 10px;
+  border: 1px solid var(--atlas-line);
+  background: #05070a;
+  color: var(--atlas-ink);
+  font-family: var(--atlas-mono);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.agent-panel-grid .event-panel-metric {
+  min-height: 68px;
+}
+.event-panel-metric-grid-simple {
+  margin-bottom: 0;
+}
 .event-panel-excerpt {
   margin: 0;
   padding: 10px 12px;
