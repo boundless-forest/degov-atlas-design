@@ -56,7 +56,7 @@
     <div class="topbar-actions"><a class="button" href="dao-list.html">Browse DAOs</a><a class="button dark" href="governance-feed.html">Latest governance</a></div>
   </div>
   <nav class="market-strip" aria-label="Hot DAO navigation">
-    <a class="chain-pill is-active" href="daos-detail.html">UNISWAP <span class="proposal-count">7</span><span class="dao-tooltip"><span>7 active proposals</span><strong>v4 growth budget renewal</strong><em>Updated 2h ago</em></span></a>
+    <a class="chain-pill is-active is-current-dao" href="daos-detail.html" aria-current="page">UNISWAP <span class="proposal-count">7</span><span class="dao-tooltip"><span>7 active proposals</span><strong>v4 growth budget renewal</strong><em>Updated 2h ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">AAVE <span class="proposal-count">5</span><span class="dao-tooltip"><span>5 active proposals</span><strong>Risk parameter update</strong><em>Updated 4h ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">ARBITRUM <span class="proposal-count">4</span><span class="dao-tooltip"><span>4 active proposals</span><strong>DAO grant program cohort</strong><em>Updated 8h ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">OPTIMISM <span class="proposal-count">4</span><span class="dao-tooltip"><span>4 active proposals</span><strong>Retro Funding round 6</strong><em>Updated 12h ago</em></span></a>
@@ -64,13 +64,13 @@
     <a class="chain-pill is-active" href="dao-list.html">MAKERDAO / SKY <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>DSR rate adjustment</strong><em>Updated 1d ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">COMPOUND <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>Market parameter update</strong><em>Updated 2d ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">GITCOIN <span class="proposal-count">1</span><span class="dao-tooltip"><span>1 active proposal</span><strong>Grants round operations</strong><em>Updated 3d ago</em></span></a>
-    <a class="chain-pill" href="dao-list.html">LIDO</a>
-    <a class="chain-pill" href="dao-list.html">CURVE</a>
-    <a class="chain-pill" href="dao-list.html">BALANCER</a>
-    <a class="chain-pill" href="dao-list.html">SAFE</a>
-    <a class="chain-pill" href="dao-list.html">POLYGON</a>
-    <a class="chain-pill" href="dao-list.html">STARKNET</a>
-    <a class="chain-pill" href="dao-list.html">SCROLL</a>
+    <a class="chain-pill" href="dao-list.html">LIDO <span class="proposal-count">1</span></a>
+    <a class="chain-pill" href="dao-list.html">CURVE <span class="proposal-count">1</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Balancer, no live proposals">BALANCER <span class="proposal-count">0 live</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Safe, no live proposals">SAFE <span class="proposal-count">0 live</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Polygon, no live proposals">POLYGON <span class="proposal-count">0 live</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Starknet, no live proposals">STARKNET <span class="proposal-count">0 live</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Scroll, no live proposals">SCROLL <span class="proposal-count">0 live</span></a>
   </nav>
 </section>
 <div class="atlas-dashboard dao-detail-dashboard dao-situation-room">
@@ -80,13 +80,13 @@
       <p class="eyebrow">DAOs / Uniswap</p>
       <h1 id="dao-title">Uniswap</h1>
       <p class="muted">Governance activity, active proposals, voting participation, and recent DAO events.</p>
-      <a class="dao-latest-signal" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4"><span>Latest signal</span><strong>v4 growth budget renewal is active with 34% turnout.</strong><em>Inspect proposal</em></a>
+      <a class="dao-latest-signal" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4"><span>Live signal</span><strong>v4 growth budget renewal is active with 34% turnout.</strong><em>Inspect proposal →</em></a>
       <div class="dao-overview-meta" aria-label="DAO metadata"><span>Updated 2h ago</span><span>Snapshot linked</span><span>Forum linked</span></div>
     </div>
     <div class="dao-shape-snapshot" aria-label="Uniswap governance shape snapshot">
       <div class="shape-snapshot-head">
         <div><p class="eyebrow">DAO shape snapshot</p><h2>Governance pulse.</h2></div>
-        <strong>24M</strong>
+        <strong>24M window</strong>
       </div>
       <div class="shape-tile-grid" aria-label="Uniswap qualitative DAO shape signals">
         <div data-tooltip="Most closed proposals in the 24M window passed. Exact counts are in Governance Insights below."><span>Decisions</span><strong>Pass-leaning</strong><em>most pass</em></div>
@@ -103,6 +103,7 @@
       <div class="rail-section-heading"><p class="eyebrow">DAO history</p><h2 id="dao-history-title">Proposal timeline</h2></div>
       <div class="history-range-tabs" aria-label="Timeline range filters"><button type="button">1Y</button><button type="button" class="is-active">3Y</button><button type="button">5Y</button><button type="button">All</button></div>
       <p class="history-rail-copy">Browse live votes, closed proposals, and execution state.</p>
+      <p class="history-rail-summary">13 shown · 4 live · 2 ending soon · 1 defeated</p>
     </section>
 
     <section class="history-rail-section" aria-label="Recent proposal history">
@@ -136,7 +137,7 @@
           <h2 id="dao-insights-title">Two-year voting shape.</h2>
           <p class="muted">Tempo · participation · outcomes · concentration.</p>
         </div>
-        <span class="state-pill state-covered">24M default</span>
+        <span class="state-pill state-covered">24M · default</span>
       </div>
 
       <div class="insight-kpi-strip" aria-label="Authoritative two-year governance summary">

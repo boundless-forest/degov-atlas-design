@@ -64,13 +64,13 @@
     <a class="chain-pill is-active" href="dao-list.html">MAKERDAO / SKY <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>DSR rate adjustment</strong><em>Updated 1d ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">COMPOUND <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>Market parameter update</strong><em>Updated 2d ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">GITCOIN <span class="proposal-count">1</span><span class="dao-tooltip"><span>1 active proposal</span><strong>Grants round operations</strong><em>Updated 3d ago</em></span></a>
-    <a class="chain-pill" href="dao-list.html">LIDO</a>
-    <a class="chain-pill" href="dao-list.html">CURVE</a>
-    <a class="chain-pill" href="dao-list.html">BALANCER</a>
-    <a class="chain-pill" href="dao-list.html">SAFE</a>
-    <a class="chain-pill" href="dao-list.html">POLYGON</a>
-    <a class="chain-pill" href="dao-list.html">STARKNET</a>
-    <a class="chain-pill" href="dao-list.html">SCROLL</a>
+    <a class="chain-pill" href="dao-list.html">LIDO <span class="proposal-count">1</span></a>
+    <a class="chain-pill" href="dao-list.html">CURVE <span class="proposal-count">1</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Balancer, no live proposals">BALANCER <span class="proposal-count">0 live</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Safe, no live proposals">SAFE <span class="proposal-count">0 live</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Polygon, no live proposals">POLYGON <span class="proposal-count">0 live</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Starknet, no live proposals">STARKNET <span class="proposal-count">0 live</span></a>
+    <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Scroll, no live proposals">SCROLL <span class="proposal-count">0 live</span></a>
   </nav>
 </section>
 <div class="atlas-dashboard dao-list-dashboard">
@@ -81,28 +81,31 @@
 <div class="directory-console-title"><p class="eyebrow">DAOs</p><h1 id="dao-directory-console-title">DAO Directory Console</h1><p>Browse DAO governance coverage, activity, source mix, and data health.</p></div>
 <div class="directory-console-status" aria-label="Directory dataset status"><span>128 DAOs</span><span>37 active this week</span><span>84 active this month</span><span>64% fresh</span><span>Updated 2h ago</span></div>
 </div>
-<form class="directory-filter-console" aria-label="Filter DAO directory">
-<label class="directory-search-field"><span>Search DAOs</span><input name="q" placeholder="Search by DAO, source, or governance surface"></label>
-<div class="filter-cluster" aria-label="Activity filters"><span>Refine</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active">All DAOs</button><button type="button" class="filter-chip">Active this week</button><button type="button" class="filter-chip">Active proposals</button><button type="button" class="filter-chip">Ending soon</button><button type="button" class="filter-chip">Fresh 82</button><button type="button" class="filter-chip">Partial 31</button><button type="button" class="filter-chip">Not normalized 15</button></div></div>
-<div class="filter-cluster" aria-label="Source filters"><span>Source</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active">Any source</button><button type="button" class="filter-chip">Snapshot 46%</button><button type="button" class="filter-chip">DeGov Square 31%</button><button type="button" class="filter-chip">Tally / Governor 15%</button><button type="button" class="filter-chip">Forum-linked 8%</button></div></div>
-<div class="directory-order-row" aria-label="Sort DAO directory"><span>Order</span><div class="filter-chip-row order-chip-row"><button type="button" class="filter-chip order-chip">Last proposal ↓</button><button type="button" class="filter-chip order-chip is-active">Active proposals</button><button type="button" class="filter-chip order-chip">Unique voters</button><button type="button" class="filter-chip order-chip">Total proposals</button><button type="button" class="filter-chip order-chip">A–Z</button></div><a class="reset-filter-link" href="dao-list.html">Reset filters</a></div>
+<form class="directory-filter-console directory-filter-console--compact" aria-label="Filter DAO directory">
+<div class="directory-filter-summary" aria-label="Current directory view"><div><span>Scope</span><strong>All covered DAOs</strong><em>128 matches · no filters applied</em></div><span class="reset-filter-link reset-filter-link--compact is-disabled">Default view</span></div>
+<div class="directory-control-row" aria-label="Directory filter controls">
+<div class="filter-cluster filter-cluster--compact" aria-label="Activity filters"><span>Activity</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active" aria-pressed="true">All 128</button><button type="button" class="filter-chip">Week 37</button><button type="button" class="filter-chip">Month 84</button><button type="button" class="filter-chip">Live 57</button><button type="button" class="filter-chip">Soon 8</button><button type="button" class="filter-chip">Dormant 44</button></div></div>
+<div class="filter-cluster filter-cluster--compact" aria-label="Coverage health filters"><span>Health</span><div class="filter-chip-row"><button type="button" class="filter-chip">Fresh 82</button><button type="button" class="filter-chip">Partial 31</button><button type="button" class="filter-chip">Not normalized 15</button></div></div>
+<div class="filter-cluster filter-cluster--compact" aria-label="Source filters"><span>Source</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active" aria-pressed="true">Any</button><button type="button" class="filter-chip">Snapshot 46%</button><button type="button" class="filter-chip">Square 31%</button><button type="button" class="filter-chip">Tally/Gov 15%</button><button type="button" class="filter-chip">Forum 8%</button></div></div>
+</div>
+<div class="directory-order-row directory-order-row--compact" aria-label="Sort DAO directory"><span>Order</span><div class="filter-chip-row order-chip-row"><button type="button" class="filter-chip order-chip is-active" aria-pressed="true">Last proposal ↓</button><button type="button" class="filter-chip order-chip">Live proposals</button><button type="button" class="filter-chip order-chip">Unique voters</button><button type="button" class="filter-chip order-chip">Total</button><button type="button" class="filter-chip order-chip">A–Z</button></div></div>
 </form>
 <div class="data-table dao-directory-table expanded compact" role="table" aria-label="DAO profiles">
-<div class="data-row head" role="row"><span>DAO</span><span>Health</span><span>Source</span><span>Turnout</span><span>Total</span><span>Live</span><span>Voters</span><span>Last ↓</span></div>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Uniswap</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>62%</span><span>42</span><span>7</span><span>18.4k</span><span>2h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Aave</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>58%</span><span>31</span><span>5</span><span>12.9k</span><span>4h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>ENS</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>51%</span><span>18</span><span>3</span><span>8.2k</span><span>6h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Arbitrum</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>55%</span><span>26</span><span>4</span><span>15.6k</span><span>8h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Optimism</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Agora, forum</span><span>49%</span><span>22</span><span>4</span><span>13.1k</span><span>12h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>MakerDAO / Sky</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, governor</span><span>44%</span><span>15</span><span>2</span><span>6.7k</span><span>1d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Compound</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Governor</span><span>41%</span><span>11</span><span>2</span><span>4.4k</span><span>2d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Gitcoin</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot, forum</span><span>38%</span><span>13</span><span>1</span><span>3.1k</span><span>3d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Lido</strong> <span class="vote-live-badge">VOTE LIVE</span></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>65%</span><span>9</span><span>1</span><span>9.8k</span><span>4d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Balancer</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, Snapshot</span><span>35%</span><span>8</span><span>0</span><span>2.2k</span><span>5d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Safe</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot</span><span>52%</span><span>7</span><span>0</span><span>5.6k</span><span>6d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Polygon</strong></span><span><span class="state-pill state-not-normalized-yet">Not normalized</span></span><span>Forum</span><span>29%</span><span>6</span><span>0</span><span>7.4k</span><span>1w ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Starknet</strong></span><span><span class="state-pill state-not-normalized-yet">Not normalized</span></span><span>Forum, Snapshot</span><span>33%</span><span>5</span><span>0</span><span>4.1k</span><span>1w ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Scroll</strong></span><span><span class="state-pill state-not-normalized-yet">Not normalized</span></span><span>Forum</span><span>27%</span><span>4</span><span>0</span><span>2.7k</span><span>2w ago</span></a>
+<div class="data-row head" role="row"><span>DAO</span><span>Health</span><span>Source</span><span>Turnout</span><span>Total ↕</span><span>Live ↕</span><span>Voters ↕</span><span>Last ↓</span></div>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Uniswap</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>62%</span><span>42</span><span class="live-count">7</span><span>18.4k</span><span>2h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Aave</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>58%</span><span>31</span><span class="live-count">5</span><span>12.9k</span><span>4h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>ENS</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>51%</span><span>18</span><span class="live-count">3</span><span>8.2k</span><span>6h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Arbitrum</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>55%</span><span>26</span><span class="live-count">4</span><span>15.6k</span><span>8h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Optimism</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Square, forum</span><span>49%</span><span>22</span><span class="live-count">4</span><span>13.1k</span><span>12h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>MakerDAO / Sky</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, Tally/Gov</span><span>44%</span><span>15</span><span class="live-count">2</span><span>6.7k</span><span>1d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Compound</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally/Gov</span><span>41%</span><span>11</span><span class="live-count">2</span><span>4.4k</span><span>2d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Gitcoin</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot, forum</span><span>38%</span><span>13</span><span class="live-count">1</span><span>3.1k</span><span>3d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Lido</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>65%</span><span>9</span><span class="live-count">1</span><span>9.8k</span><span>4d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Balancer</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, Snapshot</span><span>35%</span><span>8</span><span class="live-count is-zero">0</span><span>2.2k</span><span>5d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Safe</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot</span><span>52%</span><span>7</span><span class="live-count is-zero">0</span><span>5.6k</span><span>6d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Polygon</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum</span><span>29%</span><span>6</span><span class="live-count is-zero">0</span><span>7.4k</span><span>1w ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Starknet</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum, Snapshot</span><span>33%</span><span>5</span><span class="live-count is-zero">0</span><span>4.1k</span><span>1w ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Scroll</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum</span><span>27%</span><span>4</span><span class="live-count is-zero">0</span><span>2.7k</span><span>2w ago</span></a>
 </div>
 </section>
 <aside class="feed-data-panel dao-data-panel" aria-label="DAO directory data panel">
@@ -119,9 +122,11 @@
 </div>
 <div class="data-panel-card" aria-label="DAO activity bands">
 <p class="data-panel-label">Activity Bands</p>
+<p class="data-panel-hint">Click row to filter</p>
 <ol class="data-panel-dao-list dao-band-list">
 <li><a href="dao-list.html"><strong>High activity</strong><span>37</span></a></li>
 <li><a href="dao-list.html"><strong>Monthly active</strong><span>84</span></a></li>
+<li><a href="dao-list.html"><strong>Live votes</strong><span>57</span></a></li>
 <li><a href="dao-list.html"><strong>Ending soon</strong><span>8</span></a></li>
 <li><a href="dao-list.html"><strong>Dormant 30d</strong><span>44</span></a></li>
 <li><a href="dao-list.html"><strong>Needs normalization</strong><span>15</span></a></li>
@@ -129,6 +134,7 @@
 </div>
 <div class="data-panel-card" aria-label="Coverage health">
 <p class="data-panel-label">Coverage Health</p>
+<p class="data-panel-hint">Click row to filter</p>
 <dl class="data-panel-breakdown">
 <div><dt>Fresh</dt><dd><span style="--bar: 64%"></span><strong>82</strong></dd></div>
 <div><dt>Partial</dt><dd><span style="--bar: 24%"></span><strong>31</strong></dd></div>
@@ -137,6 +143,7 @@
 </div>
 <div class="data-panel-card" aria-label="DAO source mix">
 <p class="data-panel-label">Source Mix</p>
+<p class="data-panel-hint">Click row to filter</p>
 <dl class="data-panel-breakdown">
 <div><dt>Snapshot</dt><dd><span style="--bar: 46%"></span><strong>46%</strong></dd></div>
 <div><dt>DeGov Square</dt><dd><span style="--bar: 31%"></span><strong>31%</strong></dd></div>
