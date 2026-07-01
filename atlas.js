@@ -202,7 +202,7 @@ function treasuryEvent(id, overrides) {
     daoName: "Aave",
     daoCategory: "lending",
     eventType: "ending_soon",
-    title: "Aave opened a risk parameter update for long-tail markets — ending in 2 days",
+    title: "Aave opened a risk parameter update for long-tail markets",
     description:
       "Aave governance has put forward a risk parameter adjustment that recalibrates LTV, liquidation " +
       "thresholds, and supply caps across several long-tail collateral assets. The update is based on " +
@@ -956,6 +956,19 @@ const EventPanel = (function () {
       closeBtn.addEventListener("click", close);
     }
 
+    bodyEl.querySelectorAll(".agent-copy-chip").forEach((button) => {
+      button.addEventListener("click", () => {
+        const code = button.closest(".agent-install-box")?.querySelector("code");
+        if (!code) return;
+        button.textContent = "Copied";
+        const writeText = navigator.clipboard?.writeText?.bind(navigator.clipboard);
+        if (writeText) writeText(code.innerText).catch(() => {});
+        setTimeout(() => {
+          button.textContent = "Copy";
+        }, 1600);
+      });
+    });
+
     document.addEventListener("keydown", handleKeydown);
     backdrop.addEventListener("click", handleBackdropClick);
   }
@@ -1159,12 +1172,12 @@ const EventPanel = (function () {
       const installMessage =
         "Install the " +
         skillName +
-        " skill from " +
+        " skill:\n" +
         skillUrl +
-        " and use it with DeGov Atlas context for this DAO or proposal.";
+        "\nUse it with DeGov Atlas context for this DAO or proposal.";
       lines.push('<div class="event-panel-section-label">Install with your agent</div>');
       lines.push('<div class="agent-install-box">');
-      lines.push('<span>Copy this message to your agent to install this skill</span>');
+      lines.push('<div class="agent-install-head"><span>Copy this message to your agent to install this skill</span><button class="agent-copy-chip" type="button">Copy</button></div>');
       lines.push('<code>' + esc(installMessage) + '</code>');
       lines.push('</div>');
       lines.push('<div class="event-panel-section-label">What it uses</div>');
@@ -1194,7 +1207,7 @@ const EventPanel = (function () {
     if (evt.type === "proposal" && evt.proposal) {
       const p = evt.proposal;
       lines.push('<div class="event-panel-section-label">Vote Window</div>');
-      lines.push('<div class="event-panel-metric-grid event-panel-metric-grid-simple">');
+      lines.push('<div class="event-panel-metric-grid event-panel-metric-grid-simple proposal-window-grid">');
       if (p.totalVotes) lines.push(metricCard("Votes", esc(p.totalVotes), p.uniqueVoters ? esc(fmt(p.uniqueVoters)) + " voters" : ""));
       else if (p.uniqueVoters) lines.push(metricCard("Voters", esc(fmt(p.uniqueVoters)), ""));
       if (p.startAt) lines.push(metricCard("Start", formatPanelDate(p.startAt), ""));
@@ -1208,7 +1221,7 @@ const EventPanel = (function () {
 
     if (evt.type === "forum" && evt.forum) {
       lines.push('<div class="event-panel-section-label">Discussion Window</div>');
-      lines.push('<div class="event-panel-metric-grid event-panel-metric-grid-simple">');
+      lines.push('<div class="event-panel-metric-grid event-panel-metric-grid-simple discussion-window-grid">');
       if (evt.happenedAt) lines.push(metricCard("Updated", formatPanelDate(evt.happenedAt), formatTime(evt.happenedAt)));
       if (evt.forum.replyCount != null) lines.push(metricCard("Replies", esc(String(evt.forum.replyCount)), evt.forum.participantCount != null ? esc(String(evt.forum.participantCount)) + " participants" : ""));
       lines.push("</div>");
@@ -1331,7 +1344,7 @@ const EventPanel = (function () {
     if (!ts) return "";
     const diff = Date.now() - ts;
     const mins = Math.floor(diff / 60000);
-    if (mins < 60) return mins <= 1 ? "1m ago" : mins + "m ago";
+    if (mins < 60) return mins <= 1 ? "1 min ago" : mins + " min ago";
     const hours = Math.floor(mins / 60);
     if (hours < 24) return hours + "h ago";
     const days = Math.floor(hours / 24);

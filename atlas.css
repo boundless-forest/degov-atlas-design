@@ -2661,6 +2661,8 @@ summary:focus-visible {
 }
 .event-detail-panel.is-open .event-panel-backdrop {
   opacity: 1;
+  background: rgba(0, 0, 0, 0.66);
+  backdrop-filter: blur(1px);
 }
 .event-panel-content {
   position: relative;
@@ -2927,8 +2929,12 @@ summary:focus-visible {
   font-family: var(--atlas-mono);
   font-size: 0.72rem;
   line-height: 1.45;
-  white-space: normal;
+  white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+.proposal-window-grid .event-panel-metric,
+.discussion-window-grid .event-panel-metric {
+  min-height: 74px;
 }
 .agent-panel-grid .event-panel-metric {
   min-height: 68px;
@@ -3029,6 +3035,171 @@ summary:focus-visible {
 }
 .event-panel-metric {
   min-width: 0;
+}
+
+/* Refined side-panel surface: xAI restraint with Linear-like luminance layering. */
+.event-panel-content {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0.006) 34%),
+    #080a0d;
+  border-color: rgba(255, 255, 255, 0.11);
+  box-shadow:
+    inset 1px 0 0 rgba(153, 255, 153, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.34);
+}
+.event-panel-close-row {
+  padding: 10px 14px 6px;
+}
+.event-panel-close {
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.018);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.event-panel-body {
+  padding: 0 20px 44px;
+}
+.event-panel-meta {
+  gap: 7px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.event-panel-dao-pill,
+.event-panel-meta-text {
+  background: rgba(255, 255, 255, 0.026);
+}
+.event-panel-dao-pill {
+  border-color: rgba(255, 255, 255, 0.13);
+}
+.event-panel-meta-text {
+  padding: 3px 0;
+}
+.event-panel-status-row {
+  margin-bottom: 10px;
+}
+.event-panel-title {
+  margin-bottom: 14px;
+  font-size: 1.14rem;
+  line-height: 1.27;
+  letter-spacing: -0.02em;
+}
+.event-panel-divider {
+  margin: 18px 0 14px;
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+.event-panel-section-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 16px 0 9px;
+  color: rgba(228, 235, 228, 0.66);
+}
+.event-panel-section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+}
+.event-panel-summary,
+.agent-panel-intro,
+.x402-link-stack,
+.agent-install-box,
+.event-panel-metric,
+.event-panel-link {
+  background: rgba(255, 255, 255, 0.024);
+  border-color: rgba(255, 255, 255, 0.095);
+}
+.event-panel-summary,
+.agent-panel-intro,
+.x402-link-stack,
+.agent-install-box {
+  padding: 13px 14px;
+}
+.event-panel-summary-primary,
+.agent-panel-intro {
+  position: relative;
+  border-left-color: rgba(153, 255, 153, 0.52);
+  background:
+    linear-gradient(90deg, rgba(153, 255, 153, 0.052), rgba(153, 255, 153, 0.006) 58%),
+    rgba(255, 255, 255, 0.02);
+}
+.event-panel-summary p,
+.agent-panel-intro p,
+.x402-link-stack p {
+  color: rgba(230, 234, 230, 0.76);
+  font-size: 0.86rem;
+  line-height: 1.58;
+}
+.agent-panel-intro span,
+.agent-install-box span,
+.event-panel-summary-label {
+  color: rgba(153, 255, 153, 0.68);
+}
+.agent-install-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+.agent-install-head span {
+  margin: 0;
+}
+.agent-copy-chip {
+  padding: 3px 7px;
+  border: 1px solid rgba(153, 255, 153, 0.22);
+  background: rgba(153, 255, 153, 0.06);
+  color: rgba(232, 255, 232, 0.78);
+  font-family: var(--atlas-mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+}
+.agent-install-box {
+  border-color: rgba(153, 255, 153, 0.2);
+  background:
+    linear-gradient(180deg, rgba(153, 255, 153, 0.045), rgba(153, 255, 153, 0.014)),
+    rgba(255, 255, 255, 0.018);
+}
+.agent-install-box code {
+  padding: 11px 12px;
+  background: rgba(0, 0, 0, 0.26);
+  border-color: rgba(255, 255, 255, 0.11);
+  color: rgba(246, 249, 246, 0.9);
+}
+.event-panel-metric-grid {
+  gap: 8px;
+  margin-bottom: 0;
+}
+.event-panel-metric {
+  margin: 0;
+  padding: 11px 12px;
+}
+.proposal-window-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.discussion-window-grid,
+.agent-panel-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.event-panel-metric dt {
+  color: rgba(228, 235, 228, 0.56);
+}
+.event-panel-metric dd {
+  margin-top: 5px;
+  color: rgba(248, 250, 248, 0.95);
+  font-size: 0.98rem;
+}
+.event-panel-metric small {
+  margin-top: 4px;
+  color: rgba(228, 235, 228, 0.5);
+}
+.event-panel-link {
+  padding: 10px 12px;
+}
+.event-panel-link:hover {
+  background: rgba(255, 255, 255, 0.048);
+  border-color: rgba(255, 255, 255, 0.19);
 }
 
 @media (max-width: 900px) {
