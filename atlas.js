@@ -1076,6 +1076,31 @@ const EventPanel = (function () {
       );
     }
 
+    /* Universal read model: available for proposals, forum topics, newsletter items, and agent cards. */
+    lines.push('<div class="event-panel-read-model" aria-label="Event data model summary">');
+    lines.push(
+      '<div><dt>Item</dt><dd>' + esc(formatEventType(evt.type)) + '</dd><small>' + esc(formatEventKind(evt.eventKind || evt.eventType)) + '</small></div>'
+    );
+    lines.push(
+      '<div><dt>Status</dt><dd>' + esc(formatStatusLabel(evt.status || "unknown")) + '</dd><small>governance state</small></div>'
+    );
+    lines.push(
+      '<div><dt>Coverage</dt><dd>' + esc(formatCoverageLabel(evt.coverageState)) + '</dd><small>source freshness</small></div>'
+    );
+    lines.push(
+      '<div><dt>Priority</dt><dd>' + esc(evt.importanceBand ? evt.importanceBand : "context") + '</dd><small>' + esc(evt.importanceScore != null ? evt.importanceScore + "/100" : "not scored") + '</small></div>'
+    );
+    lines.push("</div>");
+
+    if (evt.importanceReason) {
+      lines.push('<section class="event-panel-rationale" aria-label="Why this matters">');
+      lines.push('<span>Why this matters</span>');
+      lines.push('<p>' + esc(evt.importanceReason) + '</p>');
+      lines.push('</section>');
+    }
+
+    lines.push(...renderEvidenceLinks(evt));
+
     /* Agent capability detail */
     if (evt.type === "agent-skill" && evt.capability) {
       const c = evt.capability;
@@ -1096,7 +1121,7 @@ const EventPanel = (function () {
     /* Proposal metrics grid */
     if (evt.type === "proposal" && evt.proposal) {
       lines.push('<hr class="event-panel-divider">');
-      lines.push('<div class="event-panel-section-label">Key Metrics</div>');
+      lines.push('<div class="event-panel-section-label">Decision Snapshot</div>');
       lines.push('<div class="event-panel-metric-grid">');
 
       const p = evt.proposal;
@@ -1124,6 +1149,19 @@ const EventPanel = (function () {
 
       lines.push("</div>");
 
+      if (p.voteDistribution) {
+        const dist = p.voteDistribution;
+        const forPct = dist.for ?? 0;
+        const againstPct = dist.against ?? 0;
+        const abstainPct = dist.abstain ?? 0;
+        lines.push('<div class="event-panel-section-label">Vote Shape</div>');
+        lines.push('<div class="event-panel-vote-meter" aria-label="Vote distribution">');
+        lines.push('<span class="vote-meter-for" style="--bar:' + esc(forPct) + '%"><strong>For</strong><em>' + esc(forPct) + '%</em></span>');
+        lines.push('<span class="vote-meter-against" style="--bar:' + esc(againstPct) + '%"><strong>Against</strong><em>' + esc(againstPct) + '%</em></span>');
+        if (abstainPct > 0) lines.push('<span class="vote-meter-abstain" style="--bar:' + esc(abstainPct) + '%"><strong>Abstain</strong><em>' + esc(abstainPct) + '%</em></span>');
+        lines.push('</div>');
+      }
+
       /* AI summary */
       if (p.aiSummary) {
         lines.push('<div class="event-panel-section-label">Summary</div>');
@@ -1139,7 +1177,7 @@ const EventPanel = (function () {
     /* Forum metrics */
     if (evt.type === "forum" && evt.forum) {
       lines.push('<hr class="event-panel-divider">');
-      lines.push('<div class="event-panel-section-label">Discussion Stats</div>');
+      lines.push('<div class="event-panel-section-label">Forum Snapshot</div>');
       lines.push('<div class="event-panel-metric-grid">');
       const f = evt.forum;
       if (f.replyCount != null)
@@ -1153,7 +1191,7 @@ const EventPanel = (function () {
       lines.push("</div>");
 
       if (f.excerpt) {
-        lines.push('<div class="event-panel-section-label">Excerpt</div>');
+        lines.push('<div class="event-panel-section-label">Discussion Context</div>');
         lines.push(
           '<blockquote class="event-panel-excerpt">' +
             esc(f.excerpt) +
@@ -1196,42 +1234,6 @@ const EventPanel = (function () {
       lines.push("</div>");
     }
 
-    /* Quick links */
-    if (evt.links && Object.keys(evt.links).length > 0) {
-      lines.push('<hr class="event-panel-divider">');
-      lines.push('<div class="event-panel-section-label">Quick Links</div>');
-      lines.push('<div class="event-panel-links">');
-      if (evt.links.external)
-        lines.push(
-          '<a class="event-panel-link" href="' +
-            esc(evt.links.external) +
-            '" target="_blank" rel="noopener noreferrer">' +
-            esc(evt.links.externalLabel ?? (evt.type === "proposal" ? "Open Snapshot ↗" : "View source ↗")) +
-            "</a>"
-        );
-      if (evt.links.skillIndex)
-        lines.push(
-          '<a class="event-panel-link" href="' +
-            esc(evt.links.skillIndex) +
-            '" target="_blank" rel="noopener noreferrer">' +
-            esc(evt.links.skillIndexLabel ?? "Browse agent skills ↗") +
-            "</a>"
-        );
-      if (evt.links.forum)
-        lines.push(
-          '<a class="event-panel-link" href="' +
-            esc(evt.links.forum) +
-            '" target="_blank" rel="noopener noreferrer">Open Forum &nearr;</a>'
-        );
-      if (evt.sourceUrl && !evt.links.external)
-        lines.push(
-          '<a class="event-panel-link" href="' +
-            esc(evt.sourceUrl) +
-            '" target="_blank" rel="noopener noreferrer">View source &nearr;</a>'
-        );
-      lines.push("</div>");
-    }
-
     return lines.join("\n");
   }
 
@@ -1266,6 +1268,48 @@ const EventPanel = (function () {
     );
   }
 
+  function renderEvidenceLinks(evt) {
+    const lines = [];
+    if ((!evt.links || Object.keys(evt.links).length === 0) && !evt.sourceUrl) return lines;
+    lines.push('<hr class="event-panel-divider event-panel-divider-compact">');
+    lines.push('<div class="event-panel-section-label">Evidence Links</div>');
+    lines.push('<div class="event-panel-links event-panel-links-compact">');
+    if (evt.links?.external) {
+      lines.push(
+        '<a class="event-panel-link" href="' +
+          esc(evt.links.external) +
+          '" target="_blank" rel="noopener noreferrer">' +
+          esc(evt.links.externalLabel ?? (evt.type === "proposal" ? "Open Snapshot ↗" : "View source ↗")) +
+          "</a>"
+      );
+    }
+    if (evt.links?.skillIndex) {
+      lines.push(
+        '<a class="event-panel-link" href="' +
+          esc(evt.links.skillIndex) +
+          '" target="_blank" rel="noopener noreferrer">' +
+          esc(evt.links.skillIndexLabel ?? "Browse agent skills ↗") +
+          "</a>"
+      );
+    }
+    if (evt.links?.forum) {
+      lines.push(
+        '<a class="event-panel-link" href="' +
+          esc(evt.links.forum) +
+          '" target="_blank" rel="noopener noreferrer">Open Forum &nearr;</a>'
+      );
+    }
+    if (evt.sourceUrl && !evt.links?.external) {
+      lines.push(
+        '<a class="event-panel-link" href="' +
+          esc(evt.sourceUrl) +
+          '" target="_blank" rel="noopener noreferrer">View source &nearr;</a>'
+      );
+    }
+    lines.push("</div>");
+    return lines;
+  }
+
   function formatEventType(type) {
     const map = {
       proposal: "Proposal",
@@ -1275,6 +1319,25 @@ const EventPanel = (function () {
       "agent-skill": "Agent-ready layer",
     };
     return map[type] ?? type;
+  }
+
+  function formatEventKind(kind) {
+    if (!kind) return "event";
+    return String(kind).replace(/[_-]+/g, " ");
+  }
+
+  function formatCoverageLabel(state) {
+    if (!state) return "read model";
+    const map = {
+      fresh: "fresh",
+      partial: "partial",
+      stale: "stale",
+      degraded: "degraded",
+      unknown: "unknown",
+      not_available_for_source: "not available",
+      not_normalized_yet: "not normalized",
+    };
+    return map[state] ?? String(state).replace(/[_-]+/g, " ");
   }
 
   function formatStatusLabel(status) {
