@@ -1508,11 +1508,85 @@ function initEventPanelTriggers() {
   });
 }
 
+function initOlderProposalsPanel() {
+  const panel = document.getElementById("older-proposals-panel");
+  if (!panel) return;
+
+  const sheet = panel.querySelector(".older-proposals-sheet");
+  const openButtons = document.querySelectorAll("[data-older-proposals-open]");
+  const closeButtons = panel.querySelectorAll("[data-older-proposals-close]");
+  let triggerElement = null;
+
+  function focusableItems() {
+    return Array.from(
+      panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
+    ).filter((item) => !item.disabled && item.offsetParent !== null);
+  }
+
+  function open(trigger) {
+    triggerElement = trigger;
+    panel.classList.add("is-open");
+    panel.setAttribute("aria-hidden", "false");
+    panel.removeAttribute("inert");
+    document.body.style.overflow = "hidden";
+    requestAnimationFrame(() => {
+      const closeButton = panel.querySelector(".older-proposals-close");
+      if (closeButton) closeButton.focus();
+    });
+    document.addEventListener("keydown", handleKeydown);
+  }
+
+  function close() {
+    panel.classList.remove("is-open");
+    panel.setAttribute("aria-hidden", "true");
+    panel.setAttribute("inert", "");
+    document.body.style.overflow = "";
+    document.removeEventListener("keydown", handleKeydown);
+    if (triggerElement) triggerElement.focus({ preventScroll: true });
+    triggerElement = null;
+  }
+
+  function handleKeydown(event) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      close();
+      return;
+    }
+    if (event.key !== "Tab") return;
+
+    const items = focusableItems();
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  openButtons.forEach((button) => {
+    button.addEventListener("click", () => open(button));
+  });
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", close);
+  });
+  panel.addEventListener("click", (event) => {
+    if (event.target.matches("[data-older-proposals-close]")) close();
+  });
+  if (sheet) {
+    sheet.addEventListener("click", (event) => event.stopPropagation());
+  }
+}
+
 /* ── Bootstrap ────────────────────────────────────────────────────── */
 
 function initAtlasPrototype() {
   initDaoSearch();
   initEventPanelTriggers();
+  initOlderProposalsPanel();
 }
 
 if (document.readyState === "loading") {
