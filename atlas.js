@@ -969,6 +969,8 @@ const EventPanel = (function () {
       });
     });
 
+    initAiAnalysisFlows(bodyEl);
+
     document.addEventListener("keydown", handleKeydown);
     backdrop.addEventListener("click", handleBackdropClick);
   }
@@ -1201,21 +1203,23 @@ const EventPanel = (function () {
     const lines = [];
     const summary = evt.proposal?.aiSummary || evt.description || evt.forum?.excerpt || evt.importanceReason || evt.title;
     lines.push('<hr class="event-panel-divider">');
-    lines.push('<div class="event-panel-section-label">AI Summary</div>');
-    lines.push('<div class="event-panel-summary event-panel-summary-primary"><p>' + esc(summary) + '</p></div>');
+    lines.push(renderAiAnalysisPanel(evt, summary));
 
     if (evt.type === "proposal" && evt.proposal) {
       const p = evt.proposal;
+      lines.push('<section class="proposal-window-panel">');
       lines.push('<div class="event-panel-section-label">Vote Window</div>');
       lines.push('<div class="event-panel-metric-grid event-panel-metric-grid-simple proposal-window-grid">');
-      if (p.totalVotes) lines.push(metricCard("Votes", esc(p.totalVotes), p.uniqueVoters ? esc(fmt(p.uniqueVoters)) + " voters" : ""));
-      else if (p.uniqueVoters) lines.push(metricCard("Voters", esc(fmt(p.uniqueVoters)), ""));
+      lines.push(metricCard("Vote status", evt.status ? formatStatusLabel(evt.status) : "Unknown", p.endAt && p.endAt <= Date.now() ? "finalized" : "live context"));
       if (p.startAt) lines.push(metricCard("Start", formatPanelDate(p.startAt), ""));
       if (p.endAt) {
         const endingSub = p.endAt > Date.now() ? formatDuration(p.endAt - Date.now()) + " left" : "closed";
         lines.push(metricCard("Ending", formatPanelDate(p.endAt), endingSub));
       }
+      if (p.totalVotes) lines.push(metricCard("Votes", esc(p.totalVotes), p.uniqueVoters ? esc(fmt(p.uniqueVoters)) + " voters" : ""));
+      else if (p.uniqueVoters) lines.push(metricCard("Voters", esc(fmt(p.uniqueVoters)), ""));
       lines.push("</div>");
+      lines.push("</section>");
       lines.push(...renderEvidenceLinks(evt, "Quick Links"));
       return lines;
     }
@@ -1229,6 +1233,129 @@ const EventPanel = (function () {
       lines.push(...renderEvidenceLinks(evt, "Quick Links"));
     }
     return lines;
+  }
+
+  function renderAiAnalysisPanel(evt, summary) {
+    const contextSources = evt.type === "proposal"
+      ? ["proposal", "votes", "dao activity", "timeline", "voter context"]
+      : ["forum", "dao activity", "timeline", "participants", "source thread"];
+    const sourceRows = contextSources
+      .map((source, index) => {
+        const status = index === 0 ? "reading" : index < 3 ? "pending" : "queued";
+        return '<span class="ai-source-chip" data-source-index="' + index + '" data-source-state="' + status + '"><span class="ai-source-dot" aria-hidden="true"></span>' + esc(source) + '<em>' + status + '</em></span>';
+      })
+      .join("");
+    const result = buildAiAnalysisResult(evt, summary);
+    const bullets = result.bullets.map((item) => '<li>' + esc(item) + '</li>').join("");
+    const outcome = result.outcomes.map((item) => '<span><b>' + esc(item.label) + '</b>' + esc(item.value) + '</span>').join("");
+    return (
+      '<section class="ai-analysis-panel" data-ai-analysis data-analysis-state="loading" aria-live="polite">' +
+      '<div class="ai-analysis-head"><div><div class="event-panel-section-label ai-analysis-label">ai analysis</div><p class="ai-analysis-status" data-analysis-status>reading governance context...</p></div><span class="ai-analysis-state-chip" data-analysis-chip><span aria-hidden="true"></span> active</span></div>' +
+      '<div class="ai-source-grid" aria-label="Analysis source status">' + sourceRows + '</div>' +
+      '<div class="ai-analysis-progress" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>' +
+      '<div class="ai-state-layer ai-state-loading"><p>Reading proposal text, vote timing, DAO context, and voter activity.</p><div class="ai-skeleton-lines" aria-hidden="true"><span></span><span></span><span></span></div></div>' +
+      '<div class="ai-state-layer ai-state-streaming"><p class="ai-terminal-line">generating governance brief<span class="ai-cursor" aria-hidden="true"></span></p><p class="ai-stream-copy">Checking evidence consistency before returning a concise proposal signal.</p></div>' +
+      '<div class="ai-state-layer ai-state-complete"><p class="ai-tldr"><span>tl;dr</span>' + esc(result.tldr) + '</p><ul class="ai-insight-list">' + bullets + '</ul><div class="ai-outcome-row">' + outcome + '</div></div>' +
+      '<div class="ai-state-layer ai-state-error"><p><span>analysis unavailable</span> The request timed out before Atlas could return a trustworthy brief.</p><button type="button" data-analysis-action="retry">retry analysis</button></div>' +
+      '<div class="ai-analysis-footer"><span data-analysis-meta>deepseek v4 flash · generating now</span><div class="ai-analysis-actions"><button type="button" data-analysis-action="copy">copy</button><button type="button" data-analysis-action="regenerate">regenerate</button><button type="button" data-analysis-action="sources">show sources</button></div></div>' +
+      '<div class="ai-sources-used" data-analysis-sources hidden>Analysis uses proposal content, voting context, and recent DAO activity: ' + esc(contextSources.join(" · ")) + '</div>' +
+      '</section>'
+    );
+  }
+
+  function buildAiAnalysisResult(evt, summary) {
+    const p = evt.proposal;
+    const titleSubject = evt.daoName ? evt.daoName + " signal" : "Governance signal";
+    const tldr = summary.length > 112 ? summary.slice(0, 109).replace(/\s+\S*$/, "") + "..." : summary;
+    const bullets = [];
+    if (p?.turnout != null) bullets.push("Participation is visible enough to compare against normal DAO activity.");
+    if (p?.voteDistribution) {
+      const forPct = p.voteDistribution.for;
+      const againstPct = p.voteDistribution.against;
+      if (forPct != null && againstPct != null) bullets.push("Current posture is " + forPct + "% for / " + againstPct + "% against.");
+    }
+    if (p?.endAt) bullets.push(p.endAt > Date.now() ? "Decision window remains open; execution assumptions are not final." : "Voting is closed; use this as post-vote context.");
+    bullets.push(evt.type === "forum" ? "Thread activity is context, not a final on-chain decision." : titleSubject + " is grounded in proposal text, vote timing, and DAO activity.");
+    while (bullets.length < 3) bullets.push("Atlas compares proposal evidence with recent governance activity before summarizing.");
+    const outcomes = [];
+    if (evt.status) outcomes.push({ label: "status", value: formatStatusLabel(evt.status).toLowerCase() });
+    if (p?.totalVotes) outcomes.push({ label: "votes", value: p.totalVotes });
+    else if (p?.uniqueVoters) outcomes.push({ label: "voters", value: fmt(p.uniqueVoters) });
+    if (p?.turnout != null) outcomes.push({ label: "participation", value: String(p.turnout) + "%" });
+    if (!outcomes.length && evt.forum?.replyCount != null) outcomes.push({ label: "replies", value: String(evt.forum.replyCount) });
+    return { tldr, bullets: bullets.slice(0, 3), outcomes };
+  }
+
+  function initAiAnalysisFlows(root) {
+    root.querySelectorAll("[data-ai-analysis]").forEach((panel) => {
+      const timers = [];
+      const setState = (state) => {
+        panel.dataset.analysisState = state;
+        const status = panel.querySelector("[data-analysis-status]");
+        const chip = panel.querySelector("[data-analysis-chip]");
+        const meta = panel.querySelector("[data-analysis-meta]");
+        if (state === "loading") {
+          if (status) status.textContent = "reading governance context...";
+          if (chip) chip.innerHTML = '<span aria-hidden="true"></span> active';
+          if (meta) meta.textContent = "deepseek v4 flash · generating now";
+          updateSourceStates(panel, ["reading", "pending", "pending", "queued", "queued"]);
+        } else if (state === "streaming") {
+          if (status) status.textContent = "analyzing governance signal...";
+          if (chip) chip.innerHTML = '<span aria-hidden="true"></span> streaming';
+          if (meta) meta.textContent = "deepseek v4 flash · streaming now";
+          updateSourceStates(panel, ["ready", "ready", "reading", "reading", "pending"]);
+        } else if (state === "complete") {
+          if (status) status.textContent = "analysis complete";
+          if (chip) chip.innerHTML = '<span aria-hidden="true"></span> ready';
+          if (meta) meta.textContent = "deepseek v4 flash · generated now";
+          updateSourceStates(panel, ["ready", "ready", "ready", "ready", "ready"]);
+        } else if (state === "error") {
+          if (status) status.textContent = "analysis paused";
+          if (chip) chip.innerHTML = '<span aria-hidden="true"></span> retry';
+          if (meta) meta.textContent = "deepseek v4 flash · request timed out";
+          updateSourceStates(panel, ["ready", "ready", "ready", "pending", "pending"]);
+        }
+      };
+      const schedule = () => {
+        timers.splice(0).forEach(clearTimeout);
+        setState("loading");
+        timers.push(setTimeout(() => setState("streaming"), 900));
+        timers.push(setTimeout(() => setState("complete"), 2300));
+      };
+      panel.querySelectorAll("[data-analysis-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const action = button.dataset.analysisAction;
+          if (action === "regenerate" || action === "retry") schedule();
+          if (action === "error") {
+            timers.splice(0).forEach(clearTimeout);
+            setState("error");
+          }
+          if (action === "sources") {
+            const sources = panel.querySelector("[data-analysis-sources]");
+            if (sources) sources.hidden = !sources.hidden;
+            button.textContent = sources && !sources.hidden ? "hide sources" : "show sources";
+          }
+          if (action === "copy") {
+            const text = panel.querySelector(".ai-state-complete")?.innerText || "";
+            navigator.clipboard?.writeText?.(text).catch(() => {});
+            button.textContent = "copied";
+            setTimeout(() => {
+              button.textContent = "copy";
+            }, 1400);
+          }
+        });
+      });
+      schedule();
+    });
+  }
+
+  function updateSourceStates(panel, states) {
+    panel.querySelectorAll(".ai-source-chip").forEach((chip, index) => {
+      const state = states[index] || "pending";
+      chip.dataset.sourceState = state;
+      const label = chip.querySelector("em");
+      if (label) label.textContent = state;
+    });
   }
 
   function metricCard(label, value, sub) {

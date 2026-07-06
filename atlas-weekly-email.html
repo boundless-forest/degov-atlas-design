@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Standalone DeGov Atlas weekly governance email notification prototype.">
+<title>DeGov Atlas — Weekly Signal Email</title>
+<style>
+:root {
+  /* ─── Surface ───────────────────────────────────────────────────── */
+  --bg:           #1f2228;
+  --surface:      rgba(255, 255, 255, 0.03);
+  --surface-warm: rgba(255, 255, 255, 0.05);
+
+  /* ─── Foreground ────────────────────────────────────────────────── */
+  --fg:    #ffffff;
+  --fg-2:  rgba(255, 255, 255, 0.7);
+  --muted: rgba(255, 255, 255, 0.5);
+  --meta:  rgba(255, 255, 255, 0.3);
+
+  /* ─── Border ────────────────────────────────────────────────────── */
+  --border:      rgba(255, 255, 255, 0.1);
+  --border-soft: rgba(255, 255, 255, 0.05);
+
+  /* ─── Accent ────────────────────────────────────────────────────── */
+  --accent:        #ffffff;
+  --accent-on:     #1f2228;
+  --accent-hover:  rgba(255, 255, 255, 0.9);
+  --accent-active: rgba(255, 255, 255, 0.8);
+
+  /* ─── Semantic ──────────────────────────────────────────────────── */
+  --success: #16a34a;
+  --warn:    #eab308;
+  --danger:  #dc2626;
+
+  /* ─── Typography — fonts ────────────────────────────────────────── */
+  --font-display: "GeistMono", ui-monospace, "SF Mono", "Roboto Mono", Menlo, Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
+  --font-body:    "universalSans", "universalSans Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "GeistMono", ui-monospace, "SF Mono", "Roboto Mono", Menlo, Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
+
+  /* Type scale */
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  30px;
+  --text-3xl:  40px;
+  --text-4xl:  64px;
+
+  /* Leading + tracking. */
+  --leading-body:     1.5;
+  --leading-tight:    1.2;
+  --tracking-display: normal;
+
+  /* ─── Spacing ───────────────────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+
+  /* Section rhythm */
+  --section-y-desktop: 96px;
+  --section-y-tablet:  64px;
+  --section-y-phone:   48px;
+
+  /* ─── Radius ────────────────────────────────────────────────────── */
+  --radius-sm:   0px;
+  --radius-md:   0px;
+  --radius-lg:   4px;
+  --radius-pill: 9999px;
+
+  /* ─── Elevation ─────────────────────────────────────────────────── */
+  --elev-flat:   none;
+  --elev-ring:   0 0 0 1px var(--border);
+  --elev-raised: none;
+
+  /* ─── Focus ─────────────────────────────────────────────────────── */
+  --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.5);
+
+  /* ─── Motion ────────────────────────────────────────────────────── */
+  --motion-fast:   150ms;
+  --motion-base:   200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ─── Layout ────────────────────────────────────────────────────── */
+  --container-max:            1200px;
+  --container-gutter-desktop: 24px;
+  --container-gutter-tablet:  16px;
+  --container-gutter-phone:   12px;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--muted); }
+.wrapper {
+  min-height: 100vh;
+  padding: var(--space-12) var(--space-6);
+  display: grid;
+  place-items: start center;
+}
+.email-shell {
+  width: min(100%, 760px);
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+.email-preheader {
+  padding: var(--space-3) var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.email-masthead {
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  border-bottom: 1px solid var(--border);
+}
+.brand-row,
+.issue-row,
+.signal-row,
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: var(--accent);
+  color: var(--accent-on);
+  font-family: var(--font-mono);
+}
+.brand-copy strong,
+.brand-copy span {
+  display: block;
+}
+.brand-copy strong {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 400;
+}
+.brand-copy span,
+.issue-date,
+.caption,
+.meta,
+.footer-note {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.issue-tag,
+.status-tag,
+.source-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.issue-tag.is-live,
+.status-tag.is-green {
+  border-color: color-mix(in srgb, var(--success) 42%, transparent);
+  color: color-mix(in srgb, var(--success) 78%, var(--fg));
+}
+.hero-title {
+  margin: var(--space-8) 0 var(--space-4);
+  max-width: 680px;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 8vw, 82px);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: var(--tracking-display);
+}
+.hero-deck {
+  max-width: 620px;
+  margin: 0;
+  color: var(--fg-2);
+  font-size: var(--text-lg);
+}
+.issue-ledger {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.ledger-item {
+  padding: var(--space-4);
+  border-right: 1px solid var(--border-soft);
+}
+.ledger-item:last-child { border-right: 0; }
+.ledger-item dt {
+  margin: 0 0 var(--space-2);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.ledger-item dd {
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+}
+.email-body { padding: var(--space-8); }
+.section-label {
+  margin: 0 0 var(--space-3);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.dispatch-card,
+.article-card,
+.signal-card,
+.watch-card,
+.quote-panel {
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.dispatch-card { padding: var(--space-6); }
+.dispatch-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-4);
+}
+.dispatch-card h2,
+.article-card h2,
+.watch-card h2 {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+}
+.dispatch-card p,
+.article-card p {
+  margin: var(--space-3) 0 0;
+  color: var(--fg-2);
+}
+.signal-stack {
+  display: grid;
+  gap: var(--space-2);
+}
+.signal-card {
+  padding: var(--space-3);
+}
+.signal-card strong,
+.signal-card span { display: block; }
+.signal-card strong {
+  font-size: var(--text-sm);
+  font-weight: 400;
+}
+.signal-card span {
+  margin-top: var(--space-1);
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.article-card {
+  margin-top: var(--space-6);
+  padding: 0;
+}
+.article-header,
+.article-copy,
+.article-actions,
+.watch-list,
+.quote-panel {
+  padding: var(--space-6);
+}
+.article-header {
+  border-bottom: 1px solid var(--border);
+}
+.article-title {
+  margin: var(--space-3) 0 0;
+  max-width: 620px;
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.article-copy {
+  display: grid;
+  gap: var(--space-5);
+}
+.article-copy p { margin: 0; }
+.article-copy .lead {
+  color: var(--fg);
+  font-size: var(--text-lg);
+}
+.evidence-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  border: 1px solid var(--border-soft);
+}
+.evidence-list li {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-soft);
+}
+.evidence-list li:last-child { border-bottom: 0; }
+.evidence-list span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.evidence-list strong { font-weight: 400; }
+.quote-panel {
+  margin-top: var(--space-2);
+  background: var(--surface-warm);
+}
+.quote-panel p {
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  line-height: 1.4;
+}
+.watch-card {
+  margin-top: var(--space-6);
+}
+.watch-head {
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--border);
+}
+.watch-list {
+  display: grid;
+  gap: 0;
+}
+.watch-row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.watch-row:last-child { border-bottom: 0; }
+.watch-row .dao {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.watch-row .title {
+  color: var(--fg-2);
+  min-width: 0;
+}
+.article-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+.button.primary {
+  background: var(--accent);
+  color: var(--accent-on);
+  border-color: var(--accent);
+}
+.button:hover { background: var(--surface-warm); color: var(--fg); }
+.button.primary:hover { background: var(--accent-hover); color: var(--accent-on); }
+.email-footer {
+  padding: var(--space-6) var(--space-8);
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+}
+.footer-row { align-items: flex-start; }
+.footer-links {
+  display: flex;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+@media (max-width: 720px) {
+  .wrapper { padding: var(--space-4); }
+  .email-masthead,
+  .email-body,
+  .email-footer { padding-left: var(--space-5); padding-right: var(--space-5); }
+  .brand-row,
+  .issue-row,
+  .footer-row { align-items: flex-start; flex-direction: column; }
+  .issue-ledger { grid-template-columns: repeat(2, 1fr); }
+  .ledger-item:nth-child(2) { border-right: 0; }
+  .ledger-item:nth-child(-n+2) { border-bottom: 1px solid var(--border-soft); }
+  .dispatch-grid { grid-template-columns: 1fr; }
+  .article-title { font-size: var(--text-2xl); }
+  .watch-row { grid-template-columns: 1fr; gap: var(--space-2); }
+  .evidence-list li { grid-template-columns: 1fr; gap: var(--space-1); }
+}
+</style>
+</head>
+<body>
+  <main class="wrapper" aria-label="Standalone Atlas weekly email UI prototype">
+    <article class="email-shell" aria-labelledby="email-title">
+      <div class="email-preheader">Atlas weekly signal · governance briefing for inbox review</div>
+      <header class="email-masthead">
+        <div class="brand-row">
+          <div class="brand-lockup">
+            <span class="brand-mark" aria-hidden="true">D</span>
+            <span class="brand-copy"><strong>DeGov Atlas</strong><span>Governance intelligence</span></span>
+          </div>
+          <span class="issue-tag is-live">Weekly dispatch</span>
+        </div>
+        <h1 id="email-title" class="hero-title">Signal packet / 07</h1>
+        <div class="issue-row">
+          <p class="hero-deck">A compressed inbox briefing for active votes, execution follow-through, and governance risk that should not wait for the web dashboard.</p>
+          <span class="issue-date">Jun 26, 2026</span>
+        </div>
+      </header>
+
+      <dl class="issue-ledger" aria-label="Issue summary">
+        <div class="ledger-item"><dt>DAOs</dt><dd>16</dd></div>
+        <div class="ledger-item"><dt>Live votes</dt><dd>21</dd></div>
+        <div class="ledger-item"><dt>Ending soon</dt><dd>06</dd></div>
+        <div class="ledger-item"><dt>Read</dt><dd>5m</dd></div>
+      </dl>
+
+      <div class="email-body">
+        <section class="dispatch-card" aria-labelledby="dispatch-title">
+          <div class="dispatch-grid">
+            <div>
+              <p class="section-label">Why this email exists</p>
+              <h2 id="dispatch-title">Not an article. Not the archive. A weekly decision packet.</h2>
+              <p>This notification leads with the governance actions a subscriber can take this week, then gives one editorial mock article to explain the dominant pattern behind the signals.</p>
+            </div>
+            <div class="signal-stack" aria-label="Key signals">
+              <div class="signal-card"><strong>Aave risk vote ends in 38h</strong><span>parameter changes are moving from forum review to vote execution</span></div>
+              <div class="signal-card"><strong>Uniswap budget renewal active</strong><span>delegates are asking for clearer milestone reporting</span></div>
+              <div class="signal-card"><strong>Arbitrum grant cohort executed</strong><span>follow-through items are now visible in the execution queue</span></div>
+              <div class="signal-card"><strong>Maker / Sky rate review queued</strong><span>risk stewards are watching DSR and stability-fee updates</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="article-card" aria-labelledby="mock-article-title">
+          <header class="article-header">
+            <div class="signal-row">
+              <span class="source-tag">Mock article</span>
+              <span class="status-tag is-green">Actionable this week</span>
+            </div>
+            <h2 id="mock-article-title" class="article-title">risk controls are becoming the week’s governance center of gravity</h2>
+            <p class="caption">A sample Atlas email story using current governance-style content and inbox-first hierarchy.</p>
+          </header>
+          <div class="article-copy">
+            <p class="lead">The strongest signal this week is not proposal volume. It is the way major DAOs are moving risk controls, budget accountability, and execution checks into formal decision paths at the same time.</p>
+            <p>Aave’s long-tail market update is the clearest example: delegate comments have narrowed around conservative parameter changes, while service providers are publishing the evidence needed for voters to act before the deadline. Uniswap’s v4 growth budget shows the same pattern from a different angle: spending can move forward, but delegates want tighter milestones before approving another program cycle.</p>
+            <ul class="evidence-list" aria-label="Evidence in this mock article">
+              <li><span>Vote window</span><strong>Aave closes in 38 hours; three large delegates have posted rationale.</strong></li>
+              <li><span>Budget signal</span><strong>Uniswap renewal is active, with milestone reporting now the main discussion point.</strong></li>
+              <li><span>Execution</span><strong>Arbitrum cohort-three grant payload is complete and moving into follow-up reporting.</strong></li>
+            </ul>
+            <p>The practical read: this is a week for reviewing active votes, not just reading summaries. Risk and budget items are close enough to execution that passive subscribers should click through to source threads before the next issue lands.</p>
+            <aside class="quote-panel" aria-label="Editorial readout">
+              <p>readout: governance attention is shifting from “what should be funded?” to “what evidence is enough to execute?”</p>
+            </aside>
+          </div>
+          <div class="article-actions">
+            <a class="button primary" href="daos-detail.html">Review Aave signal</a>
+            <a class="button" href="governance-feed.html">Open governance feed</a>
+          </div>
+        </section>
+
+        <section class="watch-card" aria-labelledby="watch-title">
+          <div class="watch-head">
+            <p class="section-label">Vote watchlist</p>
+            <h2 id="watch-title">What to check before Friday</h2>
+          </div>
+          <div class="watch-list" role="list">
+            <div class="watch-row" role="listitem"><span class="dao">AAVE</span><span class="title">risk parameter update for long-tail markets</span><span class="status-tag is-green">38h</span></div>
+            <div class="watch-row" role="listitem"><span class="dao">UNISWAP</span><span class="title">v4 growth budget renewal</span><span class="status-tag">active</span></div>
+            <div class="watch-row" role="listitem"><span class="dao">ENS</span><span class="title">resolver operations funding continuation</span><span class="status-tag">forum</span></div>
+            <div class="watch-row" role="listitem"><span class="dao">MAKER / SKY</span><span class="title">stability fee and DSR monitoring update</span><span class="status-tag">review</span></div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="email-footer">
+        <div class="footer-row">
+          <p class="footer-note">You are receiving this mock Atlas weekly notification because the prototype is testing an inbox-first briefing format distinct from the web newsletter archive.</p>
+          <nav class="footer-links" aria-label="Email footer links"><a href="newsletters-list.html">Archive</a><a href="dao-list.html">DAOs</a><a href="governance-feed.html">Feed</a></nav>
+        </div>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
