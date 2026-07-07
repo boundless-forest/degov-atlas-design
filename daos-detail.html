@@ -95,7 +95,7 @@
       </div>
       <div class="shape-pills shape-metric-pills" aria-label="DAO voter intelligence snapshot">
         <div class="shape-pill shape-metric metric-voters" tabindex="0" data-chart-hover='{"label":"Unique voters","value":"18,400","detail":"Wallets that cast at least one vote in the 24-month window. Peak of 11,200 in May 2026."}'><span>Voters</span><strong>18.4k</strong><em>Peak 11k</em></div>
-        <div class="shape-pill shape-metric metric-delegates" tabindex="0" data-chart-hover='{"label":"Top voter rows","value":"50 ranked rows","detail":"Rows returned by /voters/ranking, sorted by voting power and participation. This is not an active-delegate estimate."}'><span>Top rows</span><strong>50</strong><em>10 shown</em></div>
+
         <div class="shape-pill shape-metric metric-share" tabindex="0" data-chart-hover='{"label":"Top 10 share","value":"46%","detail":"Share of voting power held by the ten largest voters. Moderate concentration."}'><span>Top 10</span><strong>46%</strong><em>Share</em></div>
         <div class="shape-pill shape-metric metric-hit" tabindex="0" data-chart-hover='{"label":"Proposal pass ratio","value":"86%","detail":"30 of 35 known closed outcomes passed or executed."}'><span>Pass %</span><strong>86%</strong><em>30 / 35</em></div>
         <div class="shape-pill shape-metric metric-miss" tabindex="0" data-chart-hover='{"label":"Proposal fail ratio","value":"14%","detail":"5 of 35 known closed outcomes were defeated."}'><span>Fail %</span><strong>14%</strong><em>5 / 35</em></div>
@@ -203,7 +203,7 @@
       <div class="concentration-bars" aria-label="Voter concentration metrics">
         <div class="conc-row" tabindex="0" data-chart-hover='{"label":"Largest voter share","value":"18%","detail":"The top voter can materially affect close proposals."}'><span>Largest voter share</span><strong>18%</strong><i style="--bar:18%"></i></div>
         <div class="conc-row" tabindex="0" data-chart-hover='{"label":"Top 10 share","value":"46%","detail":"Top-ten voting power across recent proposals."}'><span>Top 10 share</span><strong>46%</strong><i style="--bar:46%"></i></div>
-        <div class="conc-row" tabindex="0" data-chart-hover='{"label":"Top voter rows","value":"10 visible of 50 ranked rows","detail":"Visible rows from /voters/ranking, ordered by voting power. It is a display coverage count, not a DAO-wide voter count."}'><span>Top voter rows</span><strong>10</strong><i style="--bar:100%"></i></div>
+
         <div class="conc-row" tabindex="0" data-chart-hover='{"label":"Observed voters","value":"18.4k","detail":"DAO-wide unique voter count from normalized vote rows."}'><span>Observed voters</span><strong>18.4k</strong><i style="--bar:100%"></i></div>
       </div>
     </div>
@@ -267,7 +267,7 @@
     "top-voters": { label: "Top 10 voters", value: "Largest voting-power accounts", detail: "Ranks voters by voting power observed in the selected window. The share column shows each account's portion of recent voting power." },
     "participation-depth": { label: "Participation depth", value: "How often voters return", detail: "Groups voters by number of proposals they voted on. A large one-vote bucket means many occasional voters; larger repeat buckets mean a deeper delegate base." },
     "voting-power-distribution": { label: "Voting power distribution", value: "Voters by voting-power band", detail: "Shows how many voters sit in each voting-power range. It helps separate broad voter count from concentrated voting weight." },
-    "concentration-quorum": { label: "Voter concentration", value: "Backend-backed voter concentration metrics", detail: "Compares largest-voter share, top-ten share, top voter ranking rows, and observed voter count. DAO-level quorum hit-rate is omitted from this card." },
+    "concentration-quorum": { label: "Voter concentration", value: "Backend-backed voter concentration metrics", detail: "Compares largest-voter share, top-ten share, and observed voter count. DAO-level quorum hit-rate and ranking-row counts are omitted from this card." },
     "time-series-trends": { label: "Time-series trends", value: "Available chart-ready series", detail: "Shows proposal count by month, unique voters by month, and quorum requirements over proposal dates. Missing backend series are intentionally omitted." },
     "proposals-over-time": { label: "Proposals over time", value: "Monthly proposal count", detail: "Tracks proposals_created buckets from the DAO timeline endpoint. Active-decision history is not charted because it is not exposed as a monthly series." },
     "voters-over-time": { label: "Voters over time", value: "Monthly unique voters", detail: "Tracks unique_voters buckets from the DAO timeline endpoint. New-voter cohorts are not charted without a monthly cohort series." },
