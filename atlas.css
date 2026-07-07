@@ -13095,3 +13095,211 @@ body,
   color: rgba(236, 255, 236, 0.92);
   font-size: 0.66rem;
 }
+
+/* DAO detail P0/P1 UI polish — 2026-07-07 */
+.dao-overview-copy h1,
+.dao-title-line h1 {
+  font-size: clamp(2.05rem, 2.75vw, 2.72rem);
+  line-height: 1.04;
+  letter-spacing: -0.05em;
+}
+.shape-snapshot-head > strong {
+  min-width: 94px;
+  padding-inline: 9px;
+  font-size: 0.58rem;
+  text-align: center;
+  white-space: nowrap;
+}
+.shape-closed-strip {
+  gap: 1px;
+  border-color: rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.075);
+}
+.shape-closed-strip > div {
+  padding: 8px 9px;
+  background: rgba(255,255,255,0.018);
+}
+.shape-closed-strip span {
+  color: var(--atlas-faint);
+}
+.shape-closed-strip strong {
+  color: var(--atlas-ink);
+}
+.atlas-command-strip .market-strip {
+  padding-right: 38px;
+  -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 58px), rgba(0,0,0,0.38) calc(100% - 30px), transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 58px), rgba(0,0,0,0.38) calc(100% - 30px), transparent 100%);
+}
+.atlas-command-strip::after {
+  right: 11px;
+  bottom: 11px;
+  border-color: rgba(111,255,176,0.28);
+  background: rgba(8,10,12,0.94);
+  color: var(--atlas-green);
+}
+.top-voter-row,
+.top-voter-table-expanded .top-voter-row,
+.distribution-card .top-voter-row {
+  grid-template-columns: 20px minmax(96px, 1fr) 58px minmax(78px, 0.72fr) 36px;
+}
+.top-voter-id {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--atlas-ink);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.top-voter-id::after {
+  content: "copy";
+  margin-left: 6px;
+  color: var(--atlas-faint);
+  font-size: 0.52rem;
+  letter-spacing: 0.42px;
+}
+.top-voter-id:hover::after,
+.top-voter-id:focus-visible::after,
+.top-voter-id.is-copied::after {
+  color: var(--atlas-green);
+}
+.power-row {
+  grid-template-columns: 74px 46px minmax(74px, 1fr) 42px;
+  padding-right: 8px;
+}
+.power-row i {
+  margin-right: 4px;
+}
+.concentration-chart .concentration-bars {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.concentration-chart .conc-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 7px 8px;
+  border-color: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.016);
+}
+.concentration-chart .conc-row strong {
+  min-width: 48px;
+}
+.concentration-chart .conc-row i {
+  grid-column: 1 / -1;
+  height: 6px;
+}
+.concentration-chart .conc-row:nth-child(1) i {
+  border-color: rgba(111,255,176,0.22);
+  background: linear-gradient(90deg, rgba(111,255,176,0.7) var(--bar), rgba(255,255,255,0.05) var(--bar));
+}
+.concentration-chart .conc-row:nth-child(2) {
+  border-color: rgba(251,191,36,0.22);
+  background: rgba(251,191,36,0.028);
+}
+.concentration-chart .conc-row:nth-child(2) strong {
+  color: var(--atlas-amber);
+}
+.concentration-chart .conc-row:nth-child(2) i {
+  border-color: rgba(251,191,36,0.26);
+  background: linear-gradient(90deg, rgba(251,191,36,0.78) var(--bar), rgba(255,255,255,0.05) var(--bar));
+}
+.concentration-chart .conc-row:nth-child(3) {
+  border-color: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.01);
+}
+.concentration-chart .conc-row:nth-child(3) strong {
+  color: var(--atlas-ink);
+}
+.concentration-chart .conc-row:nth-child(3) i {
+  border-color: rgba(255,255,255,0.1);
+  background: linear-gradient(90deg, rgba(255,255,255,0.2) var(--bar), rgba(255,255,255,0.045) var(--bar));
+  opacity: 0.7;
+}
+.history-status-semantic {
+  margin: -1px 0 1px;
+}
+.history-status-legend.history-status-semantic .is-live,
+.history-outcome-inline .is-active strong {
+  color: var(--atlas-amber);
+}
+.history-status-legend.history-status-semantic .is-passed {
+  color: var(--atlas-green);
+}
+.history-status-legend.history-status-semantic .is-executed {
+  color: var(--atlas-blue);
+}
+.history-status-legend.history-status-semantic .is-defeated {
+  color: var(--atlas-red);
+}
+.dao-history-rail .history-timeline-row strong {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px;
+  align-items: center;
+}
+.dao-history-rail .history-timeline-row strong span {
+  display: block;
+}
+.dao-history-rail .history-timeline-row em {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  max-width: none;
+  padding: 2px 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.018);
+  font-size: 0.5rem;
+  line-height: 1;
+}
+.dao-history-rail .history-timeline-row.is-live em {
+  border-color: rgba(251,191,36,0.28);
+  color: var(--atlas-amber);
+}
+.dao-history-rail .history-timeline-row.is-passed em {
+  border-color: rgba(74,222,128,0.26);
+  color: var(--atlas-green);
+}
+.dao-history-rail .history-timeline-row.is-executed em {
+  border-color: rgba(96,165,250,0.28);
+  color: var(--atlas-blue);
+}
+.dao-history-rail .history-timeline-row.is-defeated em {
+  border-color: rgba(248,113,113,0.28);
+  color: var(--atlas-red);
+}
+.trend-card .echart-canvas,
+.quorum-time-chart .echart-canvas {
+  height: 196px;
+  min-height: 196px;
+}
+.trend-card .voter-chart-head strong {
+  color: rgba(250,250,250,0.48);
+}
+@media (max-width: 1280px) {
+  .top-voter-row,
+  .top-voter-table-expanded .top-voter-row,
+  .distribution-card .top-voter-row {
+    grid-template-columns: 18px minmax(88px, 1fr) 54px minmax(72px, 0.72fr) 36px;
+  }
+}
+.distribution-cluster {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.distribution-cluster .voter-group-label,
+.distribution-cluster .top-voters-chart,
+.distribution-cluster .concentration-chart {
+  grid-column: 1 / -1;
+}
+.distribution-cluster .participation-chart,
+.distribution-cluster .power-distribution-chart {
+  grid-column: span 1;
+}
+@media (max-width: 720px) {
+  .distribution-cluster {
+    grid-template-columns: 1fr;
+  }
+  .distribution-cluster .participation-chart,
+  .distribution-cluster .power-distribution-chart {
+    grid-column: 1 / -1;
+  }
+}
