@@ -913,6 +913,7 @@ const EventPanel = (function () {
   let closeBtn = null;
   let bodyEl = null;
   let triggerElement = null;
+  let timelineTriggerElement = null;
   let isOpen = false;
   let previousActiveElement = null;
 
@@ -925,10 +926,11 @@ const EventPanel = (function () {
     bodyEl = panel.querySelector(".event-panel-body");
   }
 
-  function open(eventId, triggerEl) {
+  function open(eventId, triggerEl, options) {
     if (isOpen) close(true);
 
-    const eventData = MOCK_EVENTS[eventId];
+    options = options || {};
+    const eventData = options.eventData || MOCK_EVENTS[eventId];
     if (!eventData) {
       console.warn("EventPanel: no mock data for eventId", eventId);
       return;
@@ -937,8 +939,26 @@ const EventPanel = (function () {
     triggerElement = triggerEl;
     previousActiveElement = document.activeElement;
 
-    bodyEl.innerHTML = renderPanelContent(eventData);
+    bodyEl.innerHTML = renderPanelContent(eventData, options);
+    panel.dataset.panelMode = options.backToTimeline ? "proposal" : "detail";
 
+    activatePanel();
+  }
+
+  function openTimeline(triggerEl) {
+    if (isOpen) close(true);
+
+    timelineTriggerElement = triggerEl || timelineTriggerElement;
+    triggerElement = triggerEl || timelineTriggerElement;
+    previousActiveElement = document.activeElement;
+
+    bodyEl.innerHTML = renderTimelinePanelContent();
+    panel.dataset.panelMode = "timeline";
+
+    activatePanel();
+  }
+
+  function activatePanel() {
     /* Re-query close button — it's rendered dynamically into #event-panel-body */
     closeBtn = bodyEl.querySelector(".event-panel-close");
 
@@ -986,6 +1006,7 @@ const EventPanel = (function () {
     panel.classList.remove("is-open");
     panel.setAttribute("aria-hidden", "true");
     panel.setAttribute("inert", "");
+    delete panel.dataset.panelMode;
 
     document.body.style.overflow = "";
     isOpen = false;
@@ -1040,11 +1061,17 @@ const EventPanel = (function () {
 
   /* ── Content rendering ─────────────────────────────────────────── */
 
-  function renderPanelContent(evt) {
+  function renderPanelContent(evt, options) {
     const lines = [];
+    options = options || {};
 
     /* Close row */
     lines.push('<div class="event-panel-close-row">');
+    if (options.backToTimeline) {
+      lines.push(
+        '<button class="event-panel-back" type="button" data-panel-timeline-back>← Back to proposals</button>'
+      );
+    }
     lines.push(
       '<button class="event-panel-close" data-panel-close="" aria-label="Close detail panel">&times;</button>'
     );
@@ -1132,6 +1159,120 @@ const EventPanel = (function () {
     }
 
     return lines.join("\n");
+  }
+
+  function renderTimelinePanelContent() {
+    const proposals = getDaoTimelineProposals();
+    const rows = proposals
+      .map((proposal, index) => {
+        const rowClass = timelineStatusClass(proposal.status);
+        const token = proposal.token
+          ? '<b class="timeline-panel-token">' + esc(proposal.token) + '</b>'
+          : "";
+        return (
+          '<button class="proposal-timeline-panel-row ' +
+          rowClass +
+          '" type="button" data-timeline-proposal-id="' +
+          esc(proposal.eventId) +
+          '" data-timeline-title="' +
+          esc(proposal.title) +
+          '" data-timeline-status="' +
+          esc(proposal.status) +
+          '" data-timeline-summary="' +
+          esc(proposal.summary) +
+          '" title="' +
+          esc(proposal.title) +
+          '"><span class="timeline-panel-index">' +
+          String(index + 1).padStart(2, "0") +
+          '</span><time>' +
+          esc(proposal.date) +
+          '</time><span class="timeline-panel-status">' +
+          esc(timelineStatusLabel(proposal.status)) +
+          '</span><strong><span>' +
+          token +
+          esc(proposal.displayTitle) +
+          '</span></strong></button>'
+        );
+      })
+      .join("");
+
+    return (
+      '<div class="event-panel-close-row"><button class="event-panel-close" data-panel-close="" aria-label="Close proposal timeline">&times;</button></div>' +
+      '<section class="proposal-timeline-panel" aria-label="All Uniswap proposals">' +
+      '<div class="timeline-panel-kicker">DAO proposal archive</div>' +
+      '<h2 class="event-panel-title timeline-panel-title">Uniswap proposals</h2>' +
+      '<p class="timeline-panel-summary">100 proposals · Passed 88 · Failed 5 · Active 7 · Newest first</p>' +
+      '<label class="timeline-panel-search"><span>Search proposals</span><input type="search" placeholder="Search title, tag, or status" aria-label="Search proposal title"></label>' +
+      '<div class="timeline-panel-filters" aria-label="Proposal status filters"><button type="button" class="is-active">All 100</button><button type="button">Active 7</button><button type="button">Passed 88</button><button type="button">Failed 5</button></div>' +
+      '<div class="proposal-timeline-panel-list" role="list" aria-label="All Uniswap proposals">' +
+      rows +
+      '</div>' +
+      '<p class="timeline-panel-footnote">Click a proposal to inspect it in this same side panel. Proposal titles stay single-line; hover or focus reveals the full title.</p>' +
+      '</section>'
+    );
+  }
+
+  function getDaoTimelineProposals() {
+    const templates = [
+      ["evt-proposal-uniswap-v4", "active", "TEMP", "[Temp Check] Update Crosschain Governance Parameters for Avail", "Update crosschain governance…Avail"],
+      ["evt-priority-uniswap-v4", "active", "TEMP", "[Temp Check] Protocol Fee Expansion: Unichain and mainnet", "Protocol fee expansion…mainnet"],
+      ["evt-proposal-optimism-retro", "active", "", "Return 12.5M Delegated Tokens", "Return 12.5M delegated tokens"],
+      ["evt-proposal-aave-risk", "active", "RFC", "[RFC] Governance Process Upgrade", "Governance process upgrade"],
+      ["evt-proposal-aave-cbbtc", "active", "TEMP", "[Temp Check] Protocol Fee Expansion v2", "Protocol fee expansion v2"],
+      ["evt-execution-arbitrum-grant", "active", "", "Strategic Renewal of Gnosis, Liquidity and Accountability Workstreams", "Strategic renewal: Gnosis…"],
+      ["evt-priority-uniswap-v4", "active", "", "Unification", "Unification"],
+      ["evt-proposal-compound-cusdc", "passed", "", "Uniswap Community Proposal Facilitation Budget", "Community proposal facilitation…"],
+      ["evt-proposal-uniswap-v4", "passed", "", "Grow Uniswap on Plasma", "Grow Uniswap on Plasma"],
+      ["evt-proposal-optimism-retro", "passed", "", "Treasury Delegation Round 2 Extension", "Treasury delegation round 2…"],
+      ["evt-proposal-aave-cbbtc", "passed", "GL1", "GL1 - Incentivized Delegation", "Incentivized delegation"],
+      ["evt-execution-arbitrum-grant", "executed", "GL1", "GL1 - Treasury Delegation Round", "Treasury delegation round"],
+      ["evt-priority-uniswap-v4", "passed", "", "Launching Uniswap v3 on Ronin", "Launching Uniswap v3 on Ronin"],
+      ["evt-proposal-uniswap-v4", "passed", "", "Establish Uniswap Governance Analytics Working Group", "Governance analytics working group"],
+      ["evt-proposal-aave-risk", "passed", "RFC", "[RFC] Crosschain Bridge Provider Evaluation", "Crosschain bridge provider…"],
+      ["evt-proposal-compound-cusdc", "defeated", "", "Alternate Quorum Threshold Test", "Alternate quorum threshold test"],
+      ["evt-proposal-optimism-retro", "passed", "", "Delegate Communication Standards", "Delegate communication standards"],
+      ["evt-execution-arbitrum-grant", "executed", "", "Developer Tooling Grant Renewal", "Developer tooling grant renewal"],
+      ["evt-proposal-aave-cbbtc", "passed", "", "Treasury Reporting Cadence", "Treasury reporting cadence"],
+      ["evt-proposal-compound-cusdc", "defeated", "", "Emergency Multisig Expansion", "Emergency multisig expansion"],
+    ];
+    const base = Date.UTC(2026, 6, 1, 14, 20);
+    return Array.from({ length: 100 }, (_, index) => {
+      const source = templates[index % templates.length];
+      const status = index < 7 ? "active" : index >= 95 ? "defeated" : source[1];
+      const cycle = Math.floor(index / templates.length);
+      const title = cycle ? source[3] + " · cycle " + (cycle + 1) : source[3];
+      return {
+        eventId: source[0],
+        status,
+        token: source[2],
+        title,
+        displayTitle: cycle ? source[4] + " · c" + (cycle + 1) : source[4],
+        date: formatCompactTimelineDate(base - index * 6 * 86400000 - (index % 5) * 3600000),
+        summary:
+          title +
+          " is shown from the full DAO proposal timeline. Atlas keeps the user inside the side panel so the full archive and proposal detail view share one interaction model.",
+      };
+    });
+  }
+
+  function formatCompactTimelineDate(ts) {
+    const d = new Date(ts);
+    const pad = (n) => String(n).padStart(2, "0");
+    return pad(d.getUTCMonth() + 1) + "/" + pad(d.getUTCDate()) + " " + pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
+  }
+
+  function timelineStatusClass(status) {
+    if (status === "active") return "is-live";
+    if (status === "executed") return "is-executed";
+    if (status === "defeated") return "is-defeated";
+    return "is-passed";
+  }
+
+  function timelineStatusLabel(status) {
+    if (status === "active") return "LIVE";
+    if (status === "executed") return "EXEC";
+    if (status === "defeated") return "FAIL";
+    return "PASS";
   }
 
   /* ── Helpers ───────────────────────────────────────────────────── */
@@ -1510,7 +1651,7 @@ const EventPanel = (function () {
 
   /* ── Public API ────────────────────────────────────────────────── */
 
-  return { init, open, close };
+  return { init, open, openTimeline, close };
 })();
 
 
@@ -1624,6 +1765,31 @@ function initEventPanelTriggers() {
     /* Ignore clicks on close/backdrop buttons */
     if (e.target.closest("[data-panel-close]")) return;
 
+    const fullTimelineTrigger = e.target.closest("[data-full-timeline-open]");
+    if (fullTimelineTrigger) {
+      e.preventDefault();
+      EventPanel.openTimeline(fullTimelineTrigger);
+      return;
+    }
+
+    const timelineBack = e.target.closest("[data-panel-timeline-back]");
+    if (timelineBack) {
+      e.preventDefault();
+      EventPanel.openTimeline(timelineBack);
+      return;
+    }
+
+    const timelineProposal = e.target.closest("[data-timeline-proposal-id]");
+    if (timelineProposal) {
+      e.preventDefault();
+      const proposalId = timelineProposal.getAttribute("data-timeline-proposal-id");
+      EventPanel.open(proposalId, timelineProposal, {
+        backToTimeline: true,
+        eventData: buildTimelineProposalEvent(timelineProposal, proposalId),
+      });
+      return;
+    }
+
     const trigger = e.target.closest(triggerSelector);
     if (!trigger) return;
 
@@ -1633,6 +1799,27 @@ function initEventPanelTriggers() {
     e.preventDefault();
     EventPanel.open(eventId, trigger);
   });
+
+  function buildTimelineProposalEvent(trigger, eventId) {
+    const base = MOCK_EVENTS[eventId] || MOCK_EVENTS["evt-proposal-uniswap-v4"] || {};
+    const status = trigger.getAttribute("data-timeline-status") || base.status || "passed";
+    const title = trigger.getAttribute("data-timeline-title") || base.title || "Governance proposal";
+    const summary = trigger.getAttribute("data-timeline-summary") || base.description || title;
+    return {
+      ...base,
+      id: eventId,
+      type: "proposal",
+      daoName: "Uniswap",
+      title,
+      status,
+      happenedAt: Date.now(),
+      description: summary,
+      proposal: {
+        ...(base.proposal || {}),
+        aiSummary: summary,
+      },
+    };
+  }
 }
 
 function initOlderProposalsPanel() {

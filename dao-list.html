@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Clickable Atlas DAO directory prototype — filters above list, searchable, active DAOs first.">
+<meta name="description" content="Clickable Atlas DAO directory prototype — filters above list, searchable, market-cap-first ordering.">
 <title>DeGov Atlas DAO directory</title>
 <link rel="stylesheet" href="atlas.css">
 </head>
@@ -14,9 +14,8 @@
 <a class="brand" href="index.html" aria-label="DeGov Atlas home"><span class="brand-mark">D</span><span class="brand-copy"><strong>DeGov Atlas</strong><small>Governance intelligence</small></span></a>
 <nav class="sidebar-nav" aria-label="Primary navigation"><a href="index.html"><span class="nav-marker" aria-hidden="true"></span><span>Overview</span></a>
 <a href="dao-list.html" aria-current="page"><span class="nav-marker" aria-hidden="true"></span><span>DAOs</span></a>
-<a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a>
-<a href="newsletters-list.html"><span class="nav-marker" aria-hidden="true"></span><span>Newsletter</span></a></nav>
-<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals. <a class="sidebar-briefing-link" href="newsletters-list.html">Read latest issue <span aria-hidden="true">→</span></a></p><form class="sidebar-signup" aria-label="Weekly briefing signup"><div class="sidebar-signup-row"><input id="newsletter-email-dao-details" type="email" name="email" autocomplete="email" placeholder="email" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
+<a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a></nav>
+<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Telegram signal</p><p class="sidebar-briefing-copy">Active votes, risks, executions.</p><a class="sidebar-briefing-link" href="https://t.me/degov_realtime_signal" target="_blank" rel="noopener noreferrer">Open channel <span aria-hidden="true">→</span></a></div>
 </aside>
 <main id="content" class="atlas-main">
 <section class="atlas-command-strip" aria-label="Atlas command strip">
@@ -53,7 +52,7 @@
         <div class="search-assist-hint">↑↓ navigate · Enter select · Esc clear</div>
       </div>
     </form>
-    <div class="topbar-actions"><a class="button" href="dao-list.html">Browse DAOs</a><a class="button dark" href="governance-feed.html">Latest governance</a></div>
+    <div class="topbar-actions"><a class="button dark" href="dao-list.html" aria-current="page">Browse DAOs</a><a class="button" href="governance-feed.html">Latest governance</a></div>
   </div>
   <nav class="market-strip" aria-label="Hot DAO navigation">
     <a class="chain-pill is-active" href="daos-detail.html">UNISWAP <span class="proposal-count">7</span><span class="dao-tooltip"><span>7 active proposals</span><strong>v4 growth budget renewal</strong><em>Updated 2h ago</em></span></a>
@@ -82,29 +81,29 @@
 <div class="directory-console-status" aria-label="Directory dataset status"><span>128 DAOs</span><span>37 active this week</span><span>84 active this month</span><span>64% fresh</span><span>Updated 2h ago</span></div>
 </div>
 <form class="directory-filter-console directory-filter-console--compact" aria-label="Filter DAO directory">
-<div class="directory-filter-summary" aria-label="Current directory view"><div><span>Scope</span><strong>All covered DAOs</strong><em>128 matches · no filters applied</em></div><span class="reset-filter-link reset-filter-link--compact is-disabled">Default view</span></div>
+<div class="directory-filter-summary" aria-label="Current directory view"><span>Scope</span><strong>All covered DAOs</strong><em>128 matches</em></div>
 <div class="directory-control-row" aria-label="Directory filter controls">
-<div class="filter-cluster filter-cluster--compact" aria-label="Activity filters"><span>Activity</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active" aria-pressed="true">All 128</button><button type="button" class="filter-chip">Week 37</button><button type="button" class="filter-chip">Month 84</button><button type="button" class="filter-chip">Live 57</button><button type="button" class="filter-chip">Soon 8</button><button type="button" class="filter-chip">Dormant 44</button></div></div>
-<div class="filter-cluster filter-cluster--compact" aria-label="Source filters"><span>Source</span><div class="filter-chip-row"><button type="button" class="filter-chip">Snapshot 46%</button><button type="button" class="filter-chip">Square 31%</button></div></div>
-<div class="filter-cluster filter-cluster--compact directory-order-cluster" aria-label="Sort DAO directory"><span>Order</span><div class="filter-chip-row order-chip-row"><button type="button" class="filter-chip order-chip is-active" aria-pressed="true">Last proposal ↓</button><button type="button" class="filter-chip order-chip">Live proposals</button><button type="button" class="filter-chip order-chip">Unique voters</button><button type="button" class="filter-chip order-chip">Total</button><button type="button" class="filter-chip order-chip">A–Z</button></div></div>
+<div class="filter-cluster filter-cluster--compact" aria-label="Activity filters"><span>Activity</span><div class="filter-chip-row"><button type="button" class="filter-chip is-active" aria-pressed="true">All 128</button><button type="button" class="filter-chip">Week 37</button><button type="button" class="filter-chip">Month 84</button></div></div>
+<div class="filter-cluster filter-cluster--compact" aria-label="Source filters"><span>Source</span><div class="filter-chip-row"><button type="button" class="filter-chip">Snapshot 46%</button><button type="button" class="filter-chip">Square 31%</button><button type="button" class="filter-chip">Forum 8%</button></div></div>
+<div class="filter-cluster filter-cluster--compact directory-order-cluster" aria-label="Sort DAO directory"><span>Order</span><div class="filter-chip-row order-chip-row"><button type="button" class="filter-chip order-chip is-active" aria-pressed="true">Market cap ↓</button><button type="button" class="filter-chip order-chip">Last proposal ↓</button><button type="button" class="filter-chip order-chip">Voters</button><button type="button" class="filter-chip order-chip">Total</button><button type="button" class="filter-chip order-chip">A–Z</button></div></div>
 </div>
 </form>
 <div class="data-table dao-directory-table expanded compact" role="table" aria-label="DAO profiles">
-<div class="data-row head" role="row"><span>DAO</span><span>Health</span><span>Source</span><span>Total ↕</span><span>Live ↕</span><span>Voters ↕</span><span>Last ↓</span></div>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Uniswap</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>42</span><span class="live-count">7</span><span>18.4k</span><span>2h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Aave</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>31</span><span class="live-count">5</span><span>12.9k</span><span>4h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>ENS</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>18</span><span class="live-count">3</span><span>8.2k</span><span>6h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Arbitrum</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>26</span><span class="live-count">4</span><span>15.6k</span><span>8h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Optimism</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Square, forum</span><span>22</span><span class="live-count">4</span><span>13.1k</span><span>12h ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>MakerDAO / Sky</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, Tally/Gov</span><span>15</span><span class="live-count">2</span><span>6.7k</span><span>1d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Compound</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally/Gov</span><span>11</span><span class="live-count">2</span><span>4.4k</span><span>2d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Gitcoin</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot, forum</span><span>13</span><span class="live-count">1</span><span>3.1k</span><span>3d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Lido</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>9</span><span class="live-count">1</span><span>9.8k</span><span>4d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Balancer</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, Snapshot</span><span>8</span><span class="live-count is-zero">0</span><span>2.2k</span><span>5d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Safe</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot</span><span>7</span><span class="live-count is-zero">0</span><span>5.6k</span><span>6d ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Polygon</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum</span><span>6</span><span class="live-count is-zero">0</span><span>7.4k</span><span>1w ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Starknet</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum, Snapshot</span><span>5</span><span class="live-count is-zero">0</span><span>4.1k</span><span>1w ago</span></a>
-<a class="data-row" href="daos-detail.html" role="row"><span><strong>Scroll</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum</span><span>4</span><span class="live-count is-zero">0</span><span>2.7k</span><span>2w ago</span></a>
+<div class="data-row head" role="row"><span>DAO</span><span>Health</span><span>Source</span><span>Mkt cap ↓</span><span>Total ↕</span><span>Live ↕</span><span>Voters ↕</span><span>Last ↓</span></div>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Uniswap</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>$6.2B</span><span>42</span><span class="live-count">7</span><span>18.4k</span><span>2h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Aave</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>$4.8B</span><span>31</span><span class="live-count">5</span><span>12.9k</span><span>4h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Arbitrum</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally, forum</span><span>$3.1B</span><span>26</span><span class="live-count">4</span><span>15.6k</span><span>8h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Lido</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>$2.0B</span><span>9</span><span class="live-count">1</span><span>9.8k</span><span>4d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Optimism</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Square, forum</span><span>$1.6B</span><span>22</span><span class="live-count">4</span><span>13.1k</span><span>12h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>ENS</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Snapshot, forum</span><span>$1.4B</span><span>18</span><span class="live-count">3</span><span>8.2k</span><span>6h ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>MakerDAO / Sky</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, Tally/Gov</span><span>$1.2B</span><span>15</span><span class="live-count">2</span><span>6.7k</span><span>1d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Compound</strong></span><span><span class="state-pill state-fresh">Fresh</span></span><span>Tally/Gov</span><span>$720M</span><span>11</span><span class="live-count">2</span><span>4.4k</span><span>2d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Safe</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot</span><span>$610M</span><span>7</span><span class="live-count is-zero">0</span><span>5.6k</span><span>6d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Polygon</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum</span><span>$520M</span><span>6</span><span class="live-count is-zero">0</span><span>7.4k</span><span>1w ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Starknet</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum, Snapshot</span><span>$460M</span><span>5</span><span class="live-count is-zero">0</span><span>4.1k</span><span>1w ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Gitcoin</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Snapshot, forum</span><span>$120M</span><span>13</span><span class="live-count">1</span><span>3.1k</span><span>3d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Balancer</strong></span><span><span class="state-pill state-partial">Partial</span></span><span>Forum, Snapshot</span><span>$96M</span><span>8</span><span class="live-count is-zero">0</span><span>2.2k</span><span>5d ago</span></a>
+<a class="data-row" href="daos-detail.html" role="row"><span><strong>Scroll</strong></span><span><span class="state-pill state-not-normalized-yet">Normalize</span></span><span>Forum</span><span>$84M</span><span>4</span><span class="live-count is-zero">0</span><span>2.7k</span><span>2w ago</span></a>
 </div>
 </section>
 <aside class="feed-data-panel dao-data-panel" aria-label="DAO directory data panel">
@@ -167,8 +166,7 @@
 </main>
 <nav class="mobile-tab-bar" aria-label="Mobile primary navigation"><a href="index.html"><span class="nav-icon">H</span>Overview</a>
 <a href="dao-list.html" aria-current="page"><span class="nav-icon">D</span>DAOs</a>
-<a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a>
-<a href="newsletters-list.html"><span class="nav-icon">N</span>News</a></nav>
+<a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a></nav>
 </div>
 </body>
 </html>

@@ -64,6 +64,7 @@ Unchanged from prior run — all route links map as above. Sidebar nav active st
 ## Implementation handoff notes
 
 - **CSS class architecture preserved** — all component selectors (`.panel`, `.data-row`, `.state-pill`, `.button`, `.metric-card`, etc.) keep the same names; only token values changed. Porting to Next.js requires updating `globals.css` token values only.
+- **DAO directory default ordering** — `/daos` now communicates the default as market cap descending first, with last proposal descending only as the secondary tie-breaker. Engineering should map the active default sort state to market cap, keep the last-proposal affordance as a dashed/tie-breaker cue rather than the primary active sort, and preserve the existing activity/source chips plus alternate order chips (`Live proposals`, `Unique voters`, `Total`, `A–Z`).
 - **No HTML changes needed for the shell** — the same sidebar, topbar, and mobile tab bar markup renders xAI-dark through CSS alone.
 - **Typography requires font loading** — GeistMono and universalSans must be loaded (CDN or self-hosted) in the Next.js layout for the monospace display aesthetic.
 - **Button markup conventions change** — production `.button` and `.button.dark` classes now render GeistMono uppercase with 1.4px letter-spacing. Labels should be short and commanding.

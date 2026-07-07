@@ -14,9 +14,8 @@
 <a class="brand" href="index.html" aria-label="DeGov Atlas home"><span class="brand-mark">D</span><span class="brand-copy"><strong>DeGov Atlas</strong><small>Governance intelligence</small></span></a>
 <nav class="sidebar-nav" aria-label="Primary navigation"><a href="index.html"><span class="nav-marker" aria-hidden="true"></span><span>Overview</span></a>
 <a href="dao-list.html" aria-current="page"><span class="nav-marker" aria-hidden="true"></span><span>DAOs</span></a>
-<a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a>
-<a href="newsletters-list.html"><span class="nav-marker" aria-hidden="true"></span><span>Newsletter</span></a></nav>
-<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Weekly briefing</p><p class="sidebar-briefing-copy">One email covering active votes, key proposals, and governance signals. <a class="sidebar-briefing-link" href="newsletters-list.html">Read latest issue <span aria-hidden="true">→</span></a></p><form class="sidebar-signup" aria-label="Weekly briefing signup"><div class="sidebar-signup-row"><input id="newsletter-email-dao-detail" type="email" name="email" autocomplete="email" placeholder="email" aria-label="Email address"><button type="submit">Subscribe</button></div></form></div>
+<a href="governance-feed.html"><span class="nav-marker" aria-hidden="true"></span><span>Governance Feed</span></a></nav>
+<div class="sidebar-section sidebar-briefing"><p class="sidebar-label">Telegram signal</p><p class="sidebar-briefing-copy">Active votes, risks, executions.</p><a class="sidebar-briefing-link" href="https://t.me/degov_realtime_signal" target="_blank" rel="noopener noreferrer">Open channel <span aria-hidden="true">→</span></a></div>
 </aside>
 <main id="content" class="atlas-main">
 <section class="atlas-command-strip" aria-label="Atlas command strip">
@@ -95,11 +94,11 @@
         <strong>24M</strong>
       </div>
       <div class="shape-pills shape-metric-pills" aria-label="DAO voter intelligence snapshot">
-        <div class="shape-pill shape-metric metric-voters" tabindex="0" data-chart-hover='{"label":"Unique voters","value":"18,400","detail":"Wallets that cast at least one vote in the 24-month window. Peak of 11,200 in May 2026."}'><span>Unique voters</span><strong>18.4k</strong><em>Peak 11k</em></div>
-        <div class="shape-pill shape-metric metric-delegates" tabindex="0" data-chart-hover='{"label":"Active delegates","value":"312","detail":"Recurring voter identities with visible governance participation. +24 in the last 30 days."}'><span>Active delegates</span><strong>312</strong><em>+24 in 30d</em></div>
-        <div class="shape-pill shape-metric metric-share" tabindex="0" data-chart-hover='{"label":"Top 10 share","value":"46%","detail":"Share of voting power held by the ten largest voters. Moderate concentration."}'><span>Top 10 share</span><strong>46%</strong><em>Moderate</em></div>
-        <div class="shape-pill shape-metric metric-hit" tabindex="0" data-chart-hover='{"label":"Quorum hit rate","value":"64%","detail":"27 of 42 closed proposals reached quorum."}'><span>Quorum hit</span><strong>64%</strong><em>27 / 42 hit</em></div>
-        <div class="shape-pill shape-metric metric-miss" tabindex="0" data-chart-hover='{"label":"Quorum miss rate","value":"36%","detail":"15 of 42 closed proposals missed quorum."}'><span>Quorum miss</span><strong>36%</strong><em>15 / 42 missed</em></div>
+        <div class="shape-pill shape-metric metric-voters" tabindex="0" data-chart-hover='{"label":"Unique voters","value":"18,400","detail":"Wallets that cast at least one vote in the 24-month window. Peak of 11,200 in May 2026."}'><span>Voters</span><strong>18.4k</strong><em>Peak 11k</em></div>
+        <div class="shape-pill shape-metric metric-delegates" tabindex="0" data-chart-hover='{"label":"Active delegates","value":"312","detail":"Recurring voter identities with visible governance participation. +24 in the last 30 days."}'><span>Delegates</span><strong>312</strong><em>+24 / 30d</em></div>
+        <div class="shape-pill shape-metric metric-share" tabindex="0" data-chart-hover='{"label":"Top 10 share","value":"46%","detail":"Share of voting power held by the ten largest voters. Moderate concentration."}'><span>Top 10</span><strong>46%</strong><em>Share</em></div>
+        <div class="shape-pill shape-metric metric-hit" tabindex="0" data-chart-hover='{"label":"Proposal pass ratio","value":"86%","detail":"30 of 35 known closed outcomes passed or executed."}'><span>Pass %</span><strong>86%</strong><em>30 / 35</em></div>
+        <div class="shape-pill shape-metric metric-miss" tabindex="0" data-chart-hover='{"label":"Proposal fail ratio","value":"14%","detail":"5 of 35 known closed outcomes were defeated."}'><span>Fail %</span><strong>14%</strong><em>5 / 35</em></div>
       </div>
       <div class="shape-closed-strip" aria-label="Latest closed governance proposal">
         <div data-chart-hover='{"label":"Latest closed proposal","value":"31h ago","detail":"Cross-chain parameter set closed after a high-participation vote."}'><span>Latest closed</span><strong>31h ago</strong></div>
@@ -110,55 +109,35 @@
 
   <aside class="panel dao-history-rail" aria-labelledby="dao-history-title">
     <section class="history-rail-section history-scroll-section" aria-label="DAO proposal history in reverse chronological order">
-      <div class="history-list-head"><div><h2 id="dao-history-title">Proposal Timeline</h2></div><span>42 total · newest · scroll</span></div>
-      <div class="history-outcome-summary history-outcome-inline" aria-label="Proposal status summary for the selected window">
-        <span class="is-passed">Passed <strong>24</strong></span><span class="is-active">Active <strong>7</strong></span><span class="is-executed">Executed <strong>6</strong></span><span class="is-defeated">Defeated <strong>5</strong></span>
+      <div class="history-list-head"><div><h2 id="dao-history-title">Proposal timeline</h2></div><span>100 proposals</span></div>
+      <div class="history-outcome-summary history-outcome-inline" aria-label="Proposal outcome summary">
+        <span class="is-passed">Passed <strong>88</strong></span><span class="is-active">Active <strong>7</strong></span><span class="is-defeated">Failed <strong>5</strong></span>
       </div>
-      <div class="history-timeline-list" role="list" aria-label="Uniswap proposal history timeline, newest proposals first" tabindex="0">
-        <a class="history-timeline-row is-live is-primary" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem"><time>2h</time><strong><span>v4 growth budget renewal</span><em>Active</em></strong></a>
-        <a class="history-timeline-row is-ending" href="javascript:void(0)" data-event-id="evt-proposal-aave-risk" role="listitem"><time>1d</time><strong><span>cross-chain parameter set</span><em>Active</em></strong></a>
-        <a class="history-timeline-row is-live" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><time>4d</time><strong><span>delegate incentive renewal</span><em>Active</em></strong></a>
-        <a class="history-timeline-row is-live" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><time>11d</time><strong><span>uni telemetry budget</span><em>Active</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem"><time>1m</time><strong><span>protocol fee switch check</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem"><time>3m</time><strong><span>working group funding r3</span><em>Executed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem"><time>5m</time><strong><span>bridge risk parameters</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem"><time>8m</time><strong><span>liquidity mining extension</span><em>Defeated</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-fee-switch" role="listitem"><time>10m</time><strong><span>fee switch temperature check</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-history-bug-bounty" role="listitem"><time>11m</time><strong><span>v4 launch bug bounty</span><em>Executed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-delegate-code" role="listitem"><time>1y</time><strong><span>delegate code of conduct</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-history-accountability" role="listitem"><time>1y</time><strong><span>foundation accountability report</span><em>Executed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-treasury-pilot" role="listitem"><time>1y</time><strong><span>treasury diversification pilot</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-history-router-plan" role="listitem"><time>2y</time><strong><span>router deprecation plan</span><em>Defeated</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-fee-switch" role="listitem"><time>2y</time><strong><span>fee switch parameter review</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-history-bug-bounty" role="listitem"><time>2y</time><strong><span>v3 protocol analytics grant</span><em>Executed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-delegate-code" role="listitem"><time>2y</time><strong><span>delegate communication standards</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-history-router-plan" role="listitem"><time>2y</time><strong><span>liquidity migration incentive</span><em>Defeated</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-treasury-pilot" role="listitem"><time>2y</time><strong><span>treasury custody renewal</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-history-accountability" role="listitem"><time>2y</time><strong><span>interface growth allocation</span><em>Executed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem"><time>3y</time><strong><span>governance forum moderation budget</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem"><time>3y</time><strong><span>community delegation trial</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem"><time>3y</time><strong><span>retroactive liquidity rewards</span><em>Defeated</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem"><time>3y</time><strong><span>bridge provider evaluation</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem"><time>3y</time><strong><span>grants committee continuation</span><em>Executed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><time>3y</time><strong><span>governance process simplification</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-live" href="javascript:void(0)" data-event-id="evt-proposal-aave-risk" role="listitem"><time>3y</time><strong><span>snapshot strategy maintenance</span><em>Active</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-fee-switch" role="listitem"><time>4y</time><strong><span>protocol delegate onboarding</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-history-bug-bounty" role="listitem"><time>4y</time><strong><span>developer tooling grant</span><em>Executed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-delegate-code" role="listitem"><time>4y</time><strong><span>governance analytics working group</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-history-router-plan" role="listitem"><time>4y</time><strong><span>alternate quorum threshold test</span><em>Defeated</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-treasury-pilot" role="listitem"><time>4y</time><strong><span>treasury reporting cadence</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-accountability" role="listitem"><time>4y</time><strong><span>delegate compensation pilot</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-live" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem"><time>4y</time><strong><span>license exception discussion</span><em>Active</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem"><time>5y</time><strong><span>initial grants program</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem"><time>5y</time><strong><span>emergency multisig expansion</span><em>Defeated</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem"><time>5y</time><strong><span>liquidity incentives phase two</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem"><time>5y</time><strong><span>governance documentation fund</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem"><time>5y</time><strong><span>community treasury bootstrap</span><em>Executed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-risk" role="listitem"><time>5y</time><strong><span>delegate call operations</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-fee-switch" role="listitem"><time>5y</time><strong><span>governance launch parameters</span><em>Passed</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-history-delegate-code" role="listitem"><time>5y</time><strong><span>proposal threshold calibration</span><em>Passed</em></strong></a>
+      <div class="history-timeline-list" role="list" aria-label="Uniswap recent proposal timeline, newest proposals first" tabindex="0">
+        <a class="history-timeline-row is-live is-primary" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem" title="[Temp Check] Update Crosschain Governance Parameters for Avail"><time>07/01 14:20</time><strong><span><b class="history-proposal-token">TEMP</b> Update crosschain governance…Avail</span><em>LIVE</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem" title="[Temp Check] Protocol Fee Expansion: Unichain and mainnet"><time>06/28 09:10</time><strong><span><b class="history-proposal-token">TEMP</b> Protocol fee expansion…mainnet</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem" title="Return 12.5M Delegated Tokens"><time>06/21 18:40</time><strong><span>Return 12.5M delegated tokens</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem" title="[RFC] Governance Process Upgrade"><time>06/16 11:30</time><strong><span><b class="history-proposal-token">RFC</b> Governance process upgrade</span><em>FAIL</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem" title="[Temp Check] Protocol Fee Expansion v2"><time>06/12 08:45</time><strong><span><b class="history-proposal-token">TEMP</b> Protocol fee expansion v2</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem" title="Strategic Renewal of Gnosis, Liquidity and Accountability Workstreams"><time>06/05 20:10</time><strong><span>Strategic renewal: Gnosis…</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem" title="Unification"><time>05/31 13:00</time><strong><span>Unification</span><em>EXEC</em></strong></a>
+        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem" title="Uniswap Community Proposal Facilitation Budget"><time>05/29 18:30</time><strong><span>Community proposal facilitation…</span><em>FAIL</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem" title="Grow Uniswap on Plasma"><time>05/21 12:05</time><strong><span>Grow Uniswap on Plasma</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem" title="Treasury Delegation Round 2 Extension"><time>05/15 16:15</time><strong><span>Treasury delegation round 2…</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem" title="GL1 - Incentivized Delegation"><time>05/09 10:25</time><strong><span>GL1 - incentivized delegation</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem" title="GL1 - Treasury Delegation Round"><time>05/02 07:50</time><strong><span>GL1 - treasury delegation round</span><em>EXEC</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem" title="Launching Uniswap v3 on Ronin"><time>04/27 23:05</time><strong><span>Launching Uniswap v3 on Ronin</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem" title="Establish Uniswap Governance Analytics Working Group"><time>04/18 15:10</time><strong><span>Governance analytics working group</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-risk" role="listitem" title="Crosschain Bridge Provider Evaluation"><time>04/11 09:35</time><strong><span>Crosschain bridge provider…</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem" title="Alternate Quorum Threshold Test"><time>04/03 18:20</time><strong><span>Alternate quorum threshold test</span><em>FAIL</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem" title="Delegate Communication Standards"><time>03/26 13:45</time><strong><span>Delegate communication standards</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem" title="Developer Tooling Grant Renewal"><time>03/19 08:25</time><strong><span>Developer tooling grant renewal</span><em>EXEC</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem" title="Treasury Reporting Cadence"><time>03/12 17:10</time><strong><span>Treasury reporting cadence</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem" title="Emergency Multisig Expansion"><time>03/05 12:40</time><strong><span>Emergency multisig expansion</span><em>FAIL</em></strong></a>
+        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem" title="Governance Documentation Fund"><time>02/26 20:00</time><strong><span>Governance documentation fund</span><em>PASS</em></strong></a>
+        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem" title="Community Treasury Bootstrap"><time>02/18 10:15</time><strong><span>Community treasury bootstrap</span><em>EXEC</em></strong></a>
       </div>
-      <div class="history-rail-footer"><span><strong>42 proposals</strong> · reverse chronological</span></div>
+      <div class="history-rail-footer"><button class="history-full-timeline-link" type="button" data-full-timeline-open>View all 100 proposals →</button><span>Showing newest 22 of <strong>100</strong></span></div>
     </section>
   </aside>
 </section>
@@ -276,8 +255,7 @@
 
 <nav class="mobile-tab-bar" aria-label="Mobile primary navigation"><a href="index.html"><span class="nav-icon">H</span>Overview</a>
 <a href="dao-list.html" aria-current="page"><span class="nav-icon">D</span>DAOs</a>
-<a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a>
-<a href="newsletters-list.html"><span class="nav-icon">N</span>News</a></nav>
+<a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a></nav>
 </div>
 <script>
 (function(){

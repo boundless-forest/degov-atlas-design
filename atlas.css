@@ -237,8 +237,8 @@ select {
 
 /* ── Sidebar sections ── */
 .sidebar-section {
-  padding: 10px 6px 0;
-  border-top: 1px solid var(--atlas-line);
+  padding: 0;
+  border-top: 0;
 }
 .sidebar-label,
 .eyebrow {
@@ -252,22 +252,33 @@ select {
 
 /* Sidebar signup */
 .sidebar-briefing {
+  position: relative;
   display: grid;
-  gap: 8px;
-  margin-top: 4px;
-  padding: 12px;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 10px 12px 10px 13px;
   border: 1px solid var(--atlas-line);
-  background: var(--atlas-panel);
+  border-left: 2px solid var(--atlas-green-line);
+  background: rgba(255, 255, 255, 0.025);
+}
+.sidebar-briefing::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--atlas-line);
 }
 .sidebar-briefing .sidebar-label {
   margin-bottom: 0;
-  color: var(--atlas-ink);
+  color: var(--atlas-green);
 }
 .sidebar-briefing-copy {
   margin: 0;
   color: var(--atlas-muted);
-  font-size: 0.79rem;
-  line-height: 1.42;
+  font-size: 0.76rem;
+  line-height: 1.35;
 }
 .sidebar-signup {
   display: flex;
@@ -352,17 +363,19 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-left: 4px;
+  margin-top: 1px;
+  max-width: 100%;
   color: var(--atlas-ink);
   font-family: var(--atlas-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.8px;
+  letter-spacing: 1px;
   text-decoration: none;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
   white-space: nowrap;
 }
 .sidebar-briefing-link:hover {
-  color: var(--atlas-blue);
+  color: var(--atlas-green);
 }
 
 /* Hero signup */
@@ -2097,45 +2110,47 @@ summary:focus-visible {
   letter-spacing: 1px;
 }
 
-/* Compact DAO directory controls — terminal-style view state + grouped filters. */
+/* Compact DAO directory controls — one-line command bar. */
 .directory-filter-console--compact {
+  min-height: 46px;
+  display: flex;
+  flex-wrap: nowrap;
   gap: 8px;
-  padding: 10px 0 12px;
+  align-items: center;
+  padding: 8px 0 10px;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 .directory-filter-summary {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
+  flex: 0 0 auto;
+  min-height: 34px;
+  display: inline-flex;
   align-items: center;
-  padding: 8px 10px;
+  gap: 8px;
+  padding: 5px 9px;
   border: 1px solid var(--atlas-line);
   background: var(--atlas-soft);
-}
-.directory-filter-summary div {
-  min-width: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 12px;
+  white-space: nowrap;
 }
 .directory-filter-summary span,
 .filter-cluster--compact > span,
 .directory-order-row--compact > span {
   color: var(--atlas-muted);
   font-family: var(--atlas-mono);
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 .directory-filter-summary strong {
   color: var(--atlas-ink);
   font-family: var(--atlas-mono);
-  font-size: 0.84rem;
+  font-size: 0.76rem;
   font-weight: 300;
 }
 .directory-filter-summary em {
   color: var(--atlas-subtle);
-  font-size: 0.76rem;
+  font-family: var(--atlas-mono);
+  font-size: 0.66rem;
   font-style: normal;
 }
 .reset-filter-link--compact {
@@ -2148,23 +2163,38 @@ summary:focus-visible {
   background: var(--atlas-panel);
 }
 .directory-control-row {
-  display: grid;
-  grid-template-columns: minmax(320px, 1.16fr) minmax(180px, 0.54fr) minmax(320px, 1fr);
+  min-width: 0;
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
   gap: 8px;
+  align-items: center;
 }
 .filter-cluster--compact {
-  min-width: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 5px;
-  padding: 8px;
+  min-height: 34px;
+  min-width: max-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 7px;
   border: 1px solid var(--atlas-line);
   background: transparent;
+  white-space: nowrap;
+}
+.directory-order-cluster {
+  flex: 1 0 auto;
 }
 .filter-chip-row {
   min-width: 0;
+  align-items: center;
+}
+.filter-cluster--compact .filter-chip-row {
+  flex-wrap: nowrap;
+  gap: 4px;
 }
 .filter-chip {
+  min-height: 24px;
+  padding: 3px 7px;
   border-radius: 0;
 }
 .filter-chip::before {
@@ -2214,13 +2244,14 @@ summary:focus-visible {
 .dao-directory-table.expanded.compact .data-row,
 .dao-directory-table.compact .data-row {
   grid-template-columns:
-    minmax(150px, 0.94fr)
-    minmax(116px, 0.55fr)
-    minmax(126px, 0.68fr)
-    minmax(46px, 0.25fr)
-    minmax(52px, 0.28fr)
-    minmax(82px, 0.42fr)
-    minmax(78px, 0.38fr);
+    minmax(132px, 0.78fr)
+    minmax(102px, 0.46fr)
+    minmax(112px, 0.52fr)
+    minmax(74px, 0.36fr)
+    minmax(44px, 0.2fr)
+    minmax(48px, 0.22fr)
+    minmax(72px, 0.32fr)
+    minmax(68px, 0.3fr);
 }
 .dao-directory-table.expanded.compact .data-row.head {
   position: sticky;
@@ -2249,12 +2280,12 @@ summary:focus-visible {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.dao-directory-table.expanded.compact .data-row > span:nth-child(n + 4):nth-child(-n + 7) {
+.dao-directory-table.expanded.compact .data-row > span:nth-child(n + 4):nth-child(-n + 8) {
   text-align: right;
   font-family: var(--atlas-mono);
   font-variant-numeric: tabular-nums;
 }
-.dao-directory-table.expanded.compact .data-row.head > span:nth-child(n + 4):nth-child(-n + 7) {
+.dao-directory-table.expanded.compact .data-row.head > span:nth-child(n + 4):nth-child(-n + 8) {
   text-align: right;
 }
 .live-count {
@@ -4356,6 +4387,42 @@ summary:focus-visible {
 .newsletter-archive-rail .data-panel-card {
   gap: 7px;
   padding: 10px;
+}
+.telegram-recommendation-layout {
+  padding-bottom: 140px;
+}
+.telegram-channel-page {
+  padding-bottom: 140px;
+}
+.telegram-page-main {
+  padding-bottom: 128px;
+}
+.telegram-channel-brief .section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+.telegram-channel-brief .button {
+  min-height: 36px;
+  border-color: var(--atlas-line-strong);
+  background: var(--atlas-ink);
+  color: var(--atlas-bg);
+}
+.telegram-content-map {
+  height: auto;
+  min-height: 260px;
+}
+.telegram-signal-preview .selected-dao-updates {
+  padding-bottom: 28px;
+}
+.telegram-message-guidance {
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--atlas-line);
+}
+.telegram-channel-rail .telegram-signal-panel-card strong {
+  overflow-wrap: anywhere;
 }
 .newsletter-archive-rail .data-panel-metrics div {
   padding: 6px 7px;
@@ -8189,6 +8256,275 @@ summary:focus-visible {
 }
 .history-timeline-row em {
   color: var(--atlas-muted);
+}
+
+/* DAO detail proposal timeline v4: dense rail + full archive in the shared side panel. */
+.history-list-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: baseline;
+}
+.history-list-head h2 {
+  margin: 0;
+  font-family: var(--atlas-mono);
+  font-size: 1.02rem;
+  font-weight: 300;
+  line-height: 1.12;
+}
+.history-list-head > span,
+.timeline-panel-kicker,
+.timeline-panel-summary,
+.timeline-panel-footnote {
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.86px;
+}
+.history-outcome-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-bottom: 2px;
+}
+.history-outcome-inline span {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  min-height: 22px;
+  padding: 2px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.018);
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.78px;
+}
+.history-outcome-inline strong {
+  color: var(--atlas-ink);
+  font-weight: 300;
+}
+.history-outcome-inline .is-passed strong,
+.history-outcome-inline .is-active strong {
+  color: var(--atlas-green);
+}
+.history-outcome-inline .is-defeated strong {
+  color: #ff8f8f;
+}
+.history-timeline-list {
+  max-height: min(300px, calc(100vh - 470px));
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+.history-timeline-row {
+  grid-template-columns: 70px minmax(0, 1fr);
+  align-items: center;
+  min-height: 32px;
+  padding: 5px 0 5px 10px;
+}
+.history-timeline-row time,
+.timeline-panel-index,
+.timeline-panel-status,
+.proposal-timeline-panel-row time {
+  color: var(--atlas-subtle);
+  font-family: var(--atlas-mono);
+  font-size: 0.61rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+.history-timeline-row strong {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  overflow: visible;
+  white-space: nowrap;
+  -webkit-line-clamp: initial;
+}
+.history-timeline-row strong span {
+  grid-row: auto;
+  align-self: center;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--atlas-ink);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.history-timeline-row em {
+  justify-self: end;
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.58rem;
+  font-style: normal;
+  letter-spacing: 0.78px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.history-timeline-row.is-live em,
+.history-timeline-row.is-passed em,
+.history-timeline-row.is-executed em {
+  color: var(--atlas-green);
+}
+.history-timeline-row.is-defeated em {
+  color: #ff8f8f;
+}
+.history-proposal-token,
+.timeline-panel-token {
+  display: inline-flex;
+  margin-right: 6px;
+  color: rgba(153, 255, 153, 0.78);
+  font-family: var(--atlas-mono);
+  font-size: 0.57rem;
+  font-weight: 400;
+  letter-spacing: 0.72px;
+}
+.history-timeline-row::after {
+  content: none;
+}
+.history-rail-footer {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+.history-full-timeline-link,
+.event-panel-back,
+.timeline-panel-filters button {
+  border: 1px solid rgba(153, 255, 153, 0.2);
+  background: rgba(153, 255, 153, 0.045);
+  color: rgba(226, 255, 226, 0.78);
+  font-family: var(--atlas-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.82px;
+  cursor: pointer;
+}
+.history-full-timeline-link {
+  min-height: 28px;
+  padding: 5px 8px;
+  white-space: nowrap;
+}
+.history-full-timeline-link:hover,
+.event-panel-back:hover,
+.timeline-panel-filters button:hover,
+.timeline-panel-filters button.is-active {
+  border-color: rgba(153, 255, 153, 0.42);
+  background: rgba(153, 255, 153, 0.08);
+  color: var(--atlas-ink);
+}
+.event-panel-close-row:has(.event-panel-back) {
+  justify-content: space-between;
+  gap: 12px;
+}
+.event-panel-back {
+  min-height: 30px;
+  padding: 5px 9px;
+}
+.event-detail-panel[data-panel-mode="timeline"] .event-panel-content {
+  width: min(680px, calc(100vw - 24px));
+}
+.proposal-timeline-panel {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.timeline-panel-title {
+  margin-bottom: 0;
+}
+.timeline-panel-summary {
+  margin: -4px 0 2px;
+  color: rgba(228, 235, 228, 0.72);
+}
+.timeline-panel-search {
+  display: grid;
+  gap: 6px;
+}
+.timeline-panel-search span {
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.86px;
+}
+.timeline-panel-search input {
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.024);
+  color: var(--atlas-ink);
+  font-family: var(--atlas-mono);
+  font-size: 0.76rem;
+  outline: 0;
+  padding: 7px 9px;
+}
+.timeline-panel-search input:focus {
+  border-color: rgba(153, 255, 153, 0.38);
+}
+.timeline-panel-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.timeline-panel-filters button {
+  min-height: 26px;
+  padding: 4px 8px;
+}
+.proposal-timeline-panel-list {
+  display: grid;
+  max-height: calc(100vh - 310px);
+  overflow-y: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+.proposal-timeline-panel-row {
+  display: grid;
+  grid-template-columns: 34px 72px 42px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-height: 31px;
+  padding: 5px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: transparent;
+  color: var(--atlas-ink);
+  text-align: left;
+  cursor: pointer;
+}
+.proposal-timeline-panel-row strong {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--atlas-mono);
+  font-size: 0.78rem;
+  font-weight: 300;
+}
+.proposal-timeline-panel-row strong span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.proposal-timeline-panel-row:hover,
+.proposal-timeline-panel-row:focus-visible {
+  outline: 0;
+  background: rgba(153, 255, 153, 0.046);
+}
+.proposal-timeline-panel-row.is-live .timeline-panel-status,
+.proposal-timeline-panel-row.is-passed .timeline-panel-status,
+.proposal-timeline-panel-row.is-executed .timeline-panel-status {
+  color: var(--atlas-green);
+}
+.proposal-timeline-panel-row.is-defeated .timeline-panel-status {
+  color: #ff8f8f;
+}
+.timeline-panel-footnote {
+  margin: 0;
+  color: var(--atlas-subtle);
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: 0.2px;
 }
 /* ── Mobile tab bar ── */
 .mobile-tab-bar {
@@ -12712,4 +13048,50 @@ body,
   .dao-history-rail .history-outcome-inline {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+/* Final Proposal Timeline rail override: keep CTA visible and timestamps complete. */
+.dao-history-rail .history-timeline-list {
+  max-height: min(620px, calc(100vh - 300px));
+  overflow-y: auto;
+}
+.dao-history-rail .history-timeline-row {
+  grid-template-columns: 76px minmax(0, 1fr);
+  min-height: 32px;
+  padding: 5px 7px 5px 10px;
+}
+.dao-history-rail .history-timeline-row time {
+  overflow: visible;
+  font-size: 0.6rem;
+  white-space: nowrap;
+}
+.dao-history-rail .history-timeline-row strong {
+  align-items: center;
+  font-size: 0.74rem;
+}
+.dao-history-rail .history-timeline-row strong span {
+  grid-row: auto;
+  align-self: center;
+}
+.dao-history-rail .history-timeline-row em {
+  max-width: none;
+  font-size: 0.55rem;
+}
+.dao-history-rail .history-rail-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  padding: 8px 7px;
+}
+.dao-history-rail .history-full-timeline-link {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 30px;
+  padding: 6px 9px;
+  border-color: rgba(153, 255, 153, 0.34);
+  background: rgba(153, 255, 153, 0.072);
+  color: rgba(236, 255, 236, 0.92);
+  font-size: 0.66rem;
 }
