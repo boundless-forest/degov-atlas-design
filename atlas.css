@@ -13140,7 +13140,10 @@ body,
 .top-voter-row,
 .top-voter-table-expanded .top-voter-row,
 .distribution-card .top-voter-row {
-  grid-template-columns: 20px minmax(96px, 1fr) 58px minmax(78px, 0.72fr) 36px;
+  grid-template-columns: 20px minmax(96px, 1fr) 58px minmax(78px, 0.72fr) 116px;
+}
+.top-voter-head span:last-child {
+  white-space: nowrap;
 }
 .top-voter-id {
   min-width: 0;
@@ -13279,7 +13282,7 @@ body,
   .top-voter-row,
   .top-voter-table-expanded .top-voter-row,
   .distribution-card .top-voter-row {
-    grid-template-columns: 18px minmax(88px, 1fr) 54px minmax(72px, 0.72fr) 36px;
+    grid-template-columns: 18px minmax(88px, 1fr) 54px minmax(72px, 0.72fr) 108px;
   }
 }
 .distribution-cluster {
