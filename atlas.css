@@ -13310,6 +13310,15 @@ body,
   }
 }
 @media (max-width: 720px) {
+  .top-voter-row,
+  .top-voter-table-expanded .top-voter-row,
+  .distribution-card .top-voter-row {
+    grid-template-columns: 18px minmax(92px, 1fr) 54px 54px;
+  }
+  .top-voter-head span:nth-child(5),
+  .top-voter-voted {
+    display: none;
+  }
   .distribution-cluster {
     grid-template-columns: 1fr;
   }
