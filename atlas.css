@@ -13297,6 +13297,18 @@ body,
 .distribution-cluster .power-distribution-chart {
   grid-column: span 1;
 }
+@media (max-width: 1280px) {
+  .distribution-cluster {
+    grid-template-columns: 1fr;
+  }
+  .distribution-cluster .top-voters-chart,
+  .distribution-cluster .power-distribution-chart,
+  .distribution-cluster .participation-chart,
+  .distribution-cluster .concentration-chart {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
 @media (max-width: 720px) {
   .distribution-cluster {
     grid-template-columns: 1fr;
