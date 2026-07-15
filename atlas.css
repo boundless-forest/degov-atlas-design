@@ -13319,6 +13319,14 @@ body,
   .top-voter-voted {
     display: none;
   }
+  .top-voter-share {
+    display: block;
+    text-align: right;
+  }
+  .top-voter-share > i,
+  .top-voter-share-meter {
+    display: none;
+  }
   .distribution-cluster {
     grid-template-columns: 1fr;
   }
