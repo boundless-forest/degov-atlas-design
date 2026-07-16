@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Governance feed — past 7 days of proposal, forum, execution, and treasury activity.">
+<meta name="description" content="Live governance feed — proposal milestones, vote windows, outcomes, and governance discussions across tracked DAOs over the past 14 days.">
 <title>DeGov Atlas · Governance feed</title>
 <link rel="stylesheet" href="atlas.css">
 </head>
-<body>
+<body class="governance-feed-page">
 <a class="skip-link" href="#content">Skip to content</a>
 <div class="atlas-shell">
 <aside class="atlas-sidebar" aria-label="Atlas navigation">
@@ -19,7 +19,7 @@
 </nav>
 <div class="sidebar-section sidebar-briefing">
 <p class="sidebar-label">Telegram signal</p>
-<p class="sidebar-briefing-copy">Active votes, risks, executions.</p>
+<p class="sidebar-briefing-copy">Active votes, deadlines, outcomes.</p>
 <a class="sidebar-briefing-link" href="https://t.me/degov_realtime_signal" target="_blank" rel="noopener noreferrer">Open channel <span aria-hidden="true">→</span></a>
 </div>
 </aside>
@@ -44,7 +44,7 @@
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="lido staking eth" data-default-rank="9"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Lido</strong><span>1 tracked</span></a>
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="curve crv lending gauges" data-default-rank="10"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Curve</strong><span>Forum active</span></a>
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="balancer bal ve bal gauge" data-default-rank="11"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Balancer</strong><span>Forum active</span></a>
-          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="safe multisig treasury" data-default-rank="12"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Safe</strong><span>Monitoring</span></a>
+          <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="safe multisig governance" data-default-rank="12"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Safe</strong><span>Monitoring</span></a>
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="polygon matic forum" data-default-rank="13"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Polygon</strong><span>Tracked</span></a>
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="starknet stark layer2" data-default-rank="14"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Starknet</strong><span>Tracked</span></a>
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="scroll layer2 zk" data-default-rank="15"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Scroll</strong><span>Tracked</span></a>
@@ -69,233 +69,99 @@
     <a class="chain-pill is-active" href="dao-list.html">MAKERDAO / SKY <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>DSR rate adjustment</strong><em>Updated 1d ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">COMPOUND <span class="proposal-count">2</span><span class="dao-tooltip"><span>2 active proposals</span><strong>Market parameter update</strong><em>Updated 2d ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">GITCOIN <span class="proposal-count">1</span><span class="dao-tooltip"><span>1 active proposal</span><strong>Grants round operations</strong><em>Updated 3d ago</em></span></a>
-    <a class="chain-pill" href="dao-list.html">LIDO</a>
-    <a class="chain-pill" href="dao-list.html">CURVE</a>
-    <a class="chain-pill" href="dao-list.html">BALANCER</a>
-    <a class="chain-pill" href="dao-list.html">SAFE</a>
-    <a class="chain-pill" href="dao-list.html">POLYGON</a>
-    <a class="chain-pill" href="dao-list.html">STARKNET</a>
-    <a class="chain-pill" href="dao-list.html">SCROLL</a>
+    <a class="chain-pill" href="dao-list.html">LIDO</a><a class="chain-pill" href="dao-list.html">CURVE</a><a class="chain-pill" href="dao-list.html">BALANCER</a><a class="chain-pill" href="dao-list.html">SAFE</a><a class="chain-pill" href="dao-list.html">POLYGON</a><a class="chain-pill" href="dao-list.html">STARKNET</a><a class="chain-pill" href="dao-list.html">SCROLL</a>
   </nav>
 </section>
 
 <div class="stack">
-<header class="feed-command-header governance-feed-console" aria-labelledby="governance-feed-title">
+<header class="feed-command-header governance-feed-console" aria-labelledby="governance-feed-title" data-od-id="governance-feed-header">
   <div class="feed-console-meta" aria-label="Feed status">
     <span class="eyebrow">Governance Feed</span>
     <span class="tag neutral">Live Feed</span>
-    <span class="feed-window-badge">Past 7 days</span>
-    <span class="feed-sync-status">Synced 2m ago · 128 DAOs tracked</span>
+    <span class="feed-window-badge">Past 14 days</span>
+    <span class="feed-sync-status">Tracked governance activity</span>
   </div>
   <div class="feed-command-copy">
-    <h1 id="governance-feed-title">Live governance feed</h1>
-    <p>Proposals, forum threads, executions, treasury moves, and vote outcomes across tracked DAOs — last 7 days.</p>
+    <h1 id="governance-feed-title" data-od-id="governance-feed-title">Live governance feed</h1>
+    <p>Proposal milestones, vote windows, outcomes, and governance discussions across tracked DAOs — past 14 days.</p>
   </div>
 </header>
 
-<div class="feed-layout">
-
-  <!-- LEFT: Feed + Priority Signals -->
+<div class="feed-layout" data-od-id="governance-feed-layout">
   <div class="feed-main">
-
-    <section class="priority-signal-strip" aria-labelledby="priority-signals-title">
+    <section class="priority-signal-strip" aria-labelledby="priority-signals-title" data-od-id="priority-signals">
       <div class="priority-signal-head">
         <p class="eyebrow" id="priority-signals-title">Priority Signals</p>
-        <span>Watchlist from active governance surfaces</span>
       </div>
-      <div class="priority-signal-list" role="list">
-        <div role="listitem" data-event-id="evt-priority-qbio"><span class="signal-status">Active</span><strong><span class="signal-title"><span class="signal-dao-name">QUANTUM BIOLOGY DAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Quantum Biology DAO DP-32 — "Comms, Events, Other Budget for 2026" Proposal, v1.1</span></span></strong></div>
-        <div role="listitem" data-event-id="evt-priority-magpie"><span class="signal-status">Active</span><strong><span class="signal-title"><span class="signal-dao-name">MAGPIE</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">MIP #97 - Determine Magpie's Stance on Penpie's PIP #26</span></span></strong></div>
-        <a href="javascript:void(0)" role="listitem" data-event-id="evt-priority-aave"><span class="signal-status">Watch</span><strong><span class="signal-title"><span class="signal-dao-name">AAVE DAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Risk parameter update for long-tail markets ending in 2 days</span></span></strong></a>
+      <div class="priority-signal-table">
+        <div class="priority-signal-list" role="list">
+          <div role="listitem" data-od-id="priority-ending-soon"><span class="priority-marker is-urgent" aria-hidden="true"></span><span class="signal-event">Ending soon</span><strong><span class="signal-title"><span class="signal-dao-name">CONVEX FINANCE</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Gauge weight vote closes in 6 hours</span></span></strong><span class="signal-state is-urgent">Act now</span></div>
+          <div role="listitem" data-od-id="priority-vote-opened"><span class="priority-marker" aria-hidden="true"></span><span class="signal-event">Vote opened</span><strong><span class="signal-title"><span class="signal-dao-name">ALADDINDAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Delegate committee mandate renewal</span></span></strong><span class="signal-state">Active</span></div>
+          <div role="listitem" data-od-id="priority-forum"><span class="priority-marker is-neutral" aria-hidden="true"></span><span class="signal-event">Forum</span><strong><span class="signal-title"><span class="signal-dao-name">CLEVER</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Emission schedule revision is drawing active debate</span></span></strong><span class="signal-state">Discussion</span></div>
+        </div>
       </div>
     </section>
 
-    <div class="feed-bulletin" role="list" aria-label="Governance activity — past 7 days">
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-uniswap-v4">
-        <span class="bulletin-meta">2h ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">UNISWAP</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">v4 growth budget renewal — active with 34% turnout so far</span></span><span class="bulletin-status-inline"><span class="state-pill state-active">Active</span></span></span>
+    <section class="feed-activity" aria-label="Governance activity" data-od-id="activity-feed">
+      <div class="feed-toolbar" data-od-id="feed-filter-toolbar">
+        <span class="feed-toolbar-total">171 signals <span>· 14D</span></span>
+        <div class="activity-filter" role="toolbar" aria-label="Filter governance activity by signal type">
+        <button type="button" class="is-active" data-feed-filter="all" aria-pressed="true">All <span>171</span></button>
+        <button type="button" data-feed-filter="new-proposal" aria-pressed="false">New proposal <span>27</span></button>
+        <button type="button" data-feed-filter="vote-opened" aria-pressed="false">Vote opened <span>19</span></button>
+        <button type="button" data-feed-filter="ending-soon" aria-pressed="false">Ending soon <span>6</span></button>
+        <button type="button" data-feed-filter="vote-ended" aria-pressed="false">Vote ended <span>113</span></button>
+        <button type="button" data-feed-filter="forum" aria-pressed="false">Forum <span>6</span></button>
+        </div>
       </div>
 
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-aave-risk">
-        <span class="bulletin-meta">4h ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">AAVE DAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Risk parameter update for long-tail markets — ending in 2 days</span></span><span class="bulletin-status-inline"><span class="state-pill state-ending-soon">Ending soon</span></span></span>
+      <div class="feed-bulletin" role="list" aria-label="Governance activity — past 14 days">
+        <div class="bulletin-item" role="listitem" data-signal-group="ending-soon" data-od-id="feed-row-ending-soon"><time datetime="2026-07-16T09:40:00Z">20m ago</time><span class="bulletin-event">Ending soon</span><span class="bulletin-subject"><span class="signal-dao-name">CONVEX FINANCE</span><span class="signal-separator" aria-hidden="true">/</span><span>Gauge weight vote closes in 6 hours</span></span><span class="state-pill state-ending-soon">Ending soon</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="vote-opened" data-od-id="feed-row-vote-opened"><time datetime="2026-07-16T09:00:00Z">1h ago</time><span class="bulletin-event">Vote opened</span><span class="bulletin-subject"><span class="signal-dao-name">ALADDINDAO</span><span class="signal-separator" aria-hidden="true">/</span><span>Delegate committee mandate renewal</span></span><span class="state-pill state-active">Active</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="new-proposal" data-od-id="feed-row-new-proposal"><time datetime="2026-07-16T07:00:00Z">3h ago</time><span class="bulletin-event">New proposal</span><span class="bulletin-subject"><span class="signal-dao-name">CONCENTRATOR</span><span class="signal-separator" aria-hidden="true">/</span><span>Rebalance cvxCRV strategy parameters</span></span><span class="state-pill state-active">Active</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="forum" data-od-id="feed-row-forum"><time datetime="2026-07-16T04:00:00Z">6h ago</time><span class="bulletin-event">Forum</span><span class="bulletin-subject"><span class="signal-dao-name">CLEVER</span><span class="signal-separator" aria-hidden="true">/</span><span>Emission schedule revision discussion</span></span><span class="state-pill state-discussion">Discussion</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="vote-ended" data-od-id="feed-row-passed"><time datetime="2026-07-15T22:00:00Z">12h ago</time><span class="bulletin-event">Vote ended</span><span class="bulletin-subject"><span class="signal-dao-name">SDCRV-GOVERNANCE</span><span class="signal-separator" aria-hidden="true">/</span><span>Renew protocol incentives for Q3</span></span><span class="state-pill state-passed">Passed</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="vote-ended" data-od-id="feed-row-defeated"><time datetime="2026-07-15T10:00:00Z">1d ago</time><span class="bulletin-event">Vote ended</span><span class="bulletin-subject"><span class="signal-dao-name">COMPOUND</span><span class="signal-separator" aria-hidden="true">/</span><span>Alternate collateral factor update</span></span><span class="state-pill state-defeated">Defeated</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="vote-ended" data-od-id="feed-row-no-quorum"><time datetime="2026-07-14T10:00:00Z">2d ago</time><span class="bulletin-event">Vote ended</span><span class="bulletin-subject"><span class="signal-dao-name">ANGLE</span><span class="signal-separator" aria-hidden="true">/</span><span>Update gauge emissions framework</span></span><span class="state-pill state-no-quorum">No quorum</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="vote-ended" data-od-id="feed-row-outcome-unavailable"><time datetime="2026-07-13T10:00:00Z">3d ago</time><span class="bulletin-event">Vote ended</span><span class="bulletin-subject"><span class="signal-dao-name">GEARBOX</span><span class="signal-separator" aria-hidden="true">/</span><span>Credit account risk limits update</span></span><span class="state-pill state-unavailable">Outcome unavailable</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="new-proposal" data-od-id="feed-row-new-proposal-second"><time datetime="2026-07-10T10:00:00Z">6d ago</time><span class="bulletin-event">New proposal</span><span class="bulletin-subject"><span class="signal-dao-name">ALADDINDAO</span><span class="signal-separator" aria-hidden="true">/</span><span>Delegate program operating budget</span></span><span class="state-pill state-active">Active</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="forum" data-od-id="feed-row-forum-second"><time datetime="2026-07-08T10:00:00Z">8d ago</time><span class="bulletin-event">Forum</span><span class="bulletin-subject"><span class="signal-dao-name">CONCENTRATOR</span><span class="signal-separator" aria-hidden="true">/</span><span>Community review of bribe market parameters</span></span><span class="state-pill state-discussion">Discussion</span></div>
+        <div class="bulletin-item" role="listitem" data-signal-group="vote-ended" data-od-id="feed-row-passed-second"><time datetime="2026-07-05T10:00:00Z">11d ago</time><span class="bulletin-event">Vote ended</span><span class="bulletin-subject"><span class="signal-dao-name">SDCRV-GOVERNANCE</span><span class="signal-separator" aria-hidden="true">/</span><span>Extend weekly incentive allocation</span></span><span class="state-pill state-passed">Passed</span></div>
       </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-forum-ens-budget">
-        <span class="bulletin-meta">6h ago<span aria-hidden="true"> · </span>Forum</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">ENS</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Service provider budget adjustment discussion — 31 replies</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-execution-arbitrum-grant">
-        <span class="bulletin-meta">8h ago<span aria-hidden="true"> · </span>Execution</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">ARBITRUM</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">DAO grant program third cohort executed — $2.4M distributed</span></span><span class="bulletin-status-inline"><span class="state-pill state-executed">Executed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-optimism-retro">
-        <span class="bulletin-meta">12h ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">OPTIMISM</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Retro Funding round 6 scope passed — 91% for, 48% turnout</span></span><span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-treasury-lido-ldo">
-        <span class="bulletin-meta">18h ago<span aria-hidden="true"> · </span>Treasury</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">LIDO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Treasury moved 840k LDO to the node operator rewards contract</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-maker-dsr">
-        <span class="bulletin-meta">1d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">MAKERDAO · SKY</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">DSR rate adjustment for Q3 passed — now active on-chain</span></span><span class="bulletin-status-inline"><span class="state-pill state-executed">Executed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-compound-cusdc">
-        <span class="bulletin-meta">2d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">COMPOUND</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">cUSDC collateral factor update failed with 62% against</span></span><span class="bulletin-status-inline"><span class="state-pill state-defeated">Defeated</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-gitcoin-gg24">
-        <span class="bulletin-meta">3d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">GITCOIN</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">GG24 grant round eligibility criteria passed with 78% support</span></span><span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-forum-balancer-gauge">
-        <span class="bulletin-meta">5d ago<span aria-hidden="true"> · </span>Forum</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">BALANCER</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">veBAL gauge weight methodology changes — 22 replies</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-execution-curve-crv">
-        <span class="bulletin-meta">5d ago<span aria-hidden="true"> · </span>Execution</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">CURVE</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">CRV emissions adjustment for Tricrypto pool executed — now live on-chain</span></span><span class="bulletin-status-inline"><span class="state-pill state-executed">Executed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-safe-modules">
-        <span class="bulletin-meta">5d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">SAFE DAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">New module registry governance framework — 41% turnout</span></span><span class="bulletin-status-inline"><span class="state-pill state-active">Active</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-treasury-arbitrum-arb">
-        <span class="bulletin-meta">5d ago<span aria-hidden="true"> · </span>Treasury</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">ARBITRUM</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Treasury deployed 15M ARB to the STIP bridge program</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-lido-sdvt">
-        <span class="bulletin-meta">5d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">LIDO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">SDVT module staking router update passed — Simple DVT onboarding begins</span></span><span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-forum-polygon-zk">
-        <span class="bulletin-meta">5d ago<span aria-hidden="true"> · </span>Forum</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">POLYGON</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">zkEVM sequencer decentralization roadmap debate — 41 replies</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-execution-aave-v3">
-        <span class="bulletin-meta">6d ago<span aria-hidden="true"> · </span>Execution</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">AAVE DAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">v3 USDT and USDC e-mode parameters deployed on Arbitrum — $12M TVL impact</span></span><span class="bulletin-status-inline"><span class="state-pill state-executed">Executed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-ens-resolver">
-        <span class="bulletin-meta">6d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">ENS</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Resolver contract upgrade proposal reached quorum — 67% turnout</span></span><span class="bulletin-status-inline"><span class="state-pill state-active">Active</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-gmx-incentive">
-        <span class="bulletin-meta">6d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">GMX</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Long-term incentive program structure passed — 5-year vesting, $180M pool</span></span><span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-forum-starknet-governance">
-        <span class="bulletin-meta">6d ago<span aria-hidden="true"> · </span>Forum</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">STARKNET</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Governance hub proposal gains traction — 34 delegates commented</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-execution-optimism-rf5">
-        <span class="bulletin-meta">6d ago<span aria-hidden="true"> · </span>Execution</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">OPTIMISM</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Retro Funding round 5 distributions executed — $8M allocated to 142 builders</span></span><span class="bulletin-status-inline"><span class="state-pill state-executed">Executed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-treasury-optimism-op">
-        <span class="bulletin-meta">6d ago<span aria-hidden="true"> · </span>Treasury</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">OPTIMISM</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Treasury moved 25M OP tokens to the governance fund multisig</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-scroll-governance">
-        <span class="bulletin-meta">6d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">SCROLL DAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Governance framework ratification failed — 58% against, quorum not met</span></span><span class="bulletin-status-inline"><span class="state-pill state-defeated">Defeated</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-compound-v3">
-        <span class="bulletin-meta">6d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">COMPOUND</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">v3 reward speed adjustment for WETH market passed with 81% support</span></span><span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-forum-aave-risk-params">
-        <span class="bulletin-meta">7d ago<span aria-hidden="true"> · </span>Forum</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">AAVE DAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Risk service provider proposed new LT/LTV parameter methodology — 56 replies</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-execution-maker-spark">
-        <span class="bulletin-meta">7d ago<span aria-hidden="true"> · </span>Execution</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">MAKERDAO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Spark Protocol debt ceiling increase executed — $100M to $200M</span></span><span class="bulletin-status-inline"><span class="state-pill state-executed">Executed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-treasury-gitcoin-eth">
-        <span class="bulletin-meta">7d ago<span aria-hidden="true"> · </span>Treasury</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">GITCOIN</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Treasury diversified 1,200 ETH into stablecoins via CoW Swap</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-uniswap-fee">
-        <span class="bulletin-meta">7d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">UNISWAP</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Fee switch pilot for v3 pools on Ethereum mainnet passed — 62% for</span></span><span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-proposal-arbitrum-stip2">
-        <span class="bulletin-meta">7d ago<span aria-hidden="true"> · </span>Proposal</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">ARBITRUM</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">STIP 2 distribution criteria finalized — $40M allocated across 26 protocols</span></span><span class="bulletin-status-inline"><span class="state-pill state-passed">Passed</span></span></span>
-      </div>
-
-      <div class="bulletin-item" role="listitem" data-event-id="evt-forum-lido-csm">
-        <span class="bulletin-meta">7d ago<span aria-hidden="true"> · </span>Forum</span>
-        <span class="bulletin-headline"><span class="signal-title"><span class="signal-dao-name">LIDO</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">Community Staking Module early access criteria debated — 29 replies</span></span></span>
-      </div>
-
-    </div>
+      <p class="feed-empty" data-feed-empty hidden>No signals in this view.</p>
+    </section>
   </div>
 
-  <!-- RIGHT: Data Panel -->
-  <aside class="feed-data-panel" aria-label="Governance feed data panel">
-
-    <div class="data-panel-card" aria-label="Feed metrics — past 7 days">
-      <p class="data-panel-label">Past 7 Days</p>
-      <dl class="data-panel-metrics">
-        <div><dt>Active votes</dt><dd>57</dd></div>
-        <div><dt>Ending soon</dt><dd>8</dd></div>
-        <div><dt>Forum threads</dt><dd>23</dd></div>
-        <div><dt>Executions</dt><dd>6</dd></div>
-        <div><dt>Passed</dt><dd>14</dd></div>
-        <div><dt>Failed</dt><dd>2</dd></div>
+  <aside class="feed-data-panel" aria-label="Governance feed data panels" data-od-id="governance-data-rail">
+    <div class="data-panel-card live-now-card" aria-labelledby="live-now-label" data-od-id="live-now-card">
+      <p class="data-panel-label" id="live-now-label">Live now</p>
+      <dl class="live-now-metrics">
+        <div><dt>Open votes</dt><dd>58</dd></div>
+        <div><dt>Ending &lt;24h</dt><dd>6</dd></div>
       </dl>
     </div>
 
-    <div class="data-panel-card" aria-label="Top DAOs by activity">
-      <p class="data-panel-label">Most Active DAOs</p>
-      <ol class="data-panel-dao-list">
-        <li><a href="daos-detail.html"><strong>Uniswap</strong><span>7</span></a></li>
-        <li><a href="dao-list.html"><strong>Aave</strong><span>5</span></a></li>
-        <li><a href="dao-list.html"><strong>Arbitrum</strong><span>4</span></a></li>
-        <li><a href="dao-list.html"><strong>Optimism</strong><span>4</span></a></li>
-        <li><a href="dao-list.html"><strong>ENS</strong><span>3</span></a></li>
-      </ol>
+    <div class="data-panel-card outcome-card" aria-labelledby="vote-outcomes-label" data-od-id="vote-outcomes-card">
+      <p class="data-panel-label" id="vote-outcomes-label">Vote outcomes · 14D</p>
+      <dl class="outcome-list">
+        <div class="outcome-passed"><dt>Passed</dt><dd>63</dd></div>
+        <div class="outcome-defeated"><dt>Defeated</dt><dd>21</dd></div>
+        <div class="outcome-no-quorum"><dt>No quorum</dt><dd>6</dd></div>
+        <div class="outcome-unavailable"><dt>Outcome unavailable</dt><dd>23</dd></div>
+      </dl>
     </div>
 
-    <a class="data-panel-card telegram-signal-panel-card" href="https://t.me/degov_realtime_signal" target="_blank" rel="noopener noreferrer" aria-label="Open DeGov Realtime Signal Telegram channel">
-      <span class="data-panel-label">Realtime Signal</span>
-      <strong>Telegram-native governance alerts</strong>
-      <p>Follow urgent proposal, voting, execution, and forum signals as they happen.</p>
-      <span class="telegram-handle">@degov_realtime_signal</span>
-      <em>Open Telegram Channel ↗</em>
-    </a>
-
+    <div class="data-panel-card" aria-labelledby="most-active-label" data-od-id="most-active-signals-card">
+      <p class="data-panel-label" id="most-active-label">Most active · 14D signals</p>
+      <ol class="data-panel-dao-list signal-count-list">
+        <li><a href="dao-list.html"><strong>Convex Finance</strong><span>14 signals</span></a></li>
+        <li><a href="dao-list.html"><strong>AladdinDAO</strong><span>10 signals</span></a></li>
+        <li><a href="dao-list.html"><strong>CLever</strong><span>10 signals</span></a></li>
+        <li><a href="dao-list.html"><strong>Concentrator</strong><span>8 signals</span></a></li>
+        <li><a href="dao-list.html"><strong>sdCRV-Governance</strong><span>8 signals</span></a></li>
+      </ol>
+    </div>
   </aside>
-
 </div>
 </div>
 <footer class="atlas-footer" aria-label="DeGov Atlas footer">
@@ -314,14 +180,32 @@
 </nav>
 </div>
 
-<!-- Event detail slide-out panel -->
-<div id="event-detail-panel" class="event-detail-panel" role="dialog" aria-label="Governance event detail" aria-hidden="true" inert>
-  <div class="event-panel-backdrop" data-panel-close></div>
-  <div class="event-panel-content">
-    <div class="event-panel-body" id="event-panel-body"></div>
-  </div>
-</div>
-
 <script src="atlas.js" defer></script>
+<script>
+(() => {
+  const buttons = [...document.querySelectorAll("[data-feed-filter]")];
+  const rows = [...document.querySelectorAll("[data-signal-group]")];
+  const empty = document.querySelector("[data-feed-empty]");
+  if (!buttons.length || !rows.length || !empty) return;
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.feedFilter;
+      let visible = 0;
+      buttons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      rows.forEach((row) => {
+        const matches = filter === "all" || row.dataset.signalGroup === filter;
+        row.hidden = !matches;
+        if (matches) visible += 1;
+      });
+      empty.hidden = visible !== 0;
+    });
+  });
+})();
+</script>
 </body>
 </html>

@@ -74,3 +74,11 @@ Unchanged from prior run — all route links map as above. Sidebar nav active st
 ## Final summary
 
 The project is now fully xAI dark-themed. Compared with the prior light DeFiLlama-inspired run, this pass replaces `atlas.css` with a complete xAI brutalist design system (GeistMono, universalSans, zero shadows, zero radii, opacity-based hierarchy) while keeping all 8 HTML pages structurally identical and all route links intact.
+
+## Governance Feed
+
+- The canonical `governance-feed.html` models `/v1/governance-signals` as four separate fields: relative `signalTimeMs`, typed event label, `dao / item title`, and an independent state/actionability or outcome label. The activity filter maps to `signal_types`; counts are dynamic backend values, and zero-count types may be omitted.
+- `LIVE NOW` derives current open votes and proposals ending within 24 hours from stored proposal windows. `VOTE OUTCOMES · 14D` maps lifecycle outcomes distinctly: `passed` → `PASSED`, `failed` → `DEFEATED`, `no_quorum` → `NO QUORUM`, and `unknown`/unavailable → `OUTCOME UNAVAILABLE` without inference.
+- `MOST ACTIVE · 14D SIGNALS` counts collapsed governance subjects per DAO, while forum counts cover the full 14-day window. Prototype figures are sample data only; production should render backend aggregation without exposing staging-only labels in the public UI.
+- Execution and treasury activity are intentionally omitted. The current serving signal model has no typed execution or treasury event with reliable timestamp and provenance; execution should remain absent until the backend emits that explicit contract.
+- The public hierarchy is intentionally headerless: a compact one-line page identity leads into three 34–38px Priority Signal rows, a horizontally scrollable text-tab toolbar, and 42–46px feed rows. Repeated alignment communicates time, signal type, subject, and outcome without schema labels; the 300px summary rail aligns with the Priority Signals strip.

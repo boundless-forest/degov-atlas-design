@@ -13452,3 +13452,430 @@ body,
     font-size: 0.65rem;
   }
 }
+
+/* Governance feed compact intelligence board — 2026-07-16 */
+.governance-feed-page .feed-command-header {
+  display: grid;
+  align-content: center;
+  min-height: 112px;
+  padding: 14px;
+}
+.governance-feed-page .feed-command-copy {
+  max-width: none;
+}
+.governance-feed-page .feed-command-copy h1 {
+  overflow: hidden;
+  font-size: clamp(28px, 2.5vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.governance-feed-page .feed-command-copy p {
+  max-width: none;
+  margin-top: 8px;
+  overflow: hidden;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.governance-feed-page .feed-layout {
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 12px;
+  align-items: start;
+}
+.governance-feed-page .feed-main {
+  display: grid;
+  gap: 10px;
+}
+.governance-feed-page .feed-data-panel {
+  gap: 8px;
+  padding-left: 0;
+  border-left: 0;
+  align-self: start;
+}
+.governance-feed-page .priority-signal-strip {
+  grid-template-columns: 138px minmax(0, 1fr);
+  gap: 12px;
+  min-height: 132px;
+  padding: 10px 12px;
+  border: 1px solid var(--atlas-line);
+  background: var(--atlas-panel);
+}
+.governance-feed-page .priority-signal-table {
+  min-width: 0;
+}
+.governance-feed-page .priority-signal-list > * {
+  display: grid;
+  grid-template-columns: 3px 92px minmax(0, 1fr) max-content;
+  gap: 9px;
+  align-items: center;
+}
+.governance-feed-page .priority-signal-head {
+  align-content: start;
+  padding-top: 4px;
+}
+.governance-feed-page .priority-signal-list > * {
+  min-height: 36px;
+  padding: 0;
+}
+.governance-feed-page .priority-signal-list strong {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+.governance-feed-page .priority-marker {
+  width: 3px;
+  height: 18px;
+  background: var(--atlas-green);
+}
+.governance-feed-page .priority-marker.is-urgent {
+  background: var(--atlas-amber);
+}
+.governance-feed-page .priority-marker.is-neutral {
+  background: var(--atlas-muted);
+}
+.governance-feed-page .signal-event,
+.governance-feed-page .signal-state {
+  font-family: var(--atlas-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.governance-feed-page .signal-event {
+  color: var(--atlas-ink);
+}
+.governance-feed-page .signal-state {
+  color: var(--atlas-muted);
+}
+.governance-feed-page .signal-state.is-urgent {
+  color: var(--atlas-amber);
+}
+.governance-feed-page .feed-activity {
+  min-width: 0;
+  border: 1px solid var(--atlas-line);
+  background: var(--atlas-panel);
+}
+.governance-feed-page .feed-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  height: 40px;
+  padding: 0 8px 0 12px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--atlas-line);
+  scrollbar-width: thin;
+}
+.governance-feed-page .feed-toolbar-total {
+  flex: 0 0 auto;
+  color: var(--atlas-ink);
+  font-family: var(--atlas-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.governance-feed-page .feed-toolbar-total span {
+  color: var(--atlas-subtle);
+}
+.governance-feed-page .activity-filter {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 16px;
+  min-width: max-content;
+  height: 100%;
+}
+.governance-feed-page .activity-filter button {
+  position: relative;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.governance-feed-page .activity-filter button:hover {
+  background: transparent;
+  color: var(--atlas-ink);
+}
+.governance-feed-page .activity-filter button:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px var(--atlas-focus);
+}
+.governance-feed-page .activity-filter button.is-active {
+  background: transparent;
+  color: var(--atlas-ink);
+}
+.governance-feed-page .activity-filter button.is-active::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--atlas-ink);
+  content: "";
+}
+.governance-feed-page .activity-filter button span {
+  margin-left: 5px;
+  color: var(--atlas-subtle);
+  font-variant-numeric: tabular-nums;
+}
+.governance-feed-page .bulletin-item {
+  display: grid;
+  grid-template-columns: 72px 112px minmax(0, 1fr) max-content;
+  gap: 10px;
+  align-items: center;
+}
+.governance-feed-page .bulletin-item {
+  min-height: 44px;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--atlas-line);
+}
+.governance-feed-page .bulletin-item:last-child {
+  border-bottom: 0;
+}
+.governance-feed-page .bulletin-item[hidden] {
+  display: none;
+}
+.governance-feed-page .bulletin-item time,
+.governance-feed-page .bulletin-event {
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.45px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.governance-feed-page .bulletin-event {
+  color: var(--atlas-ink);
+}
+.governance-feed-page .bulletin-subject {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--atlas-ink);
+  font-size: 0.86rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.governance-feed-page .bulletin-subject .signal-dao-name {
+  flex: 0 0 auto;
+  color: var(--atlas-green);
+  font-family: var(--atlas-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.35px;
+}
+.governance-feed-page .bulletin-subject > span:last-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.governance-feed-page .bulletin-item .state-pill {
+  justify-self: end;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.58rem;
+  letter-spacing: 0.55px;
+  white-space: nowrap;
+}
+.governance-feed-page .state-no-quorum {
+  color: var(--atlas-amber);
+}
+.governance-feed-page .state-unavailable {
+  color: var(--atlas-muted);
+}
+.governance-feed-page .state-discussion {
+  color: var(--atlas-muted);
+}
+.governance-feed-page .feed-empty {
+  margin: 0;
+  padding: 24px 8px;
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+.governance-feed-page .live-now-card {
+  border-color: var(--atlas-line);
+}
+.governance-feed-page .live-now-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  border-top: 1px solid var(--atlas-line);
+  background: transparent;
+}
+.governance-feed-page .live-now-metrics div {
+  min-width: 0;
+  padding: 9px 0 3px;
+  background: transparent;
+}
+.governance-feed-page .live-now-metrics div + div { padding-left: 10px; border-left: 1px solid var(--atlas-line); }
+.governance-feed-page .live-now-metrics dt {
+  color: var(--atlas-muted);
+  font-family: var(--atlas-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+}
+.governance-feed-page .live-now-metrics dd {
+  margin: 3px 0 0;
+  color: var(--atlas-ink);
+  font-family: var(--atlas-mono);
+  font-size: 1.7rem;
+  font-weight: 300;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.governance-feed-page .outcome-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+.governance-feed-page .outcome-list div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  min-height: 32px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--atlas-line);
+}
+.governance-feed-page .outcome-list div:last-child {
+  border-bottom: 0;
+}
+.governance-feed-page .outcome-list dt,
+.governance-feed-page .outcome-list dd {
+  font-family: var(--atlas-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.45px;
+  text-transform: uppercase;
+}
+.governance-feed-page .outcome-list dd {
+  margin: 0;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+.governance-feed-page .outcome-passed { color: var(--atlas-green); }
+.governance-feed-page .outcome-defeated { color: var(--atlas-red); }
+.governance-feed-page .outcome-no-quorum { color: var(--atlas-amber); }
+.governance-feed-page .outcome-unavailable { color: var(--atlas-muted); }
+.governance-feed-page .signal-count-list a {
+  gap: 10px;
+  min-height: 32px;
+  padding: 5px 0;
+}
+.governance-feed-page .signal-count-list strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.governance-feed-page .signal-count-list span {
+  flex: 0 0 auto;
+  font-size: 0.64rem;
+  text-transform: uppercase;
+}
+@media (max-width: 1120px) {
+  .governance-feed-page .feed-layout {
+    grid-template-columns: 1fr;
+  }
+  .governance-feed-page .feed-data-panel {
+    position: static;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    order: 0;
+    padding: 0;
+  }
+}
+@media (max-width: 760px) {
+  .governance-feed-page .atlas-main {
+    padding-bottom: 220px;
+  }
+  .governance-feed-page .feed-command-header {
+    min-height: 104px;
+    padding: 12px;
+  }
+  .governance-feed-page .priority-signal-strip {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 8px;
+  }
+  .governance-feed-page .priority-signal-list > * {
+    grid-template-columns: 3px 78px minmax(0, 1fr) max-content;
+    gap: 6px;
+  }
+  .governance-feed-page .priority-signal-list strong,
+  .governance-feed-page .priority-signal-list .signal-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .governance-feed-page .priority-signal-list .signal-title {
+    display: flex;
+  }
+  .governance-feed-page .priority-signal-list .signal-proposal-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .governance-feed-page .priority-signal-list .signal-separator {
+    margin: 0 6px;
+  }
+  .governance-feed-page .feed-toolbar {
+    gap: 14px;
+  }
+  .governance-feed-page .bulletin-item {
+    grid-template-columns: 76px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "time event status"
+      "subject subject subject";
+    gap: 5px 8px;
+    align-items: center;
+    min-height: 58px;
+    padding: 7px 8px;
+  }
+  .governance-feed-page .bulletin-item time { grid-area: time; }
+  .governance-feed-page .bulletin-event { grid-area: event; }
+  .governance-feed-page .bulletin-subject {
+    grid-area: subject;
+    white-space: normal;
+  }
+  .governance-feed-page .bulletin-subject > span:last-child {
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .governance-feed-page .bulletin-item .state-pill { grid-area: status; }
+  .governance-feed-page .feed-data-panel {
+    grid-template-columns: 1fr;
+  }
+  .governance-feed-page .atlas-footer {
+    margin-bottom: 64px;
+  }
+}
+@media (max-width: 420px) {
+  .governance-feed-page .feed-command-copy h1 {
+    font-size: clamp(28px, 8vw, 32px);
+  }
+  .governance-feed-page .bulletin-item {
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "time event status"
+      "subject subject subject";
+  }
+}
