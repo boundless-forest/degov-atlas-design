@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="DeGov Atlas single DAO governance profile for Uniswap.">
 <title>Uniswap — DeGov Atlas DAO detail</title>
-<link rel="stylesheet" href="atlas.css">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="atlas.css?v=dao-ui-system-20260720-1">
 </head>
 <body>
 <a class="skip-link" href="#content">Skip to content</a>
@@ -27,7 +28,7 @@
       <div class="search-assist" role="listbox" aria-label="Search suggestions">
         <div class="search-assist-group" aria-label="DAO suggestions" data-dao-result-group>
           <span class="search-assist-heading" data-search-heading>Recently active DAOs</span>
-          <a class="search-assist-row is-selected" href="daos-detail.html" role="option" data-dao-option data-search="uniswap uni dex governance" data-default-rank="1"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Uniswap</strong><span>7 active proposals</span></a>
+          <a class="search-assist-row is-selected" href="daos-detail.html" role="option" data-dao-option data-search="uniswap uni dex governance" data-default-rank="1"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Uniswap</strong><span>1 active proposal</span></a>
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="aave lending risk parameters" data-default-rank="2"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Aave</strong><span>5 active proposals</span></a>
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="arbitrum arb layer2 grants" data-default-rank="3"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Arbitrum</strong><span>4 active proposals</span></a>
           <a class="search-assist-row" href="dao-list.html" role="option" data-dao-option data-search="optimism op retro funding layer2" data-default-rank="4"><span class="search-assist-marker" aria-hidden="true">&gt;</span><strong>Optimism</strong><span>4 active proposals</span></a>
@@ -55,7 +56,7 @@
     <div class="topbar-actions"><a class="button" href="dao-list.html">Browse DAOs</a><a class="button dark" href="governance-feed.html">Latest governance</a></div>
   </div>
   <nav class="market-strip" aria-label="Hot DAO navigation">
-    <a class="chain-pill is-active is-current-dao" href="daos-detail.html" aria-current="page">UNISWAP <span class="proposal-count">7</span><span class="dao-tooltip"><span>7 active proposals</span><strong>v4 growth budget renewal</strong><em>Updated 2h ago</em></span></a>
+    <a class="chain-pill is-active is-current-dao" href="daos-detail.html" aria-current="page">UNISWAP <span class="proposal-count">1</span><span class="dao-tooltip"><span>1 active proposal</span><strong>v4 growth budget renewal</strong><em>Updated 2h ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">AAVE <span class="proposal-count">5</span><span class="dao-tooltip"><span>5 active proposals</span><strong>Risk parameter update</strong><em>Updated 4h ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">ARBITRUM <span class="proposal-count">4</span><span class="dao-tooltip"><span>4 active proposals</span><strong>DAO grant program cohort</strong><em>Updated 8h ago</em></span></a>
     <a class="chain-pill is-active" href="dao-list.html">OPTIMISM <span class="proposal-count">4</span><span class="dao-tooltip"><span>4 active proposals</span><strong>Retro Funding round 6</strong><em>Updated 12h ago</em></span></a>
@@ -72,172 +73,128 @@
     <a class="chain-pill is-zero-live" href="dao-list.html" aria-label="Scroll, no live proposals">SCROLL <span class="proposal-count">0 live</span></a>
   </nav>
 </section>
-<div class="atlas-dashboard dao-detail-dashboard dao-situation-room">
-<section class="dao-detail-top-grid" aria-label="Uniswap DAO overview and proposal timeline">
-  <section class="panel dao-overview-console" aria-labelledby="dao-title">
-    <div class="dao-overview-copy">
-      <p class="eyebrow">DAOs / Uniswap</p>
+<div class="dao-detail-stage" data-od-id="dao-detail-stage">
+<nav class="dao-section-nav" aria-label="DAO data index" data-dao-data-index-tablet></nav>
+<div class="dao-section-selector" data-dao-data-index-mobile></div>
+<div class="atlas-dashboard dao-detail-dashboard" data-od-id="dao-detail-dashboard">
+  <section id="dao-overview" class="dao-section dao-data-card dao-overview-section" aria-labelledby="dao-overview-title" data-od-id="dao-overview-section">
+    <div class="dao-overview-brandbar">
       <div class="dao-title-line">
-        <h1 id="dao-title">Uniswap</h1>
-        <nav class="dao-source-links" aria-label="Uniswap governance source links"><a class="dao-source-link" href="https://snapshot.org/#/uniswapgovernance.eth" target="_blank" rel="noopener noreferrer">Snapshot ↗</a><a class="dao-source-link" href="https://gov.uniswap.org/" target="_blank" rel="noopener noreferrer">Forum ↗</a></nav>
+        <h1 data-od-id="dao-title">Uniswap</h1>
+        <nav class="dao-source-links" aria-label="Uniswap governance source links">
+          <a class="dao-source-link" href="https://snapshot.org/#/uniswapgovernance.eth" target="_blank" rel="noopener noreferrer">Snapshot ↗</a>
+          <a class="dao-source-link" href="https://gov.uniswap.org/" target="_blank" rel="noopener noreferrer">Forum ↗</a>
+          <button class="dao-mechanism-trigger" type="button" data-governance-mechanism>How governance works →</button>
+        </nav>
       </div>
-      <p class="muted">Live proposal context, participation shape, and proposal history in one view.</p>
-      <p class="dao-updated-meta">Updated 2h ago</p>
-      <div class="dao-latest-signal priority-signal-strip dao-priority-signal" data-event-id="evt-proposal-uniswap-v4" aria-label="Current Uniswap governance signal">
-        <div class="priority-signal-head"><p class="eyebrow">Priority signal</p></div>
-        <div class="priority-signal-list" role="list"><div role="listitem"><span class="signal-status">Active</span><strong><span class="signal-title"><span class="signal-dao-name">UNISWAP</span><span class="signal-separator" aria-hidden="true">/</span><span class="signal-proposal-title">v4 growth budget renewal is drawing broad delegate participation</span></span></strong></div></div>
+      <div class="dao-sample-meta" aria-label="Snapshot data coverage">
+        <strong>Snapshot · Governance evidence</strong>
+        <span data-dao-updated>Loading data date…</span>
       </div>
     </div>
-    <div class="dao-shape-snapshot dao-shape-compact" aria-label="Uniswap governance shape">
-      <div class="shape-snapshot-head">
-        <div><p class="eyebrow">DAO shape</p><h2>Governance pulse</h2></div>
-        <strong>24 months</strong>
-      </div>
-      <div class="shape-pills shape-metric-pills" aria-label="DAO voter intelligence snapshot">
-        <div class="shape-pill shape-metric metric-voters" tabindex="0" data-chart-hover='{"label":"Unique voters","value":"18,400","detail":"Wallets that cast at least one vote in the 24-month window. Peak of 11,200 in May 2026."}'><span>Voters</span><strong>18.4k</strong><em>Peak 11k</em></div>
+    <header class="dao-card-header">
+      <p class="eyebrow">01 · Overview</p>
+      <h2 id="dao-overview-title">Uniswap governance at a glance</h2>
+      <p class="dao-card-summary">See proposal activity, outcomes, participant coverage, and the indexed time range.</p>
+    </header>
+    <div class="dao-overview-metrics" aria-label="Uniswap governance overview" data-overview-metrics></div>
+  </section>
 
-        <div class="shape-pill shape-metric metric-share" tabindex="0" data-chart-hover='{"label":"Top 10 share","value":"46%","detail":"Share of voting power held by the ten largest voters. Moderate concentration."}'><span>Top 10</span><strong>46%</strong><em>Share</em></div>
-        <div class="shape-pill shape-metric metric-hit" tabindex="0" data-chart-hover='{"label":"Proposal pass ratio","value":"86%","detail":"30 of 35 known closed outcomes passed or executed."}'><span>Pass %</span><strong>86%</strong><em>30 / 35</em></div>
-        <div class="shape-pill shape-metric metric-miss" tabindex="0" data-chart-hover='{"label":"Proposal fail ratio","value":"14%","detail":"5 of 35 known closed outcomes were defeated."}'><span>Fail %</span><strong>14%</strong><em>5 / 35</em></div>
+  <section id="proposal-explorer" class="dao-section dao-data-card proposal-explorer-section" aria-labelledby="proposal-explorer-title" data-od-id="proposal-explorer-list">
+    <header class="proposal-explorer-header">
+      <div class="dao-card-header">
+        <p class="eyebrow">02 · Proposal Explorer</p>
+        <h2 id="proposal-explorer-title">What decisions has Uniswap made?</h2>
+        <p class="dao-card-summary">Search all 102 indexed proposals and compare participation and outcomes.</p>
       </div>
-      <div class="shape-closed-strip" aria-label="Latest closed governance proposal">
-        <div data-chart-hover='{"label":"Latest closed proposal","value":"31h ago","detail":"Cross-chain parameter set closed after a high-participation vote."}'><span>Latest closed</span><strong>31h ago</strong></div>
-        <div data-chart-hover='{"label":"Observed voters","value":"18,400 voters","detail":"Unique voters currently exposed by the DAO summary and timeline read models."}'><span>Observed voters</span><strong>18.4k</strong></div>
-      </div>
+    </header>
+
+    <form class="proposal-controls" aria-label="Proposal explorer filters" data-proposal-controls>
+      <label class="proposal-search-control"><span>Search</span><input type="search" name="search" placeholder="Title or source" autocomplete="off" aria-label="Search indexed proposals"></label>
+      <label><span>Status</span><select name="status" aria-label="Filter by lifecycle status"><option value="all">All statuses</option><option value="active">Active</option><option value="closed">Closed</option></select></label>
+      <label><span>Outcome</span><select name="outcome" aria-label="Filter by proposal outcome"><option value="all">All outcomes</option><option value="passed">Passed</option><option value="failed">Failed</option><option value="no_quorum">No quorum</option><option value="unknown">Unknown</option></select></label>
+      <label><span>Source</span><select name="source" aria-label="Filter by proposal source"><option value="all">All sources</option></select></label>
+      <label><span>Sort</span><select name="sort" aria-label="Sort indexed proposals"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="voters">Most voters</option><option value="power">Most voting power</option></select></label>
+    </form>
+
+    <div class="proposal-ledger proposal-horizontal-scroll" tabindex="0" role="region" aria-label="Indexed proposals. Select any single-line proposal row to open its detail." aria-live="polite" data-od-id="proposal-ledger-scroll">
+      <div class="proposal-ledger-head" aria-hidden="true"><span>Date</span><span>Proposal</span><span>Participation</span><span>Outcome</span></div>
+      <div class="proposal-ledger-rows" role="list" aria-label="Indexed proposals" data-proposal-rows></div>
+      <div class="proposal-empty" hidden data-proposal-empty>No indexed proposal rows match these filters.</div>
+    </div>
+    <footer class="proposal-explorer-footer">
+      <button class="button dark proposal-load-more" type="button" data-proposal-load-more>Load 20 more proposals</button>
+    </footer>
+  </section>
+
+  <section id="proposal-activity" class="dao-section dao-data-card proposal-activity-section" aria-labelledby="proposal-activity-title" data-od-id="proposal-activity-module">
+    <div class="dao-module-head">
+      <div class="dao-card-header"><p class="eyebrow">03 · Proposal Activity</p><h2 id="proposal-activity-title">When were proposals created?</h2><p class="dao-card-summary">Each bar shows proposals created in one UTC month; select a bar to open that month’s list.</p></div>
+      <strong class="dao-card-meta">Monthly indexed proposals</strong>
+    </div>
+    <div class="proposal-horizontal-scroll proposal-activity-scroll" tabindex="0" role="region" aria-label="Monthly indexed proposals created. Scroll horizontally to review all months." data-od-id="proposal-activity-scroll">
+      <div class="proposal-histogram" data-proposal-histogram></div>
     </div>
   </section>
 
-  <aside class="panel dao-history-rail" aria-labelledby="dao-history-title">
-    <section class="history-rail-section history-scroll-section" aria-label="DAO proposal history in reverse chronological order">
-      <div class="history-list-head"><div><h2 id="dao-history-title">Proposal timeline</h2></div><span>100 proposals</span></div>
-      <div class="history-outcome-summary history-outcome-inline" aria-label="Proposal outcome summary">
-        <span class="is-passed">Passed <strong>88</strong></span><span class="is-active">Active <strong>7</strong></span><span class="is-defeated">Failed <strong>5</strong></span>
-      </div>
-      <div class="history-status-legend history-status-semantic" aria-label="Proposal timeline status legend"><span class="is-live">Live</span><span class="is-passed">Pass</span><span class="is-executed">Exec</span><span class="is-defeated">Fail</span></div>
-      <div class="history-timeline-list" role="list" aria-label="Uniswap recent proposal timeline, newest proposals first" tabindex="0">
-        <a class="history-timeline-row is-live is-primary" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem" title="[Temp Check] Update Crosschain Governance Parameters for Avail"><time>07/01 14:20</time><strong><span><b class="history-proposal-token">TEMP</b> Update crosschain governance…Avail</span><em>LIVE</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem" title="[Temp Check] Protocol Fee Expansion: Unichain and mainnet"><time>06/28 09:10</time><strong><span><b class="history-proposal-token">TEMP</b> Protocol fee expansion…mainnet</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem" title="Return 12.5M Delegated Tokens"><time>06/21 18:40</time><strong><span>Return 12.5M delegated tokens</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem" title="[RFC] Governance Process Upgrade"><time>06/16 11:30</time><strong><span><b class="history-proposal-token">RFC</b> Governance process upgrade</span><em>FAIL</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem" title="[Temp Check] Protocol Fee Expansion v2"><time>06/12 08:45</time><strong><span><b class="history-proposal-token">TEMP</b> Protocol fee expansion v2</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem" title="Strategic Renewal of Gnosis, Liquidity and Accountability Workstreams"><time>06/05 20:10</time><strong><span>Strategic renewal: Gnosis…</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem" title="Unification"><time>05/31 13:00</time><strong><span>Unification</span><em>EXEC</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem" title="Uniswap Community Proposal Facilitation Budget"><time>05/29 18:30</time><strong><span>Community proposal facilitation…</span><em>FAIL</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem" title="Grow Uniswap on Plasma"><time>05/21 12:05</time><strong><span>Grow Uniswap on Plasma</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem" title="Treasury Delegation Round 2 Extension"><time>05/15 16:15</time><strong><span>Treasury delegation round 2…</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem" title="GL1 - Incentivized Delegation"><time>05/09 10:25</time><strong><span>GL1 - incentivized delegation</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem" title="GL1 - Treasury Delegation Round"><time>05/02 07:50</time><strong><span>GL1 - treasury delegation round</span><em>EXEC</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem" title="Launching Uniswap v3 on Ronin"><time>04/27 23:05</time><strong><span>Launching Uniswap v3 on Ronin</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-uniswap-v4" role="listitem" title="Establish Uniswap Governance Analytics Working Group"><time>04/18 15:10</time><strong><span>Governance analytics working group</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-risk" role="listitem" title="Crosschain Bridge Provider Evaluation"><time>04/11 09:35</time><strong><span>Crosschain bridge provider…</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem" title="Alternate Quorum Threshold Test"><time>04/03 18:20</time><strong><span>Alternate quorum threshold test</span><em>FAIL</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-optimism-retro" role="listitem" title="Delegate Communication Standards"><time>03/26 13:45</time><strong><span>Delegate communication standards</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem" title="Developer Tooling Grant Renewal"><time>03/19 08:25</time><strong><span>Developer tooling grant renewal</span><em>EXEC</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-proposal-aave-cbbtc" role="listitem" title="Treasury Reporting Cadence"><time>03/12 17:10</time><strong><span>Treasury reporting cadence</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-defeated" href="javascript:void(0)" data-event-id="evt-proposal-compound-cusdc" role="listitem" title="Emergency Multisig Expansion"><time>03/05 12:40</time><strong><span>Emergency multisig expansion</span><em>FAIL</em></strong></a>
-        <a class="history-timeline-row is-passed" href="javascript:void(0)" data-event-id="evt-priority-uniswap-v4" role="listitem" title="Governance Documentation Fund"><time>02/26 20:00</time><strong><span>Governance documentation fund</span><em>PASS</em></strong></a>
-        <a class="history-timeline-row is-executed" href="javascript:void(0)" data-event-id="evt-execution-arbitrum-grant" role="listitem" title="Community Treasury Bootstrap"><time>02/18 10:15</time><strong><span>Community treasury bootstrap</span><em>EXEC</em></strong></a>
-      </div>
-      <div class="history-rail-footer"><button class="history-full-timeline-link" type="button" data-full-timeline-open>View all 100 proposals →</button><span>Showing newest 22 of <strong>100</strong></span></div>
-    </section>
-  </aside>
-</section>
+  <section id="proposal-creators" class="dao-section dao-data-card proposal-creators-module" aria-labelledby="proposal-creators-title" data-od-id="proposal-creators-module">
+    <div class="dao-module-head"><div class="dao-card-header"><p class="eyebrow">04 · Proposal Creators</p><h2 id="proposal-creators-title">Who creates proposals most often?</h2><p class="dao-card-summary">26 creator addresses authored 102 indexed proposals; the top two authored 42.</p></div><strong class="dao-card-meta" data-creator-coverage>Indexed scope</strong></div>
 
-<section class="voter-section" aria-labelledby="voter-title">
-  <div class="voter-section-header">
-    <div>
-      <p class="eyebrow">Governance insights</p>
-      <h2 id="voter-title" hidden>Governance insights</h2>
+    <div class="proposal-creators-ledger" data-proposal-creators></div>
+    <p class="module-note" data-creator-note></p>
+  </section>
+
+  <section id="proposal-timeline" class="dao-section dao-data-card proposal-time-module" aria-labelledby="proposal-timeline-title" data-od-id="proposal-time-module">
+    <div class="dao-module-head">
+      <div class="dao-card-header"><p class="eyebrow">05 · Participation by Proposal</p><h2 id="proposal-timeline-title">Which proposals attracted the most voters?</h2><p class="dao-card-summary">Unique voter addresses per proposal. Select a bar for details.</p></div>
+      <div class="proposal-time-toggle" role="group" aria-label="Proposal participation timeline range">
+        <button type="button" class="is-active" data-proposal-time-range="recent" aria-pressed="true">Recent 32</button>
+        <button type="button" data-proposal-time-range="all" aria-pressed="false">All indexed</button>
+      </div>
     </div>
-    <div class="insight-header-actions" aria-label="Governance insight source"></div>
+    <div class="proposal-time-chart" data-proposal-time-chart></div>
+    <div class="proposal-time-axis"><span>Proposals in chronological order</span><strong data-proposal-time-caption>Recent 32 of 102 indexed</strong></div>
+  </section>
+
+  <div class="dao-analysis-group" data-od-id="voter-analysis-group">
+    <header class="dao-analysis-group-header"><p class="eyebrow">Voter analysis · Participation and voting power</p></header>
+    <div class="voter-analysis-grid">
+  <section id="top-voters" class="dao-section dao-data-card top-voters-module" aria-labelledby="top-voters-title" data-od-id="top-voters-module">
+    <div class="dao-module-head">
+      <div class="dao-card-header"><p class="eyebrow">06 · Established Voters</p><h2 id="top-voters-title">Which voters participate most often?</h2><p class="dao-card-summary">Compare how often repeat voters joined and how much voting power they used.</p></div>
+    </div>
+    <div class="top-voters-ledger" data-top-voters></div>
+  </section>
+
+  <section id="voting-depth" class="dao-section dao-data-card voting-depth-module" aria-labelledby="voting-depth-title" data-od-id="voting-depth-module">
+    <div class="dao-module-head"><div class="dao-card-header"><p class="eyebrow">07 · Participation Frequency</p><h2 id="voting-depth-title">How often do voters return?</h2><p class="dao-card-summary">9,528 addresses voted in 1–5 proposals; 754 voted in 21 or more.</p></div><strong class="dao-card-meta" data-voting-depth-total></strong></div>
+    <div class="distribution-table-head participation-frequency-head" aria-hidden="true"><span>Proposals joined</span><span>Distribution</span><strong>Addresses</strong><em>Share</em></div>
+    <div class="voting-depth-bars" data-voting-depth></div>
+  </section>
+
+  <section id="power-distribution" class="dao-section dao-data-card typical-power-module" aria-labelledby="power-distribution-title" data-od-id="typical-power-module">
+    <div class="dao-module-head"><div class="dao-card-header"><p class="eyebrow">08 · Typical Voting Power</p><h2 id="power-distribution-title">How much voting power does a typical voter use?</h2><p class="dao-card-summary">Most addresses used an average of less than 10 Snapshot VP in the proposals they joined.</p></div></div>
+
+    <div class="distribution-table-head typical-power-head" data-od-id="path-1-1-1-2-5-1-2-1" aria-label="Typical voting power table header">
+      <span>Average VP</span>
+      <span>Distribution</span>
+      <strong>Addresses</strong>
+      <em>Share</em>
+    </div>
+    <div class="typical-power-buckets" data-typical-power></div>
+  </section>
+
+  <section id="voter-concentration" class="dao-section dao-data-card concentration-module" aria-labelledby="voter-concentration-title" data-od-id="voter-concentration-module">
+    <div class="dao-module-head"><div class="dao-card-header"><p class="eyebrow">09 · Power Concentration</p><h2 id="voter-concentration-title">How concentrated is voting power?</h2><p class="dao-card-summary">The top 10 addresses supplied 70.53% of recorded Snapshot voting power across 101 proposals.</p></div></div>
+
+    <div class="concentration-highlights" data-concentration-highlights></div>
+    <div class="concentration-curve" role="img" aria-label="Cumulative exercised observed voting-power share by ranked voter prefix" data-concentration-curve></div>
+
+  </section>
+    </div>
   </div>
-
-  <div class="voter-charts" aria-label="Uniswap voter intelligence charts">
-
-    <div class="chart-cluster distribution-cluster" aria-label="Who votes charts">
-    <div class="voter-group-label voter-group-voters" data-chart-hover='{"label":"Who votes","value":"Voter base, participation depth, voting power, and quorum concentration","detail":"Hover rows and bars for exact counts. Click voter IDs in the ranking to copy addresses."}' tabindex="0"><span>Who votes</span><strong>voter base, participation depth, power, quorum pressure</strong></div>
-
-    <!-- Chart B: Top 10 Voters -->
-    <div class="voter-chart top-voters-chart distribution-card" aria-labelledby="top-voters-title">
-      <div class="voter-chart-head top-voter-chart-head"><div><h3 id="top-voters-title">Top 10 voters</h3><p class="top-voter-basis"><span>73 / 73 proposals analyzed</span><i aria-hidden="true"></i><span>Eligible token supply</span><i aria-hidden="true"></i><span>UNI</span></p></div><strong>weighted historical power</strong></div>
-      <div class="top-voter-table" aria-label="Top 10 voters ranked by proposal-aligned DAO power share">
-        <div class="top-voter-row top-voter-head"><span>#</span><span>Voter</span><span>Avg power</span><span>DAO power share</span><span>Proposals voted</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">1</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x3f81b57f3412b3a113006b2e4e4184c5f930a21b" data-copy="0x3f81b57f3412b3a113006b2e4e4184c5f930a21b">0x3f81b57f3412b3a113006b2e4e4184c5f930a21b</button><span class="top-voter-power" data-label="Avg power">842k UNI</span><span class="top-voter-share" data-label="DAO share" data-chart-hover='{"label":"DAO power share","value":"1.22%","detail":"Supply-weighted average across the same 32 proposal snapshots used by this voter row."}'><i style="--bar:12.2%"></i><em>1.22%</em></span><span class="top-voter-voted" data-label="Proposals">32 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">2</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x8c22d5b7ad44e8e6c91974d50ee0f29f3d003b19" data-copy="0x8c22d5b7ad44e8e6c91974d50ee0f29f3d003b19">0x8c22d5b7ad44e8e6c91974d50ee0f29f3d003b19</button><span class="top-voter-power" data-label="Avg power">623k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:8.8%"></i><em>0.88%</em></span><span class="top-voter-voted" data-label="Proposals">28 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">3</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0xa44702d06aa9d61fd45f4d793a5dd73d1550cd7e" data-copy="0xa44702d06aa9d61fd45f4d793a5dd73d1550cd7e">0xa44702d06aa9d61fd45f4d793a5dd73d1550cd7e</button><span class="top-voter-power" data-label="Avg power">351k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:5.1%"></i><em>0.51%</em></span><span class="top-voter-voted" data-label="Proposals">19 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">4</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x927d441c744df47830a9b66fa338b82b8464ef03" data-copy="0x927d441c744df47830a9b66fa338b82b8464ef03">0x927d441c744df47830a9b66fa338b82b8464ef03</button><span class="top-voter-power" data-label="Avg power">298k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:4.4%"></i><em>0.44%</em></span><span class="top-voter-voted" data-label="Proposals">15 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">5</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x1230f260acccdcf35dcb23b604f86f4ce8e2d491" data-copy="0x1230f260acccdcf35dcb23b604f86f4ce8e2d491">0x1230f260acccdcf35dcb23b604f86f4ce8e2d491</button><span class="top-voter-power" data-label="Avg power">271k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:3.9%"></i><em>0.39%</em></span><span class="top-voter-voted" data-label="Proposals">14 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">6</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x5b9f0d66a165a08636e514f6a7b60d9f57ab18f4" data-copy="0x5b9f0d66a165a08636e514f6a7b60d9f57ab18f4">0x5b9f0d66a165a08636e514f6a7b60d9f57ab18f4</button><span class="top-voter-power" data-label="Avg power">224k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:3.3%"></i><em>0.33%</em></span><span class="top-voter-voted" data-label="Proposals">12 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">7</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x1d6714e2ca64ad125905f7e4a0bd697417bca766" data-copy="0x1d6714e2ca64ad125905f7e4a0bd697417bca766">0x1d6714e2ca64ad125905f7e4a0bd697417bca766</button><span class="top-voter-power" data-label="Avg power">186k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:2.7%"></i><em>0.27%</em></span><span class="top-voter-voted" data-label="Proposals">11 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">8</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x8e612c5f14c6110fd8cd33fc7eae9d13417b4231" data-copy="0x8e612c5f14c6110fd8cd33fc7eae9d13417b4231">0x8e612c5f14c6110fd8cd33fc7eae9d13417b4231</button><span class="top-voter-power" data-label="Avg power">153k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:2.2%"></i><em>0.22%</em></span><span class="top-voter-voted" data-label="Proposals">9 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">9</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x38bdfbde18935cc0b6ab89b4e3a3fd7552ac12f9" data-copy="0x38bdfbde18935cc0b6ab89b4e3a3fd7552ac12f9">0x38bdfbde18935cc0b6ab89b4e3a3fd7552ac12f9</button><span class="top-voter-power" data-label="Avg power">127k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:1.8%"></i><em>0.18%</em></span><span class="top-voter-voted" data-label="Proposals">8 / 73</span></div>
-        <div class="top-voter-row"><span class="top-voter-rank">10</span><button type="button" class="top-voter-id" aria-label="Copy voter address 0x7b77dc95814f45482012565f9f0b1d84bce7f832" data-copy="0x7b77dc95814f45482012565f9f0b1d84bce7f832">0x7b77dc95814f45482012565f9f0b1d84bce7f832</button><span class="top-voter-power" data-label="Avg power">98k UNI</span><span class="top-voter-share" data-label="DAO share"><i style="--bar:1.6%"></i><em>0.16%</em></span><span class="top-voter-voted" data-label="Proposals">7 / 73</span></div>
-      </div>
-      <p class="top-voter-data-note"><strong>Source-aware metric.</strong> Eligible proposal-snapshot supply is used when fully resolved; otherwise Atlas labels the fallback as observed cast VP.</p>
-    </div>
-
-    <!-- Chart C: Participation depth -->
-    <div class="voter-chart participation-chart distribution-card" aria-labelledby="depth-title">
-      <div class="voter-chart-head"><h3 id="depth-title">Participation depth</h3><strong>counts</strong></div>
-      <div class="depth-bars" aria-label="Voter participation depth distribution">
-        <div class="depth-row" tabindex="0" data-chart-hover='{"label":"1 vote","value":"12,500 voters","detail":"68% of the observed voter base voted once."}'><span>1 vote</span><strong>12.5k</strong><i style="--bar:68%"></i><em>68%</em></div>
-        <div class="depth-row" tabindex="0" data-chart-hover='{"label":"2–5 votes","value":"3,900 voters","detail":"Recurring but not core delegate participation."}'><span>2&ndash;5 votes</span><strong>3.9k</strong><i style="--bar:21%"></i><em>21%</em></div>
-        <div class="depth-row" tabindex="0" data-chart-hover='{"label":"6–10 votes","value":"1,300 voters","detail":"Regular governance participants."}'><span>6&ndash;10 votes</span><strong>1.3k</strong><i style="--bar:7%"></i><em>7%</em></div>
-        <div class="depth-row" tabindex="0" data-chart-hover='{"label":"11+ votes","value":"736 voters","detail":"Core delegate and voter cohort."}'><span>11+ votes</span><strong>736</strong><i style="--bar:4%"></i><em>4%</em></div>
-      </div>
-    </div>
-
-    <!-- Chart E: Voting power distribution -->
-    <div class="voter-chart power-distribution-chart distribution-card" aria-labelledby="power-dist-title">
-      <div class="voter-chart-head"><h3 id="power-dist-title">Power distribution</h3><strong>power bands</strong></div>
-      <div class="power-distribution" aria-label="Voting power distribution by wallet size">
-        <div class="power-row" tabindex="0" data-chart-hover='{"label":"Under 1k","value":"9,800 voters","detail":"Small holders dominate address count."}'><span>&lt;1k</span><strong>9.8k</strong><i style="--bar:82%"></i><em>54%</em></div>
-        <div class="power-row" tabindex="0" data-chart-hover='{"label":"1k–10k","value":"5,100 voters","detail":"Mid-tail voting power."}'><span>1k&ndash;10k</span><strong>5.1k</strong><i style="--bar:54%"></i><em>28%</em></div>
-        <div class="power-row" tabindex="0" data-chart-hover='{"label":"10k–100k","value":"2,700 voters","detail":"High-conviction delegate and fund wallets."}'><span>10k&ndash;100k</span><strong>2.7k</strong><i style="--bar:28%"></i><em>15%</em></div>
-        <div class="power-row" tabindex="0" data-chart-hover='{"label":"100k+","value":"412 voters","detail":"Largest voting-power accounts."}'><span>100k+</span><strong>412</strong><i style="--bar:11%"></i><em>3%</em></div>
-      </div>
-
-    </div>
-
-    <!-- Chart F: Concentration -->
-    <div class="voter-chart concentration-chart distribution-card" aria-labelledby="concentration-title">
-      <div class="voter-chart-head"><h3 id="concentration-title">Voter concentration</h3><strong>power concentration</strong></div>
-      <div class="concentration-bars" aria-label="Voter concentration metrics">
-        <div class="conc-row" tabindex="0" data-chart-hover='{"label":"Largest voter share","value":"18%","detail":"The top voter can materially affect close proposals."}'><span>Largest voter share</span><strong>18%</strong><i style="--bar:18%"></i></div>
-        <div class="conc-row" tabindex="0" data-chart-hover='{"label":"Top 10 share","value":"46%","detail":"Top-ten voting power across recent proposals."}'><span>Top 10 share</span><strong>46%</strong><i style="--bar:46%"></i></div>
-
-        <div class="conc-row" tabindex="0" data-chart-hover='{"label":"Observed voters","value":"18.4k","detail":"DAO-wide unique voter count from normalized vote rows."}'><span>Observed voters</span><strong>18.4k</strong><i style="--bar:100%"></i></div>
-      </div>
-    </div>
-
-    </div>
-
-    <div class="chart-cluster timeseries-cluster" aria-label="Participation trend charts">
-    <div class="voter-group-label voter-group-proposals" data-chart-hover='{"label":"How participation changes","value":"Monthly proposal/voter counts and historical proposal quorum requirements","detail":"Uses timeline proposal counts, timeline unique voters, and quorum values parsed from past proposal details."}' tabindex="0"><span>How participation changes</span><strong>monthly counts and proposal-detail quorum history</strong></div>
-
-    <!-- Chart D: Proposal volume over time -->
-    <div class="voter-chart voter-chart-full proposal-time-chart echart-card trend-card" aria-labelledby="proposal-time-title">
-      <div class="voter-chart-head"><h3 id="proposal-time-title">Proposals over time</h3><strong>monthly count</strong></div>
-      <div id="proposal-time-chart" class="echart-canvas" role="img" aria-label="Monthly proposals over time"></div>
-    </div>
-
-    <!-- Chart E: Voters over time -->
-    <div class="voter-chart voter-chart-full new-voters-chart echart-card trend-card" aria-labelledby="new-voters-title">
-      <div class="voter-chart-head"><h3 id="new-voters-title">Voters over time</h3><strong>unique voters</strong></div>
-      <div id="voters-time-chart" class="echart-canvas" role="img" aria-label="Monthly voters over time"></div>
-    </div>
-
-    <!-- Chart G: Quorum over time -->
-    <div class="voter-chart voter-chart-full quorum-time-chart echart-card trend-card" aria-labelledby="quorum-time-title">
-      <div class="voter-chart-head"><h3 id="quorum-time-title">Quorum over time</h3><strong>proposal-detail quorum history</strong></div>
-      <div id="quorum-time-chart" class="echart-canvas" role="img" aria-label="Historical quorum requirement values from past proposal details over time"></div>
-    </div>
-
-    </div>
-
-  </div>
-</section>
-
+</div>
+<aside class="dao-data-index" aria-label="DAO data index" data-dao-data-index-desktop data-od-id="dao-data-index"></aside>
 </div>
 <footer class="atlas-footer" aria-label="DeGov Atlas footer">
   <div class="atlas-footer-line">
@@ -247,217 +204,16 @@
   </div>
 </footer>
 </main>
+<nav class="mobile-tab-bar" aria-label="Mobile primary navigation"><a href="index.html"><span class="nav-icon">H</span>Overview</a>
+<a href="dao-list.html" aria-current="page"><span class="nav-icon">D</span>DAOs</a>
+<a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a></nav>
+</div>
 <div id="event-detail-panel" class="event-detail-panel" role="dialog" aria-label="Governance proposal detail" aria-hidden="true" inert>
   <div class="event-panel-backdrop" data-panel-close></div>
   <div class="event-panel-content">
     <div class="event-panel-body" id="event-panel-body"></div>
   </div>
 </div>
-
-<nav class="mobile-tab-bar" aria-label="Mobile primary navigation"><a href="index.html"><span class="nav-icon">H</span>Overview</a>
-<a href="dao-list.html" aria-current="page"><span class="nav-icon">D</span>DAOs</a>
-<a href="governance-feed.html"><span class="nav-icon">G</span>Feed</a></nav>
-</div>
-<script>
-(function(){
-  var tip = document.createElement('div');
-  tip.className = 'chart-tooltip';
-  tip.setAttribute('aria-hidden','true');
-  document.body.appendChild(tip);
-  var DATA_MEANINGS = {
-    "distribution-participation": { label: "Distribution & participation", value: "How participation is spread", detail: "This cluster explains who votes, how often they return, how much voting power they carry, and whether quorum is usually reachable." },
-    "top-voters": { label: "Top 10 voters", value: "Largest voting-power accounts", detail: "Ranks voters by voting power observed in the selected window. The share column shows each account's portion of recent voting power." },
-    "participation-depth": { label: "Participation depth", value: "How often voters return", detail: "Groups voters by number of proposals they voted on. A large one-vote bucket means many occasional voters; larger repeat buckets mean a deeper delegate base." },
-    "voting-power-distribution": { label: "Voting power distribution", value: "Voters by voting-power band", detail: "Shows how many voters sit in each voting-power range. It helps separate broad voter count from concentrated voting weight." },
-    "concentration-quorum": { label: "Voter concentration", value: "Backend-backed voter concentration metrics", detail: "Compares largest-voter share, top-ten share, and observed voter count. DAO-level quorum hit-rate and ranking-row counts are omitted from this card." },
-    "time-series-trends": { label: "Time-series trends", value: "Available chart-ready series", detail: "Shows proposal count by month, unique voters by month, and quorum requirements over proposal dates. Missing backend series are intentionally omitted." },
-    "proposals-over-time": { label: "Proposals over time", value: "Monthly proposal count", detail: "Tracks proposals_created buckets from the DAO timeline endpoint. Active-decision history is not charted because it is not exposed as a monthly series." },
-    "voters-over-time": { label: "Voters over time", value: "Monthly unique voters", detail: "Tracks unique_voters buckets from the DAO timeline endpoint. New-voter cohorts are not charted without a monthly cohort series." },
-    "quorum-over-time": { label: "Quorum over time", value: "Historical proposal quorum", detail: "Shows quorumRequiredNum parsed from past proposal details and plotted against proposal dates. Unknown quorum rules are omitted instead of plotted as zero or misses." }
-  };
-  var hideTimer = 0;
-  function show(ev, data) {
-    clearTimeout(hideTimer);
-    var html = '<strong>'+data.label+'</strong>';
-    if (data.value) html += '<em>'+data.value+'</em>';
-    if (data.votes) html += '<span>Votes cast: '+data.votes+'</span>';
-    if (data.voters) html += '<span>Unique voters: '+data.voters+'</span>';
-    if (data.returning) html += '<span>Returning: '+data.returning+'</span>';
-    if (data.new) html += '<span>New: '+data.new+'</span>';
-    if (data.total) html += '<span>Total: '+data.total+'</span>';
-    if (data.met) html += '<span>Met: '+data.met+'</span>';
-    if (data.missed) html += '<span>Missed: '+data.missed+'</span>';
-    if (data.detail) html += '<span>'+data.detail+'</span>';
-    if (data.note) html += '<span class="tip-note">'+data.note+'</span>';
-    tip.innerHTML = html;
-    tip.style.display = 'block';
-    var x = ev.clientX + 14, y = ev.clientY + 14;
-    if (x + 260 > window.innerWidth) x = ev.clientX - 270;
-    if (y + 120 > window.innerHeight) y = ev.clientY - 130;
-    tip.style.left = x+'px';
-    tip.style.top = y+'px';
-  }
-  function hide() { hideTimer = window.setTimeout(function(){ tip.style.display = 'none'; }, 80); }
-  function showFromFocus(el) {
-    try {
-      var d = JSON.parse(el.getAttribute('data-chart-hover'));
-      var rect = el.getBoundingClientRect();
-      show({ clientX: rect.left + Math.min(rect.width, 220), clientY: rect.top + 6 }, d);
-    } catch(e){}
-  }
-  document.querySelectorAll('[data-chart-hover]').forEach(function(el){
-    el.addEventListener('mouseenter', function(ev){
-      try { var d = JSON.parse(el.getAttribute('data-chart-hover')); show(ev, d); } catch(e){}
-    });
-    el.addEventListener('focus', function(){ showFromFocus(el); });
-    el.addEventListener('mousemove', function(ev){
-      var x = ev.clientX + 14, y = ev.clientY + 14;
-      if (x + 260 > window.innerWidth) x = ev.clientX - 270;
-      if (y + 120 > window.innerHeight) y = ev.clientY - 130;
-      tip.style.left = x+'px'; tip.style.top = y+'px';
-    });
-    el.addEventListener('mouseleave', hide);
-    el.addEventListener('blur', hide);
-  });
-  document.querySelectorAll('[data-meaning]').forEach(function(el){
-    el.addEventListener('click', function(ev){
-      ev.preventDefault();
-      ev.stopPropagation();
-      var data = DATA_MEANINGS[el.getAttribute('data-meaning')];
-      if (!data) return;
-      show(ev, data);
-    });
-    el.addEventListener('keydown', function(ev){
-      if (ev.key === 'Escape') hide();
-    });
-  });
-  document.querySelectorAll('.top-voter-id[data-copy]').forEach(function(el){
-    var val = el.getAttribute('data-copy') || el.textContent.trim();
-    if (/^0x[a-fA-F0-9]{40}$/.test(val)) {
-      var shortAddress = val.slice(0, 6) + '…' + val.slice(-4);
-      el.setAttribute('title', val);
-      el.setAttribute('data-display-address', shortAddress);
-      el.textContent = shortAddress;
-    }
-  });
-  document.querySelectorAll('[data-copy]').forEach(function(el){
-    el.addEventListener('click', function(){
-      var val = el.getAttribute('data-copy')||'';
-      var orig = el.textContent;
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(val);
-        } else {
-          var ta = document.createElement('textarea');
-          ta.value = val; ta.setAttribute('readonly','');
-          ta.style.position='fixed'; ta.style.opacity='0';
-          document.body.appendChild(ta); ta.select();
-          document.execCommand('copy'); ta.remove();
-        }
-        el.textContent = 'Copied';
-        el.classList.add('is-copied');
-        window.setTimeout(function(){ el.textContent = orig; el.classList.remove('is-copied'); }, 1200);
-      } catch(e){
-        el.textContent = 'Failed';
-        window.setTimeout(function(){ el.textContent = orig; }, 1200);
-      }
-    });
-  });
-})();
-</script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-<script>
-(function(){
-  if (!window.echarts) {
-    document.querySelectorAll('.echart-canvas').forEach(function(el){
-      el.innerHTML = '<span class="chart-fallback">Chart library unavailable</span>';
-    });
-    return;
-  }
-  var months = ['Jul 24','Oct 24','Jan 25','Apr 25','Jul 25','Oct 25','Jan 26','May 26','Jun 26','Jul 26'];
-  var quorumTimelineLabels = ['Jul 24','Sep 24','Dec 24','Feb 25','Apr 25','Jul 25','Oct 25','Jan 26','May 26','Jul 26'];
-  var axisStyle = { color: 'rgba(250,250,250,0.46)', fontFamily: 'IBM Plex Mono, ui-monospace, monospace', fontSize: 10 };
-  var splitLine = { lineStyle: { color: 'rgba(255,255,255,0.075)', type: 'dashed' } };
-  var tooltip = {
-    trigger: 'axis',
-    backgroundColor: 'rgba(8,8,8,0.96)',
-    borderColor: 'rgba(111,255,176,0.36)',
-    borderWidth: 1,
-    textStyle: { color: '#fafafa', fontFamily: 'IBM Plex Mono, ui-monospace, monospace', fontSize: 11 },
-    axisPointer: { type: 'line', lineStyle: { color: 'rgba(111,255,176,0.42)', width: 1 } }
-  };
-  function init(id, option) {
-    var el = document.getElementById(id);
-    if (!el) return null;
-    var chart = echarts.init(el, null, { renderer: 'svg' });
-    chart.setOption(option);
-    window.addEventListener('resize', function(){ chart.resize(); });
-    return chart;
-  }
-  function axisLabel(extra) {
-    return Object.assign({ hideOverlap: true, margin: 8 }, axisStyle, extra || {});
-  }
-  init('proposal-status-chart', {
-    color: ['#6fffb0','#f59e0b','#60a5fa','#f87171'],
-    tooltip: { trigger: 'item', backgroundColor: 'rgba(8,8,8,0.96)', borderColor: 'rgba(111,255,176,0.36)', textStyle: { color: '#fafafa', fontFamily: 'IBM Plex Mono, ui-monospace, monospace', fontSize: 11 } },
-    legend: { orient: 'vertical', right: 6, top: 'middle', itemWidth: 8, itemHeight: 8, textStyle: axisStyle, formatter: function(name){ var n = {Passed:24, Active:7, Executed:6, Defeated:5}; return name + ' ' + n[name]; } },
-    series: [{
-      name: 'Proposal status', type: 'pie', radius: ['54%','72%'], center: ['34%','50%'], avoidLabelOverlap: true,
-      label: { show: true, position: 'center', formatter: '42\nproposals', color: '#fafafa', fontFamily: 'IBM Plex Mono, ui-monospace, monospace', fontSize: 15, lineHeight: 20 },
-      labelLine: { show: false },
-      itemStyle: { borderColor: '#0b0d10', borderWidth: 2 },
-      data: [{ value: 24, name: 'Passed' }, { value: 7, name: 'Active' }, { value: 6, name: 'Executed' }, { value: 5, name: 'Defeated' }]
-    }]
-  });
-  init('proposal-time-chart', {
-    color: ['#6fffb0'], tooltip: tooltip,
-    legend: { top: 2, left: 42, itemWidth: 16, itemHeight: 4, textStyle: axisStyle },
-    grid: { top: 42, right: 18, bottom: 34, left: 40 },
-    xAxis: { type: 'category', boundaryGap: false, data: months, axisLine: { lineStyle: { color: 'rgba(255,255,255,0.14)' } }, axisTick: { show: false }, axisLabel: axisLabel({ interval: 1 }) },
-    yAxis: { type: 'value', min: 0, max: 10, splitNumber: 5, splitLine: splitLine, axisLabel: axisLabel() },
-    series: [
-      { name: 'Proposals', type: 'line', smooth: true, symbol: 'circle', symbolSize: 6, label: { show: false }, lineStyle: { width: 2.6 }, areaStyle: { color: 'rgba(111,255,176,0.08)' }, data: [2,3,1,4,5,3,4,8,7,5], markPoint: { symbol: 'circle', symbolSize: 9, label: { show: false }, itemStyle: { color: '#fbbf24', borderColor: '#080808', borderWidth: 2 }, data: [{ name: 'May 2026 proposal spike', coord: ['May 26', 8] }] } }
-    ]
-  });
-  init('voters-time-chart', {
-    color: ['#6fffb0'], tooltip: tooltip,
-    legend: { top: 2, left: 46, itemWidth: 16, itemHeight: 4, textStyle: axisStyle },
-    grid: { top: 42, right: 18, bottom: 34, left: 48 },
-    xAxis: { type: 'category', boundaryGap: false, data: months, axisLine: { lineStyle: { color: 'rgba(255,255,255,0.14)' } }, axisTick: { show: false }, axisLabel: axisLabel({ interval: 1 }) },
-    yAxis: { type: 'value', min: 0, max: 12000, splitNumber: 4, splitLine: splitLine, axisLabel: axisLabel({ formatter: function(v){ return v >= 1000 ? (v/1000)+'k' : v; } }) },
-    series: [
-      { name: 'Unique voters', type: 'line', smooth: true, symbol: 'circle', symbolSize: 6, label: { show: false }, lineStyle: { width: 2.6 }, areaStyle: { color: 'rgba(111,255,176,0.07)' }, data: [1400,1930,1460,2340,2720,2940,2500,11200,9800,5400], markPoint: { symbol: 'circle', symbolSize: 9, label: { show: false }, itemStyle: { color: '#fbbf24', borderColor: '#080808', borderWidth: 2 }, data: [{ name: 'Peak voter participation', coord: ['May 26', 11200] }] } }
-    ]
-  });
-  init('quorum-time-chart', {
-    color: ['#6fffb0'], tooltip: tooltip,
-    legend: { top: 2, left: 42, itemWidth: 16, itemHeight: 4, textStyle: axisStyle },
-    grid: { top: 42, right: 18, bottom: 34, left: 54 },
-    xAxis: { type: 'category', boundaryGap: false, data: quorumTimelineLabels, axisLine: { lineStyle: { color: 'rgba(255,255,255,0.14)' } }, axisTick: { show: false }, axisLabel: axisLabel({ interval: 1 }) },
-    yAxis: { type: 'value', min: 0, max: 80000000, splitNumber: 4, splitLine: splitLine, axisLabel: axisLabel({ formatter: function(v){ return v >= 1000000 ? (v/1000000)+'M' : v; } }) },
-    series: [
-      { name: 'Required voting power', type: 'line', smooth: false, symbol: 'circle', symbolSize: 6, label: { show: false }, lineStyle: { width: 2.6 }, areaStyle: { color: 'rgba(111,255,176,0.07)' }, data: [40000000,40000000,40000000,50000000,50000000,50000000,60000000,60000000,70000000,70000000], markPoint: { symbol: 'circle', symbolSize: 9, label: { show: false }, itemStyle: { color: '#60a5fa', borderColor: '#080808', borderWidth: 2 }, data: [{ name: 'Latest proposal quorum requirement', coord: ['Jul 26', 70000000] }] } }
-    ]
-  });
-})();
-</script>
-<script>
-(function(){
-  const markTruncatedHistoryTitles = () => {
-    document.querySelectorAll('.dao-history-rail .history-timeline-row strong span').forEach((title) => {
-      title.removeAttribute('data-full-title');
-      title.removeAttribute('title');
-      if (title.scrollWidth > title.clientWidth + 1) {
-        const fullTitle = title.textContent.trim();
-        title.setAttribute('data-full-title', fullTitle);
-        title.setAttribute('title', fullTitle);
-      }
-    });
-  };
-  window.addEventListener('load', markTruncatedHistoryTitles, { once: true });
-  window.addEventListener('resize', markTruncatedHistoryTitles);
-})();
-</script>
-<script src="atlas.js" defer></script>
+<script src="atlas.js?v=dao-ui-system-20260720-1" defer></script>
 </body>
 </html>

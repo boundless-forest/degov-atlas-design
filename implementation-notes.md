@@ -30,7 +30,7 @@ Full xAI dark design system rewrite of the Atlas multi-page static prototype. Al
 |---|---|---|
 | `/` | `index.html` | Overview with xAI dark shell, GeistMono hero headline, trend chart, Popular DAOs/Discussions panels |
 | `/daos` | `dao-list.html` | DAO directory with inline filter bar, stats bar, expanded data table |
-| `/daos/[daoId]` | `daos-detail.html` | DAO profile with summary panel, sparkline, forum/source cards, proposal list |
+| `/daos/[daoId]` | `daos-detail.html` | DAO data navigator with indexed proposal, creator, participation, and voter-power evidence |
 | `/governance` | `governance-feed.html` | Bulletin-style proposal feed with timeline, status pills |
 | `/proposals/[proposalId]` | `proposal-detail.html` | Proposal detail with vote distribution bars, evidence table, participant links |
 | `/newsletters` | `newsletters-list.html` | Single-line scrollable archive list |
@@ -82,3 +82,14 @@ The project is now fully xAI dark-themed. Compared with the prior light DeFiLlam
 - `MOST ACTIVE · 14D SIGNALS` counts collapsed governance subjects per DAO, while forum counts cover the full 14-day window. Prototype figures are sample data only; production should render backend aggregation without exposing staging-only labels in the public UI.
 - Execution and treasury activity are intentionally omitted. The current serving signal model has no typed execution or treasury event with reliable timestamp and provenance; execution should remain absent until the backend emits that explicit contract.
 - The public hierarchy is intentionally headerless: a compact one-line page identity leads into three 34–38px Priority Signal rows, a horizontally scrollable text-tab toolbar, and 42–46px feed rows. Repeated alignment communicates time, signal type, subject, and outcome without schema labels; the 300px summary rail aligns with the Priority Signals strip.
+
+## DAO Detail Data Navigator (2026-07-20)
+
+- `daos-detail.html` is the canonical DAO-detail contract. It replaces the former Situation Room / Proposal Timeline rail with a single reading flow and a responsive Data Index.
+- The approved information order is: `01 Overview`, `02 Proposal Explorer`, `03 Proposal Activity`, `04 Proposal Creators`, `05 Participation by Proposal`, `06 Established Voters`, `07 Participation Frequency`, `08 Typical Voting Power`, and `09 Power Concentration`.
+- Proposal Explorer searches and filters the complete indexed proposal archive, loads rows progressively, and opens the shared governance side panel without changing routes. Monthly activity, creator, proposal-participation, voter, and distribution rows also open evidence drilldowns.
+- `backend-sample-uniswap.json` is a fixture and handoff contract, not production data. Production must derive the same semantics from backend serving APIs: proposal lifecycle/outcome, effective ballots, unique voters, creator coverage, latest-effective voter participation, average voting power per voted proposal, and cumulative observed cast-power concentration.
+- Established Voters requires at least five joined proposals so one-off high-power addresses do not dominate the repeat-participant table. Observed cast voting power is governance participation evidence, not wallet holdings or delegated token balance.
+- Power Concentration uses each address's total latest-effective voting power across indexed proposals. It must not be produced by summing proposal-aligned per-voter share percentages, because those rows can use different covered-proposal denominators.
+- Quorum Performance is intentionally absent from the approved DAO-detail flow. When a backend evidence family is unavailable, production should omit that module and let the remaining cards close the layout naturally rather than inventing values.
+- Desktop uses a sticky right-side Data Index; tablet uses the horizontal section rail; mobile uses the modal section selector. Scroll-spy must pin the final item when the page reaches its absolute bottom. All panel and navigator interactions must preserve Escape-to-close and trigger focus restoration.

@@ -1,4 +1,5 @@
 .od-skills/
+.file-versions/
 *.artifact.json
 *.png
 .DS_Store

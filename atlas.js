@@ -1,6 +1,6 @@
 /**
  * File overview: Shared Atlas UI scripts — event and agent capability detail panel,
- * event delegation, focus trapping, keyboard shortcuts, and mock data (Phase 1 static prototype).
+ * event delegation, focus trapping, keyboard shortcuts, and the DAO-detail governance evidence explorer.
  *
  * The mock data below mirrors the shape the backend /atlas/feed and
  * /atlas/proposals/:id endpoints would return.  Every field marked with an
@@ -916,10 +916,15 @@ const EventPanel = (function () {
   let timelineTriggerElement = null;
   let isOpen = false;
   let previousActiveElement = null;
+  let inertRoot = null;
+  let proposalListState = null;
+  let proposalListScrollTop = 0;
 
   function init() {
-    panel = document.getElementById("event-detail-panel");
+    panel = document.querySelector("#event-detail-panel");
     if (!panel) return;
+    const containingShell = panel.closest(".atlas-shell");
+    if (containingShell) document.body.appendChild(panel);
     backdrop = panel.querySelector(".event-panel-backdrop");
     content = panel.querySelector(".event-panel-content");
     closeBtn = panel.querySelector(".event-panel-close");
@@ -939,6 +944,7 @@ const EventPanel = (function () {
     triggerElement = triggerEl;
     previousActiveElement = document.activeElement;
 
+    panel.setAttribute("aria-label", eventData.type === "proposal" || options.proposalRow ? "Proposal detail" : "Governance event detail");
     bodyEl.innerHTML = renderPanelContent(eventData, options);
     panel.dataset.panelMode = options.backToTimeline ? "proposal" : "detail";
 
@@ -952,11 +958,106 @@ const EventPanel = (function () {
     triggerElement = triggerEl || timelineTriggerElement;
     previousActiveElement = document.activeElement;
 
+    panel.setAttribute("aria-label", "Proposal timeline");
     bodyEl.innerHTML = renderTimelinePanelContent();
     panel.dataset.panelMode = "timeline";
 
     activatePanel();
   }
+
+  function openProposalDecision(detail, triggerEl, options) {
+    if (isOpen) close(true);
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    panel.setAttribute("aria-label", "Proposal decision: " + (detail?.title || "Proposal"));
+    bodyEl.innerHTML = renderProposalDecisionPanel(normalizeProposalDetail(options?.eventData || null, detail), options || {});
+    panel.dataset.panelMode = "dao-proposal-decision";
+    activatePanel();
+  }
+
+  function openProposalCreator(detail, triggerEl) {
+    if (isOpen) close(true);
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    panel.setAttribute("aria-label", "Proposal creator: " + (detail?.address || "Creator"));
+    bodyEl.innerHTML = renderProposalCreatorPanel(detail || {});
+    panel.dataset.panelMode = "dao-proposal-creator";
+    activatePanel();
+  }
+
+  function openParticipationFrequency(detail, triggerEl) {
+    if (isOpen) close(true);
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    panel.setAttribute("aria-label", "Participation frequency: " + (detail?.label || "Cohort"));
+    bodyEl.innerHTML = renderParticipationFrequencyPanel(detail || {});
+    panel.dataset.panelMode = "dao-participation-frequency";
+    activatePanel();
+  }
+
+  function openGovernanceSetup(detail, triggerEl) {
+    if (isOpen) close(true);
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    panel.setAttribute("aria-label", "Uniswap governance setup");
+    bodyEl.innerHTML = renderGovernanceSetupPanel(detail || {});
+    panel.dataset.panelMode = "dao-governance-setup";
+    activatePanel();
+  }
+
+  function openProposalActivityMonth(detail, triggerEl) {
+    if (isOpen) close(true);
+    proposalListState = detail || {};
+    proposalListScrollTop = 0;
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    panel.setAttribute("aria-label", (detail?.title || "Month") + " proposal list");
+    bodyEl.innerHTML = renderProposalActivityMonthPanel(proposalListState);
+    panel.dataset.panelMode = "dao-proposal-activity-month";
+    activatePanel();
+  }
+
+  function openProposalParticipation(detail, triggerEl) {
+    if (isOpen) close(true);
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    const row = normalizeProposalDetail(null, detail);
+    panel.setAttribute("aria-label", "Proposal participation: " + (row?.title || "Proposal"));
+    bodyEl.innerHTML = renderProposalParticipationPanel(row || {});
+    panel.dataset.panelMode = "dao-proposal-participation";
+    activatePanel();
+  }
+
+  function openEstablishedVoter(detail, triggerEl) {
+    if (isOpen) close(true);
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    panel.setAttribute("aria-label", "Established voter: " + (detail?.voterAddress || "Voter"));
+    bodyEl.innerHTML = renderEstablishedVoterPanel(detail || {});
+    panel.dataset.panelMode = "dao-established-voter";
+    activatePanel();
+  }
+
+  function openTypicalPower(detail, triggerEl) {
+    if (isOpen) close(true);
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    panel.setAttribute("aria-label", "Typical voting power: " + (detail?.label || "Cohort"));
+    bodyEl.innerHTML = renderTypicalPowerPanel(detail || {});
+    panel.dataset.panelMode = "dao-typical-power";
+    activatePanel();
+  }
+
+  function openPowerConcentration(detail, triggerEl) {
+    if (isOpen) close(true);
+    triggerElement = triggerEl;
+    previousActiveElement = document.activeElement;
+    panel.setAttribute("aria-label", "Power concentration: Top " + indexedNumber(detail?.selectedCount));
+    bodyEl.innerHTML = renderPowerConcentrationPanel(detail || {});
+    panel.dataset.panelMode = "dao-power-concentration";
+    activatePanel();
+  }
+
 
   function activatePanel() {
     /* Re-query close button — it's rendered dynamically into #event-panel-body */
@@ -966,7 +1067,11 @@ const EventPanel = (function () {
     panel.setAttribute("aria-hidden", "false");
     panel.removeAttribute("inert");
 
+    inertRoot = document.querySelector(".atlas-shell");
+    if (inertRoot) inertRoot.setAttribute("inert", "");
     document.body.style.overflow = "hidden";
+    document.body.classList.add("is-event-panel-open");
+    document.dispatchEvent(new CustomEvent("atlas:panel-open"));
     isOpen = true;
 
     if (closeBtn) {
@@ -991,8 +1096,47 @@ const EventPanel = (function () {
 
     initAiAnalysisFlows(bodyEl);
 
+    bodyEl.querySelectorAll("[data-evidence-copy-address]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const address = button.dataset.evidenceCopyAddress;
+        try {
+          await navigator.clipboard.writeText(address);
+        } catch (_) {
+          const helper = document.createElement("textarea");
+          helper.value = address;
+          helper.setAttribute("readonly", "");
+          helper.style.position = "fixed";
+          helper.style.opacity = "0";
+          document.body.appendChild(helper);
+          helper.select();
+          document.execCommand("copy");
+          helper.remove();
+        }
+        button.textContent = "Copied";
+        window.setTimeout(() => { button.textContent = "Copy address"; }, 1400);
+      });
+    });
+
+    bodyEl.querySelectorAll("[data-proposal-list-id]").forEach((button) => {
+      button.addEventListener("click", () => showProposalFromList(button.dataset.proposalListId));
+    });
+    const proposalListBack = bodyEl.querySelector("[data-panel-proposal-list-back]");
+    if (proposalListBack) proposalListBack.addEventListener("click", showProposalListAgain);
+
+    bodyEl.querySelectorAll("[data-compact-records-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const expanding = button.getAttribute("aria-expanded") !== "true";
+        bodyEl.querySelectorAll("[data-compact-record-extra]").forEach((record) => {
+          record.hidden = !expanding;
+        });
+        button.setAttribute("aria-expanded", String(expanding));
+        button.textContent = expanding ? button.dataset.collapseLabel : button.dataset.expandLabel;
+      });
+    });
+
     document.addEventListener("keydown", handleKeydown);
     backdrop.addEventListener("click", handleBackdropClick);
+    panel.addEventListener("click", handleOverlayClick);
   }
 
   function close(silent) {
@@ -1001,6 +1145,7 @@ const EventPanel = (function () {
 
     document.removeEventListener("keydown", handleKeydown);
     backdrop.removeEventListener("click", handleBackdropClick);
+    panel.removeEventListener("click", handleOverlayClick);
     if (closeBtn) closeBtn.removeEventListener("click", close);
 
     panel.classList.remove("is-open");
@@ -1008,7 +1153,11 @@ const EventPanel = (function () {
     panel.setAttribute("inert", "");
     delete panel.dataset.panelMode;
 
+    if (inertRoot) inertRoot.removeAttribute("inert");
+    inertRoot = null;
     document.body.style.overflow = "";
+    document.body.classList.remove("is-event-panel-open");
+    document.dispatchEvent(new CustomEvent("atlas:panel-close"));
     isOpen = false;
 
     if (!silent && triggerElement) {
@@ -1038,6 +1187,39 @@ const EventPanel = (function () {
     }
   }
 
+  function handleOverlayClick(e) {
+    if (e.target === panel) close();
+  }
+
+  function showProposalFromList(proposalId) {
+    const records = Array.isArray(proposalListState?.records) ? proposalListState.records : [];
+    const row = records.find((record) => record.id === proposalId);
+    if (!row) return;
+    const list = bodyEl.querySelector(".dao-month-proposal-list");
+    proposalListScrollTop = list ? list.scrollTop : 0;
+    bodyEl.innerHTML = renderProposalDecisionPanel(normalizeProposalDetail(null, row), {
+      backToProposalList: true,
+      proposalListTitle: proposalListState.title,
+      contextLabel: compactSectionContext('proposal-activity', 'Proposal Activity'),
+    });
+    panel.setAttribute("aria-label", "Proposal detail: " + (row.title || "Proposal"));
+    panel.dataset.panelMode = "dao-proposal-decision";
+    activatePanel();
+    bodyEl.scrollTop = 0;
+  }
+
+  function showProposalListAgain() {
+    if (!proposalListState) return;
+    panel.setAttribute("aria-label", (proposalListState.title || "Proposal") + " proposal list");
+    bodyEl.innerHTML = renderProposalActivityMonthPanel(proposalListState);
+    panel.dataset.panelMode = "dao-proposal-activity-month";
+    activatePanel();
+    requestAnimationFrame(() => {
+      const list = bodyEl.querySelector(".dao-month-proposal-list");
+      if (list) list.scrollTop = proposalListScrollTop;
+    });
+  }
+
   function trapFocus(e) {
     const focusable = content.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -1064,6 +1246,9 @@ const EventPanel = (function () {
   function renderPanelContent(evt, options) {
     const lines = [];
     options = options || {};
+    if (options.proposalRow || evt.type === "proposal") {
+      return renderProposalDetailPanel(normalizeProposalDetail(evt, options.proposalRow), options);
+    }
 
     /* Close row */
     lines.push('<div class="event-panel-close-row">');
@@ -1120,7 +1305,7 @@ const EventPanel = (function () {
 
     if (evt.type === "agent-skill" && evt.capability) {
       lines.push(...renderAgentCapabilityPanel(evt));
-    } else if (evt.type === "proposal" || evt.type === "forum") {
+    } else if (evt.type === "forum") {
       lines.push(...renderSignalPanel(evt));
     }
 
@@ -1159,6 +1344,506 @@ const EventPanel = (function () {
     }
 
     return lines.join("\n");
+  }
+
+  function normalizeProposalDetail(evt, row) {
+    if (row) {
+      return {
+        ...row,
+        daoName: row.daoName || evt?.daoName || "Uniswap",
+        eventData: evt?.type === "proposal" ? evt : row.eventData || null,
+      };
+    }
+    const proposal = evt?.proposal || {};
+    const voteDistribution = proposal.voteDistribution || {};
+    const choices = Object.entries(voteDistribution).map(([label, percent]) => ({
+      label: label.charAt(0).toUpperCase() + label.slice(1),
+      direction: ["for", "against", "abstain"].includes(label) ? label : "other",
+      percentOfVotingPower: percent,
+      votes: null,
+    }));
+    const mappedOutcome = evt?.status === "defeated" ? "failed" : ["passed", "executed"].includes(evt?.status) ? "passed" : "unknown";
+    return {
+      id: evt?.id,
+      daoName: evt?.daoName || "DAO",
+      title: evt?.title || "Proposal",
+      source: "governance feed",
+      sourceUrl: evt?.links?.external || evt?.links?.proposal || null,
+      discussionUrl: evt?.links?.forum || null,
+      lifecycleStatus: evt?.status === "active" ? "active" : "closed",
+      outcome: mappedOutcome,
+      createdAt: evt?.happenedAt || proposal.startAt,
+      startAt: proposal.startAt,
+      endAt: proposal.endAt,
+      participation: {
+        uniqueVoters: proposal.uniqueVoters,
+        totalEffectiveBallots: proposal.uniqueVoters,
+        totalVotingPower: proposal.totalVotes,
+        quorumRequired: proposal.quorumRequired,
+        quorumProgressPercent: proposal.quorumProgress,
+        quorumReached: proposal.quorumReached,
+      },
+      choices,
+      bodyExcerpt: evt?.description,
+      aiSummary: proposal.aiSummary,
+      dataAsOf: evt?.happenedAt,
+      coverageStatus: null,
+      limitations: [],
+      eventData: evt,
+    };
+  }
+
+  function renderProposalDetailPanel(row, options) {
+    options = options || {};
+    const p = row.participation || {};
+    const effectiveBallots = p.totalEffectiveBallots ?? p.effectiveBallots ?? p.totalVotes;
+    const quorumProgressPercent = p.quorumProgressPercent ?? (p.quorumProgress == null ? null : Number(p.quorumProgress) * 100);
+    const choices = Array.isArray(row.choices) ? row.choices : [];
+    const hasEncodedChoicePayloads = choices.some((choice) => /^[{[]/.test(String(choice.label || '').trim()));
+    const outcome = row.lifecycleStatus === "active" ? "active" : row.outcome || "unknown";
+    const outcomeClass = outcome === "unknown" ? "state-unknown" : outcome === "no_quorum" ? "state-ending-soon" : statusToCssClass(outcome === "failed" ? "defeated" : outcome);
+    const lines = ['<article class="proposal-detail-panel" data-proposal-detail-renderer="shared">'];
+    lines.push('<div class="event-panel-close-row">');
+    if (options.backToProposalList) lines.push('<button class="event-panel-back" type="button" data-panel-proposal-list-back>← Back to ' + esc(options.proposalListTitle || 'proposals') + '</button>');
+    if (options.backToTimeline) lines.push('<button class="event-panel-back" type="button" data-panel-timeline-back>← Back to proposals</button>');
+    lines.push('<button class="event-panel-close" data-panel-close="" aria-label="Close proposal detail">&times;</button></div>');
+    lines.push('<div class="event-panel-meta"><span class="event-panel-dao-pill">' + esc(row.daoName || 'Uniswap') + '</span><span class="event-panel-meta-text">' + esc(row.source || 'governance') + ' · Proposal detail</span></div>');
+    lines.push('<div class="event-panel-status-row"><span class="state-pill ' + outcomeClass + '">' + esc(outcome.replace(/_/g, " ")) + '</span></div>');
+    lines.push('<h2 class="event-panel-title">' + esc(row.title) + '</h2>');
+    const analysisSummary = row.aiSummary || row.bodyExcerpt || 'Atlas is reviewing this proposal against its source text, vote timing, participation, and recent DAO activity.';
+    const analysisEvent = row.eventData?.type ? row.eventData : {
+      id: row.id,
+      daoName: row.daoName || 'Uniswap',
+      title: row.title,
+      type: 'proposal',
+      status: row.lifecycleStatus === 'active' ? 'active' : row.outcome === 'failed' ? 'defeated' : row.outcome === 'passed' ? 'passed' : 'closed',
+      happenedAt: row.createdAt || row.startAt || row.endAt,
+      description: row.bodyExcerpt || analysisSummary,
+      proposal: {
+        startAt: row.startAt,
+        endAt: row.endAt,
+        uniqueVoters: p.uniqueVoters,
+        totalVotes: p.totalVotingPower == null ? null : indexedPower(p.totalVotingPower),
+        quorumRequired: p.quorumRequired,
+        quorumProgress: quorumProgressPercent,
+        quorumReached: p.quorumReached,
+        aiSummary: analysisSummary,
+      },
+    };
+    lines.push(renderAiAnalysisPanel(analysisEvent, analysisSummary));
+    const hasVoteWindow = Boolean(row.createdAt || row.startAt || row.endAt);
+    lines.push('<section class="proposal-detail-panel-section"><h3>' + (hasVoteWindow ? 'Vote window' : 'Proposal state') + '</h3><div class="indexed-panel-grid">');
+    if (row.createdAt) lines.push(indexedMetric('Created', indexedDate(row.createdAt)));
+    if (row.startAt) lines.push(indexedMetric('Start', indexedDate(row.startAt)));
+    if (row.endAt) lines.push(indexedMetric('End', indexedDate(row.endAt)));
+    lines.push(indexedMetric('Lifecycle', row.lifecycleStatus || 'unknown'));
+    lines.push(indexedMetric('Outcome', row.outcome || 'unknown'));
+    lines.push('</div></section>');
+    if (p.uniqueVoters != null || effectiveBallots != null || p.totalVotingPower != null) {
+      lines.push('<section class="proposal-detail-panel-section"><h3>Participation and quorum</h3><div class="indexed-panel-grid">');
+      if (p.uniqueVoters != null) lines.push(indexedMetric('Unique voters', indexedNumber(p.uniqueVoters)));
+      if (effectiveBallots != null) lines.push(indexedMetric('Effective ballots', indexedNumber(effectiveBallots)));
+      if (p.totalVotingPower != null) lines.push(indexedMetric('Total voting power', indexedPower(p.totalVotingPower)));
+      if (p.quorumRequired != null) {
+        lines.push(indexedMetric('Quorum required', indexedPower(p.quorumRequired)));
+        lines.push(indexedMetric('Quorum progress', indexedPercent(quorumProgressPercent)));
+        lines.push(indexedMetric('Quorum reached', p.quorumReached ? 'Yes' : 'No'));
+      }
+      lines.push('</div></section>');
+    }
+    lines.push('<section class="proposal-detail-panel-section"><h3>Decision distribution</h3>');
+    if (!choices.length) {
+      const emptyDecisionCopy = effectiveBallots != null && Number(effectiveBallots) === 0 ? 'Zero effective ballots · no decision distribution' : 'Per-choice distribution is not included in this evidence record.';
+      lines.push('<div class="decision-empty">' + emptyDecisionCopy + '</div>');
+    } else if (hasEncodedChoicePayloads) {
+      lines.push('<div class="decision-empty">Per-choice breakdown is unavailable for this weighted ballot.</div>');
+      lines.push('<p class="indexed-panel-note">The encoded selection is not presented as a source-native choice label.</p>');
+    } else {
+      choices.slice(0, 8).forEach((choice) => {
+        const direction = ['for','against','abstain'].includes(choice.direction) ? choice.direction : 'other';
+        const voteCopy = choice.votes == null ? indexedPercent(choice.percentOfVotingPower) : indexedPercent(choice.percentOfVotingPower) + ' · ' + indexedNumber(choice.votes) + ' votes';
+        lines.push('<div class="indexed-panel-choice is-' + direction + '"><strong>' + esc(choice.label) + '</strong><span>' + voteCopy + '</span><div class="indexed-panel-choice-bar"><i style="--choice-width:' + Math.max(0, Math.min(100, Number(choice.percentOfVotingPower) || 0)) + '%"></i></div></div>');
+      });
+      if (choices.length > 8) lines.push('<p class="indexed-panel-note">Showing 8 of ' + choices.length + ' source-native choices from the proposal record.</p>');
+    }
+    lines.push('</section>');
+    if (row.bodyExcerpt) lines.push('<section class="proposal-detail-panel-section"><h3>Proposal excerpt</h3><div class="indexed-panel-body">' + esc(indexedBodyExcerpt(row.bodyExcerpt)) + '</div></section>');
+    lines.push('<section class="proposal-detail-panel-section"><h3>Sources and coverage</h3><div class="indexed-panel-links">');
+    if (row.sourceUrl) lines.push('<a href="' + esc(row.sourceUrl) + '" target="_blank" rel="noopener noreferrer">Open proposal ↗</a>');
+    if (row.discussionUrl) lines.push('<a href="' + esc(row.discussionUrl) + '" target="_blank" rel="noopener noreferrer">Open discussion ↗</a>');
+    lines.push('</div>');
+    if (row.coverageStatus || row.dataAsOf) lines.push('<div class="indexed-panel-grid">' + (row.coverageStatus ? indexedMetric('Coverage', row.coverageStatus) : '') + (row.dataAsOf ? indexedMetric('Data as of', indexedDateTime(row.dataAsOf)) : '') + '</div>');
+    if (row.coverageStatus && row.participation) lines.push('<p class="indexed-panel-note">Latest effective ballot per proposal and voter. Raw voter lists are not loaded by default.</p>');
+    if (row.limitations && row.limitations.length) lines.push('<p class="indexed-panel-note">Limitations: ' + esc(row.limitations.join('; ')) + '</p>');
+    lines.push('</section></article>');
+    return lines.join('');
+  }
+
+  function compactSectionContext(sectionId, fallback) {
+    return document.querySelector('#' + sectionId + ' .eyebrow')?.textContent?.trim() || fallback;
+  }
+
+  function compactOutcome(row) {
+    return row?.lifecycleStatus === 'active' ? 'active' : row?.outcome || 'unknown';
+  }
+
+  function compactOutcomeLabel(outcome) {
+    if (outcome === 'no_quorum') return 'no quorum';
+    if (outcome === 'failed') return 'failed';
+    if (outcome === 'passed') return 'passed';
+    if (outcome === 'active') return 'active';
+    return 'unknown';
+  }
+
+  function compactOutcomeClass(outcome) {
+    if (outcome === 'no_quorum') return 'state-ending-soon';
+    if (outcome === 'failed') return statusToCssClass('defeated');
+    if (outcome === 'passed' || outcome === 'active') return statusToCssClass(outcome);
+    return 'state-unknown';
+  }
+
+  function compactSourceName(value) {
+    const source = String(value || 'Snapshot').trim();
+    return source ? source.charAt(0).toUpperCase() + source.slice(1) : 'Snapshot';
+  }
+
+  function renderCompactCloseRow(options) {
+    options = options || {};
+    const back = options.backToProposalList
+      ? '<button class="event-panel-back" type="button" data-panel-proposal-list-back>← Back to ' + esc(options.proposalListTitle || 'proposals') + '</button>'
+      : '';
+    return '<div class="event-panel-close-row">' + back + '<button class="event-panel-close" data-panel-close="" aria-label="Close panel">&times;</button></div>';
+  }
+
+  function renderCompactMetric(label, value, wide) {
+    return '<div' + (wide ? ' class="is-wide"' : '') + '><dt>' + esc(label) + '</dt><dd>' + esc(value == null || value === '' ? 'Unavailable' : value) + '</dd></div>';
+  }
+
+  function renderCompactProvenance(detail) {
+    const source = detail.source || {};
+    const sourceLabel = compactSourceName(source.label || detail.sourceLabel || 'Snapshot');
+    const text = [detail.scope, sourceLabel, detail.dataAsOf ? 'data through ' + detail.dataAsOf : null].filter(Boolean).join(' · ');
+    const links = [];
+    if (detail.sourceUrl) links.push('<a href="' + esc(detail.sourceUrl) + '" target="_blank" rel="noopener noreferrer">Proposal ↗</a>');
+    if (detail.discussionUrl) links.push('<a href="' + esc(detail.discussionUrl) + '" target="_blank" rel="noopener noreferrer">Discussion ↗</a>');
+    if (Array.isArray(detail.links)) {
+      detail.links.forEach((link) => {
+        if (link?.url) links.push('<a href="' + esc(link.url) + '" target="_blank" rel="noopener noreferrer">' + esc(link.label || 'Source') + ' ↗</a>');
+      });
+    }
+    if (!detail.sourceUrl && !detail.discussionUrl && !detail.links?.length && source.url) links.push('<a href="' + esc(source.url) + '" target="_blank" rel="noopener noreferrer">Source ↗</a>');
+    return '<footer class="dao-compact-provenance">' + (detail.omitText ? '' : '<span>' + esc(text || sourceLabel) + '</span>') + (links.length ? '<nav aria-label="Panel sources">' + links.join('') + '</nav>' : '') + '</footer>';
+  }
+
+  function renderProposalDecisionPanel(row, options) {
+    options = options || {};
+    const participation = row.participation || {};
+    const effectiveBallots = participation.totalEffectiveBallots ?? participation.effectiveBallots ?? participation.totalVotes;
+    const choices = Array.isArray(row.choices) ? row.choices : [];
+    const hasEncodedChoices = choices.some((choice) => /^[{[]/.test(String(choice.label || '').trim()));
+    const outcome = compactOutcome(row);
+    const dates = [
+      ['Created', row.createdAt],
+      ['Vote start', row.startAt],
+      ['Vote end', row.endAt],
+    ].filter((item) => item[1]);
+    const metrics = [];
+    if (participation.uniqueVoters != null) metrics.push(renderCompactMetric('Unique voters', indexedNumber(participation.uniqueVoters)));
+    if (effectiveBallots != null) metrics.push(renderCompactMetric('Effective ballots', indexedNumber(effectiveBallots)));
+    const sourceLabel = compactSourceName(row.source || 'Snapshot');
+    const aiEvent = {
+      type: 'proposal',
+      daoName: row.daoName || 'Uniswap',
+      title: row.title || 'Proposal',
+      status: outcome,
+      proposal: {
+        uniqueVoters: participation.uniqueVoters,
+        totalVotes: effectiveBallots,
+        endAt: row.endAt ? Date.parse(row.endAt) : null,
+      },
+    };
+    const lines = ['<article class="dao-compact-panel dao-proposal-decision-panel" data-od-id="proposal-decision-panel">'];
+    lines.push(renderCompactCloseRow(options));
+    lines.push('<div class="dao-compact-context"><span>' + esc(options.contextLabel || compactSectionContext('proposal-explorer', 'Proposal Explorer')) + '</span><span>' + esc(sourceLabel) + '</span></div>');
+    lines.push('<header class="dao-compact-header"><span class="state-pill ' + compactOutcomeClass(outcome) + '">' + esc(compactOutcomeLabel(outcome)) + '</span><h2 class="event-panel-title">' + esc(row.title || 'Proposal') + '</h2></header>');
+    lines.push(renderAiAnalysisPanel(aiEvent, row.summary || row.title || 'Proposal evidence summary'));
+    if (dates.length) lines.push('<dl class="dao-compact-date-grid">' + dates.map((item) => renderCompactMetric(item[0], indexedDate(item[1]))).join('') + '</dl>');
+    if (metrics.length) lines.push('<dl class="dao-compact-metrics">' + metrics.join('') + '</dl>');
+    const visibleChoiceCount = Math.min(choices.length, 6);
+    lines.push('<section class="dao-compact-section dao-compact-decision"><div class="dao-compact-section-head"><h3>Decision distribution</h3><span>' + (choices.length ? visibleChoiceCount + (visibleChoiceCount === 1 ? ' choice' : ' choices') : 'Source record') + '</span></div>');
+    if (!choices.length) {
+      const emptyCopy = effectiveBallots != null && Number(effectiveBallots) === 0
+        ? 'Zero effective ballots; no decision distribution.'
+        : 'Per-choice distribution is not included in this proposal record.';
+      lines.push('<p class="dao-compact-empty">' + esc(emptyCopy) + '</p>');
+    } else if (hasEncodedChoices) {
+      lines.push('<p class="dao-compact-empty">Weighted ballot breakdown is unavailable; encoded selections are not presented as source-native choices.</p>');
+    } else {
+      choices.slice(0, 6).forEach((choice) => {
+        const direction = ['for', 'against', 'abstain'].includes(choice.direction) ? choice.direction : 'other';
+        const percent = Math.max(0, Math.min(100, Number(choice.percentOfVotingPower) || 0));
+        const count = choice.votes ?? choice.effectiveBallots;
+        const value = indexedPercent(choice.percentOfVotingPower) + (count == null ? '' : ' · ' + indexedNumber(count) + ' ballots');
+        lines.push('<div class="dao-compact-choice is-' + direction + '"><div><strong>' + esc(choice.label || 'Choice') + '</strong><span>' + esc(value) + '</span></div><i><b style="--choice-width:' + percent + '%"></b></i></div>');
+      });
+      if (choices.length > 6) lines.push('<p class="dao-compact-note">Showing 6 of ' + choices.length + ' source-native choices.</p>');
+    }
+    lines.push('</section>');
+    lines.push(renderCompactProvenance({
+      sourceLabel,
+      sourceUrl: row.sourceUrl,
+      discussionUrl: row.discussionUrl,
+      dataAsOf: row.dataAsOf ? indexedDateTime(row.dataAsOf) : null,
+      scope: 'Indexed proposal evidence',
+    }));
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+  function renderProposalCreatorPanel(detail) {
+    const records = Array.isArray(detail.proposalHistory) ? detail.proposalHistory : [];
+    const initialLimit = Math.min(6, records.length);
+    const outcomeOrder = ['passed', 'failed', 'no_quorum', 'unknown'];
+    const outcomeSummary = outcomeOrder
+      .filter((key) => Number(detail.outcomes?.[key] || 0) > 0)
+      .map((key) => indexedNumber(detail.outcomes[key]) + ' ' + compactOutcomeLabel(key))
+      .join(' · ');
+    const lines = ['<article class="dao-compact-panel dao-proposal-creator-panel" data-od-id="proposal-creator-panel">'];
+    lines.push(renderCompactCloseRow());
+    lines.push('<div class="dao-compact-context"><span>' + esc(detail.contextLabel || compactSectionContext('proposal-creators', 'Proposal Creators')) + '</span><span>Snapshot</span></div>');
+    lines.push('<header class="dao-compact-header"><h2 class="event-panel-title">Creator profile</h2></header>');
+    lines.push('<div class="dao-compact-identity"><code>' + esc(detail.address || 'Unavailable') + '</code><button type="button" data-evidence-copy-address="' + esc(detail.address || '') + '">Copy</button></div>');
+    lines.push('<dl class="dao-compact-metrics dao-creator-metrics">' +
+      renderCompactMetric('Indexed proposals', indexedNumber(detail.indexedProposalCount)) +
+      renderCompactMetric('Share of indexed', indexedPercent(detail.shareOfIndexedProposalsPercent)) +
+      renderCompactMetric('Latest proposal', indexedDate(detail.latestCreatedAt)) +
+      '</dl>');
+    if (outcomeSummary) lines.push('<div class="dao-compact-outcome-line"><span>Outcome mix</span><strong>' + esc(outcomeSummary) + '</strong></div>');
+    lines.push('<section class="dao-compact-section"><div class="dao-compact-section-head"><h3>Recent proposals</h3><span>' + initialLimit + ' of ' + records.length + '</span></div><ol class="dao-compact-record-list">');
+    records.forEach((record, index) => {
+      const outcome = compactOutcome(record);
+      const hidden = index >= initialLimit ? ' hidden data-compact-record-extra' : '';
+      const tag = record.sourceUrl ? 'a' : 'div';
+      const link = record.sourceUrl ? ' href="' + esc(record.sourceUrl) + '" target="_blank" rel="noopener noreferrer"' : '';
+      lines.push('<li' + hidden + '><' + tag + ' class="dao-compact-proposal-record" title="' + esc(record.title || 'Proposal') + '"' + link + '><time>' + esc(indexedDate(record.createdAt)) + '</time><span class="state-pill ' + compactOutcomeClass(outcome) + '">' + esc(compactOutcomeLabel(outcome)) + '</span><strong>' + esc(record.title || 'Proposal') + '</strong><span aria-hidden="true">' + (record.sourceUrl ? '↗' : '') + '</span></' + tag + '></li>');
+    });
+    lines.push('</ol>');
+    const extraCount = records.length - initialLimit;
+    if (extraCount > 0) lines.push('<button class="dao-compact-records-toggle" type="button" data-compact-records-toggle data-expand-label="Show ' + extraCount + ' more" data-collapse-label="Show recent ' + initialLimit + '" aria-expanded="false">Show ' + extraCount + ' more</button>');
+    lines.push('</section>');
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+  function renderParticipationFrequencyPanel(detail) {
+    const records = Array.isArray(detail.sampleVoters) ? detail.sampleVoters.slice(0, 5) : [];
+    const definition = detail.max == null
+      ? indexedNumber(detail.min) + '+ indexed proposals'
+      : detail.min === detail.max
+        ? indexedNumber(detail.min) + ' indexed proposal' + (Number(detail.min) === 1 ? '' : 's')
+        : indexedNumber(detail.min) + '–' + indexedNumber(detail.max) + ' indexed proposals';
+    const lines = ['<article class="dao-compact-panel dao-participation-frequency-panel" data-od-id="participation-frequency-panel">'];
+    lines.push(renderCompactCloseRow());
+    lines.push('<div class="dao-compact-context"><span>' + esc(detail.contextLabel || compactSectionContext('voting-depth', '07 · Participation Frequency')) + '</span><span>Voter cohort</span></div>');
+    lines.push('<header class="dao-compact-header"><h2 class="event-panel-title">' + esc((detail.label || 'Participation') + ' cohort') + '</h2></header>');
+    lines.push('<dl class="dao-compact-metrics dao-frequency-metrics">' +
+      renderCompactMetric('Addresses', indexedNumber(detail.voterCount)) +
+      renderCompactMetric('Address share', indexedPercent(detail.share)) +
+      '</dl>');
+    lines.push('<section class="dao-compact-section"><div class="dao-compact-section-head"><h3>Sample addresses</h3><span>' + records.length + ' shown</span></div><ol class="dao-compact-record-list">');
+    records.forEach((record) => {
+      lines.push('<li><div class="dao-compact-voter-record"><code title="' + esc(record.voterAddress || record.voterId || '') + '">' + esc(truncateHash(record.voterAddress || record.voterId || 'Unavailable')) + '</code><strong>' + esc(indexedNumber(record.proposalsVoted) + ' proposal' + (Number(record.proposalsVoted) === 1 ? '' : 's')) + '</strong><time>' + esc(indexedDate(record.lastVotedAt)) + '</time></div></li>');
+    });
+    lines.push('</ol></section>');
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+  function renderGovernanceSetupPanel(detail) {
+    const space = detail.space || {};
+    const phases = Array.isArray(detail.phases) ? detail.phases.slice(0, 3) : [];
+    const lines = ['<article class="dao-compact-panel dao-governance-setup-panel" data-od-id="governance-setup-panel">'];
+    lines.push(renderCompactCloseRow());
+    lines.push('<div class="dao-compact-context"><span>' + esc(detail.contextLabel || '01 · Overview') + '</span><span>Process & settings</span></div>');
+    lines.push('<header class="dao-compact-header"><h2 class="event-panel-title">' + esc(detail.label || 'Governance setup') + '</h2></header>');
+    lines.push('<dl class="dao-compact-metrics dao-governance-metrics">' +
+      renderCompactMetric('Voting power', space.votingPower, true) +
+      renderCompactMetric('Network', space.network) +
+      renderCompactMetric('Default period', space.defaultVotingPeriod) +
+      renderCompactMetric('Default quorum', space.defaultQuorum, true) +
+      '</dl>');
+    if (space.ballotType) lines.push('<div class="dao-compact-outcome-line"><span>Ballot type</span><strong>' + esc(space.ballotType) + '</strong></div>');
+    lines.push('<section class="dao-compact-section"><div class="dao-compact-section-head"><h3>Governance path</h3><span>' + phases.length + ' stages</span></div><ol class="dao-compact-path">');
+    phases.forEach((phase, index) => {
+      lines.push('<li><span>' + String(index + 1).padStart(2, '0') + '</span><div><strong>' + esc(phase.name || phase.shortName || 'Stage') + '</strong><small>' + esc([phase.location, phase.duration].filter(Boolean).join(' · ')) + '</small></div></li>');
+    });
+    lines.push('</ol></section>');
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+  function renderProposalActivityMonthPanel(detail) {
+    const records = Array.isArray(detail.records) ? detail.records : [];
+    const lines = ['<article class="dao-compact-panel dao-proposal-activity-panel" data-od-id="proposal-activity-month-panel">'];
+    lines.push(renderCompactCloseRow());
+    lines.push('<div class="dao-compact-context"><span>' + esc(detail.contextLabel || compactSectionContext('proposal-activity', '03 · Proposal Activity')) + '</span><span>UTC month</span></div>');
+    lines.push('<header class="dao-compact-header"><h2 class="event-panel-title">' + esc(detail.title || 'Month proposals') + '</h2></header>');
+    lines.push('<dl class="dao-compact-metrics dao-month-metrics">' +
+      renderCompactMetric('Indexed proposals', indexedNumber(detail.proposalCount ?? records.length)) +
+      renderCompactMetric('Time basis', 'Source-created UTC') +
+      '</dl>');
+    lines.push('<section class="dao-compact-section"><div class="dao-compact-section-head"><h3>Proposal records</h3><span>' + records.length + ' shown</span></div><ol class="dao-compact-record-list dao-month-proposal-list" aria-label="' + esc(detail.title || 'Month proposals') + '">');
+    records.forEach((record) => {
+      const outcome = compactOutcome(record);
+      lines.push('<li><button class="dao-compact-month-record" type="button" data-proposal-list-id="' + esc(record.id) + '" title="' + esc(record.title || 'Proposal') + '"><time>' + esc(indexedDate(record.createdAt)) + '</time><span class="state-pill ' + compactOutcomeClass(outcome) + '">' + esc(compactOutcomeLabel(outcome)) + '</span><strong>' + esc(record.title || 'Proposal') + '</strong><span aria-hidden="true">→</span></button></li>');
+    });
+    lines.push('</ol></section>');
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+  function renderCompactChoiceEvidence(row, heading) {
+    const participation = row.participation || {};
+    const effectiveBallots = participation.totalEffectiveBallots ?? participation.effectiveBallots ?? participation.totalVotes;
+    const choices = Array.isArray(row.choices) ? row.choices : [];
+    const hasEncodedChoices = choices.some((choice) => /^[{[]/.test(String(choice.label || '').trim()));
+    const visibleChoiceCount = Math.min(choices.length, 6);
+    const lines = ['<section class="dao-compact-section dao-compact-decision"><div class="dao-compact-section-head"><h3>' + esc(heading || 'Choice distribution') + '</h3><span>' + (choices.length ? visibleChoiceCount + (visibleChoiceCount === 1 ? ' choice' : ' choices') : 'Source record') + '</span></div>'];
+    if (!choices.length) {
+      lines.push('<p class="dao-compact-empty">' + esc(effectiveBallots != null && Number(effectiveBallots) === 0 ? 'Zero effective ballots; no choice distribution.' : 'Per-choice distribution is not included in this proposal record.') + '</p>');
+    } else if (hasEncodedChoices) {
+      lines.push('<p class="dao-compact-empty">Weighted ballot breakdown is unavailable; encoded selections are not presented as source-native choices.</p>');
+    } else {
+      choices.slice(0, 6).forEach((choice) => {
+        const direction = ['for', 'against', 'abstain'].includes(choice.direction) ? choice.direction : 'other';
+        const percent = Math.max(0, Math.min(100, Number(choice.percentOfVotingPower) || 0));
+        const count = choice.votes ?? choice.effectiveBallots;
+        const value = indexedPercent(choice.percentOfVotingPower) + (count == null ? '' : ' · ' + indexedNumber(count) + ' ballots');
+        lines.push('<div class="dao-compact-choice is-' + direction + '"><div><strong>' + esc(choice.label || 'Choice') + '</strong><span>' + esc(value) + '</span></div><i><b style="--choice-width:' + percent + '%"></b></i></div>');
+      });
+      if (choices.length > 6) lines.push('<p class="dao-compact-note">Showing 6 of ' + choices.length + ' source-native choices.</p>');
+    }
+    lines.push('</section>');
+    return lines.join('');
+  }
+
+  function renderProposalParticipationPanel(row) {
+    const participation = row.participation || {};
+    const effectiveBallots = participation.totalEffectiveBallots ?? participation.effectiveBallots ?? participation.totalVotes;
+    const quorumProgress = participation.quorumProgressPercent ?? (participation.quorumProgress == null ? null : Number(participation.quorumProgress) * 100);
+    const metrics = [];
+    if (participation.uniqueVoters != null) metrics.push(renderCompactMetric('Unique voters', indexedNumber(participation.uniqueVoters)));
+    if (effectiveBallots != null) metrics.push(renderCompactMetric('Effective ballots', indexedNumber(effectiveBallots)));
+    if (participation.totalVotingPower != null) metrics.push(renderCompactMetric('Observed voting power', indexedPower(participation.totalVotingPower) + ' Snapshot VP'));
+    if (quorumProgress != null) metrics.push(renderCompactMetric('Quorum progress', indexedPercent(quorumProgress)));
+    const outcome = compactOutcome(row);
+    const sourceLabel = compactSourceName(row.source || 'Snapshot');
+    const lines = ['<article class="dao-compact-panel dao-proposal-participation-panel" data-od-id="proposal-participation-panel">'];
+    lines.push(renderCompactCloseRow());
+    lines.push('<div class="dao-compact-context"><span>' + esc(compactSectionContext('proposal-timeline', '05 · Participation by Proposal')) + '</span><span>' + esc(sourceLabel) + '</span></div>');
+    lines.push('<header class="dao-compact-header"><span class="state-pill ' + compactOutcomeClass(outcome) + '">' + esc(compactOutcomeLabel(outcome)) + '</span><h2 class="event-panel-title">' + esc(row.title || 'Proposal') + '</h2></header>');
+    if (metrics.length) lines.push('<dl class="dao-compact-metrics dao-participation-metrics">' + metrics.join('') + '</dl>');
+    if (participation.quorumRequired != null) lines.push('<div class="dao-compact-outcome-line"><span>Recorded quorum</span><strong>' + esc(indexedPower(participation.quorumRequired) + ' Snapshot VP · ' + (participation.quorumReached ? 'reached' : 'not reached')) + '</strong></div>');
+    lines.push(renderCompactChoiceEvidence(row, 'Choice distribution'));
+    if (participation.totalVotingPower != null) lines.push('<p class="dao-compact-caution">Observed cast VP is proposal voting evidence, not current holdings or delegation.</p>');
+    lines.push(renderCompactProvenance({ sourceLabel, sourceUrl: row.sourceUrl, discussionUrl: row.discussionUrl, dataAsOf: row.dataAsOf ? indexedDateTime(row.dataAsOf) : null, scope: 'Latest-effective proposal participation' }));
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+  function renderEstablishedVoterPanel(detail) {
+    const records = Array.isArray(detail.voteHistory) ? detail.voteHistory.slice(0, 6) : [];
+    const directionSummary = ['for', 'against', 'abstain', 'other']
+      .filter((key) => Number(detail.choicesByDirection?.[key] || 0) > 0)
+      .map((key) => indexedNumber(detail.choicesByDirection[key]) + ' ' + key)
+      .join(' · ');
+    const lines = ['<article class="dao-compact-panel dao-established-voter-panel" data-od-id="established-voter-panel">'];
+    lines.push(renderCompactCloseRow());
+    lines.push('<div class="dao-compact-context"><span>' + esc(detail.contextLabel || compactSectionContext('top-voters', '06 · Established Voters')) + '</span><span>Voter profile</span></div>');
+    lines.push('<header class="dao-compact-header"><h2 class="event-panel-title">Established voter</h2></header>');
+    lines.push('<div class="dao-compact-identity"><code>' + esc(detail.voterAddress || 'Unavailable') + '</code><button type="button" data-evidence-copy-address="' + esc(detail.voterAddress || '') + '">Copy</button></div>');
+    lines.push('<dl class="dao-compact-metrics dao-voter-metrics">' +
+      renderCompactMetric('Proposals voted', indexedNumber(detail.proposalsVoted) + ' / ' + indexedNumber(detail.analyzedProposalCount)) +
+      renderCompactMetric('Coverage', indexedPercent(detail.coveragePercent)) +
+      renderCompactMetric('Average observed VP', indexedPower(detail.averageVotingPowerPerProposal) + ' Snapshot VP', true) +
+      renderCompactMetric('Voting window', indexedDate(detail.firstVotedAt) + ' → ' + indexedDate(detail.lastVotedAt), true) +
+      '</dl>');
+    if (directionSummary) lines.push('<div class="dao-compact-outcome-line"><span>Choice mix</span><strong>' + esc(directionSummary) + '</strong></div>');
+    lines.push('<section class="dao-compact-section"><div class="dao-compact-section-head"><h3>Recent votes</h3><span>' + records.length + ' of ' + indexedNumber(detail.voteHistoryCount) + '</span></div><ol class="dao-compact-record-list">');
+    records.forEach((record) => {
+      const direction = ['for', 'against', 'abstain'].includes(record.choiceDirection) ? record.choiceDirection : 'other';
+      const rawChoice = String(record.choiceLabel || 'Choice');
+      const choice = /^[{[]/.test(rawChoice.trim()) ? 'Weighted ballot' : rawChoice;
+      lines.push('<li><a class="dao-compact-vote-record" href="' + esc(record.sourceUrl || '#') + '" target="_blank" rel="noopener noreferrer" title="' + esc(record.proposalTitle || 'Proposal') + '"><time>' + esc(indexedDate(record.votedAt)) + '</time><span class="dao-compact-choice-tag is-' + direction + '">' + esc(choice) + '</span><strong>' + esc(record.proposalTitle || 'Proposal') + '</strong><span aria-hidden="true">↗</span></a></li>');
+    });
+    lines.push('</ol></section>');
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+  function renderTypicalPowerPanel(detail) {
+    const records = Array.isArray(detail.sampleVoters) ? detail.sampleVoters.slice(0, 5) : [];
+    const lines = ['<article class="dao-compact-panel dao-typical-power-panel" data-od-id="typical-power-panel">'];
+    lines.push(renderCompactCloseRow());
+    lines.push('<div class="dao-compact-context"><span>' + esc(detail.contextLabel || compactSectionContext('power-distribution', '08 · Typical Voting Power')) + '</span><span>Power cohort</span></div>');
+    lines.push('<header class="dao-compact-header"><h2 class="event-panel-title">' + esc((detail.label || 'Power') + ' VP cohort') + '</h2></header>');
+    lines.push('<dl class="dao-compact-metrics dao-power-metrics">' +
+      renderCompactMetric('Addresses', indexedNumber(detail.voterCount)) +
+      renderCompactMetric('Address share', indexedPercent(detail.voterSharePercent)) +
+      '</dl>');
+    lines.push('<section class="dao-compact-section"><div class="dao-compact-section-head"><h3>Sample addresses</h3><span>' + records.length + ' shown</span></div><ol class="dao-compact-record-list">');
+    records.forEach((record) => {
+      lines.push('<li><div class="dao-compact-power-record"><code title="' + esc(record.voterAddress || record.voterId || '') + '">' + esc(truncateHash(record.voterAddress || record.voterId || 'Unavailable')) + '</code><strong>' + esc(indexedPower(record.averageVotingPowerPerProposal) + ' VP') + '</strong><span>' + esc(indexedNumber(record.proposalsVoted) + ' proposals') + '</span></div></li>');
+    });
+    lines.push('</ol></section>');
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+  function renderPowerConcentrationPanel(detail) {
+    const count = Number(detail.selectedCount || 0);
+    const records = Array.isArray(detail.topVoters) ? detail.topVoters.slice(0, Math.min(count, 5)) : [];
+    const lines = ['<article class="dao-compact-panel dao-power-concentration-panel" data-od-id="power-concentration-panel">'];
+    lines.push(renderCompactCloseRow());
+    lines.push('<div class="dao-compact-context"><span>' + esc(detail.contextLabel || compactSectionContext('voter-concentration', '09 · Power Concentration')) + '</span><span>Ranked prefix</span></div>');
+    lines.push('<header class="dao-compact-header"><h2 class="event-panel-title">Top ' + esc(indexedNumber(count)) + ' addresses</h2></header>');
+    lines.push('<dl class="dao-compact-metrics dao-concentration-metrics">' +
+      renderCompactMetric('Addresses', indexedNumber(count) + ' of ' + indexedNumber(detail.rankedVoterCount)) +
+      renderCompactMetric('Participant share', indexedPercent(detail.voterPercent)) +
+      renderCompactMetric('Cumulative observed VP', indexedPercent(detail.cumulativeObservedVotingPowerPercent)) +
+      renderCompactMetric('Proposal coverage', indexedNumber(detail.voteCoveredProposalCount) + ' indexed') +
+      '</dl>');
+    lines.push('<section class="dao-compact-section"><div class="dao-compact-section-head"><h3>Highest observed cast power</h3><span>' + records.length + ' shown</span></div><ol class="dao-compact-record-list">');
+    records.forEach((record, index) => {
+      lines.push('<li><div class="dao-compact-concentration-record"><span>' + String(index + 1).padStart(2, '0') + '</span><code title="' + esc(record.voterAddress || record.voterId || '') + '">' + esc(truncateHash(record.voterAddress || record.voterId || 'Unavailable')) + '</code><strong>' + esc(indexedPower(record.totalObservedVotingPower) + ' VP') + '</strong><small>' + esc(indexedNumber(record.proposalsVoted) + ' proposals') + '</small></div></li>');
+    });
+    lines.push('</ol></section>');
+
+    lines.push('</article>');
+    return lines.join('');
+  }
+
+
+  function indexedMetric(label, value) {
+    return '<div><span>' + esc(label) + '</span><strong>' + esc(value == null || value === '' ? 'Unavailable' : value) + '</strong></div>';
+  }
+  function indexedNumber(value) { return value == null ? 'Unavailable' : Number(value).toLocaleString('en-US'); }
+  function indexedPercent(value) { return value == null ? 'Unavailable' : Number(value).toLocaleString('en-US', { maximumFractionDigits: 2 }) + '%'; }
+  function indexedPower(value) {
+    if (value == null) return 'Unavailable';
+    const n = Number(value);
+    return Number.isFinite(n) ? n.toLocaleString('en-US', { maximumFractionDigits: 6 }) : String(value);
+  }
+  function indexedDate(value) { return value ? new Date(value).toLocaleDateString('en-CA', { timeZone: 'UTC' }) : 'Unavailable'; }
+  function indexedDateTime(value) { return value ? new Date(value).toLocaleString('en-GB', { timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short' }) + ' UTC' : 'Unavailable'; }
+  function indexedBodyExcerpt(value) {
+    const plain = String(value || '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/[*_#>`~]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (plain.length <= 900) return plain;
+    return plain.slice(0, 897).replace(/\s+\S*$/, '') + '…';
   }
 
   function renderTimelinePanelContent() {
@@ -1345,25 +2030,6 @@ const EventPanel = (function () {
     const summary = evt.proposal?.aiSummary || evt.description || evt.forum?.excerpt || evt.importanceReason || evt.title;
     lines.push('<hr class="event-panel-divider">');
     lines.push(renderAiAnalysisPanel(evt, summary));
-
-    if (evt.type === "proposal" && evt.proposal) {
-      const p = evt.proposal;
-      lines.push('<section class="proposal-window-panel">');
-      lines.push('<div class="event-panel-section-label">Vote Window</div>');
-      lines.push('<div class="event-panel-metric-grid event-panel-metric-grid-simple proposal-window-grid">');
-      lines.push(metricCard("Vote status", evt.status ? formatStatusLabel(evt.status) : "Unknown", p.endAt && p.endAt <= Date.now() ? "finalized" : "live context"));
-      if (p.startAt) lines.push(metricCard("Start", formatPanelDate(p.startAt), ""));
-      if (p.endAt) {
-        const endingSub = p.endAt > Date.now() ? formatDuration(p.endAt - Date.now()) + " left" : "closed";
-        lines.push(metricCard("Ending", formatPanelDate(p.endAt), endingSub));
-      }
-      if (p.totalVotes) lines.push(metricCard("Votes", esc(p.totalVotes), p.uniqueVoters ? esc(fmt(p.uniqueVoters)) + " voters" : ""));
-      else if (p.uniqueVoters) lines.push(metricCard("Voters", esc(fmt(p.uniqueVoters)), ""));
-      lines.push("</div>");
-      lines.push("</section>");
-      lines.push(...renderEvidenceLinks(evt, "Quick Links"));
-      return lines;
-    }
 
     if (evt.type === "forum" && evt.forum) {
       lines.push('<div class="event-panel-section-label">Discussion Window</div>');
@@ -1572,7 +2238,7 @@ const EventPanel = (function () {
   }
 
   function formatCoverageLabel(state) {
-    if (!state) return "read model";
+    if (!state) return "coverage unavailable";
     const map = {
       fresh: "fresh",
       partial: "partial",
@@ -1651,7 +2317,21 @@ const EventPanel = (function () {
 
   /* ── Public API ────────────────────────────────────────────────── */
 
-  return { init, open, openTimeline, close };
+  return {
+    init,
+    open,
+    openTimeline,
+    openProposalDecision,
+    openProposalCreator,
+    openParticipationFrequency,
+    openGovernanceSetup,
+    openProposalActivityMonth,
+    openProposalParticipation,
+    openEstablishedVoter,
+    openTypicalPower,
+    openPowerConcentration,
+    close,
+  };
 })();
 
 
@@ -1895,12 +2575,622 @@ function initOlderProposalsPanel() {
   }
 }
 
+/* ── DAO detail local data navigator ─────────────────────────────── */
+const DAO_DATA_SECTIONS = [
+  { id: 'dao-overview', title: 'Overview', shortTitle: 'Overview', order: 1 },
+  { id: 'proposal-explorer', title: 'Proposal Explorer', shortTitle: 'Proposals', order: 2 },
+  { id: 'proposal-activity', title: 'Proposal Activity', shortTitle: 'Activity', order: 3 },
+  { id: 'proposal-creators', title: 'Proposal Creators', shortTitle: 'Creators', order: 4 },
+  { id: 'proposal-timeline', title: 'Participation by Proposal', shortTitle: 'Participation', order: 5 },
+  { id: 'top-voters', title: 'Established Voters', shortTitle: 'Established', order: 6 },
+  { id: 'voting-depth', title: 'Participation Frequency', shortTitle: 'Frequency', order: 7 },
+  { id: 'power-distribution', title: 'Typical Voting Power', shortTitle: 'Voting Power', order: 8 },
+  { id: 'voter-concentration', title: 'Power Concentration', shortTitle: 'Concentration', order: 9 },
+];
+
+function initDaoDataIndex() {
+  const dashboard = document.querySelector('.dao-detail-dashboard');
+  const desktopMount = document.querySelector('[data-dao-data-index-desktop]');
+  const tabletMount = document.querySelector('[data-dao-data-index-tablet]');
+  const mobileMount = document.querySelector('[data-dao-data-index-mobile]');
+  if (!dashboard || !desktopMount || !tabletMount || !mobileMount) return;
+
+  const sections = DAO_DATA_SECTIONS.map((item) => ({ ...item, target: document.getElementById(item.id) }));
+  if (sections.some((item) => !item.target)) {
+    console.error('DAO data index: one or more registered sections are missing.');
+    return;
+  }
+
+  const indexButton = (item, variant) => {
+    const number = String(item.order).padStart(2, '0');
+    return '<button type="button" class="dao-data-index-item" data-data-index-target="' + item.id + '" data-index-variant="' + variant + '"><span class="dao-data-index-number">' + number + '</span><span>' + item.title + '</span></button>';
+  };
+
+  const indexItems = (variant) => sections.map((item) => indexButton(item, variant)).join('');
+
+  desktopMount.innerHTML = '<span class="dao-data-index-label">DAO DATA INDEX</span><div class="dao-data-index-list">' + indexItems('desktop') + '</div>';
+  tabletMount.innerHTML = '<div class="dao-section-nav-track">' + indexItems('tablet') + '</div><span class="dao-section-nav-overflow-cue" aria-hidden="true">→</span>';
+  mobileMount.innerHTML = '<button type="button" class="dao-section-selector-trigger" aria-expanded="false" aria-controls="dao-section-selector-menu"><span>SECTION · <strong data-data-index-mobile-label>OVERVIEW</strong></span><span aria-hidden="true">▾</span></button><div id="dao-section-selector-menu" class="dao-section-selector-menu" hidden><div class="dao-section-selector-head"><span>DAO DATA INDEX</span><button type="button" aria-label="Close section navigator" data-data-index-mobile-close>×</button></div><div class="dao-data-index-list">' + indexItems('mobile') + '</div></div>';
+
+  const main = document.querySelector('.atlas-main');
+  const mobileTrigger = mobileMount.querySelector('.dao-section-selector-trigger');
+  const mobileMenu = mobileMount.querySelector('.dao-section-selector-menu');
+  const mobileLabel = mobileMount.querySelector('[data-data-index-mobile-label]');
+  const tabletTrack = tabletMount.querySelector('.dao-section-nav-track');
+  let activeId = sections[0].id;
+  let animationFrame = 0;
+  let navigationLockUntil = 0;
+
+  function scrollRoot() {
+    return window.matchMedia('(min-width: 1101px)').matches ? main : null;
+  }
+
+  function stickyOffset() {
+    const commandStrip = document.querySelector('.atlas-command-strip');
+    const tabletIndex = document.querySelector('[data-dao-data-index-tablet]');
+    const mobileIndex = document.querySelector('[data-dao-data-index-mobile]');
+    const commandHeight = commandStrip ? commandStrip.getBoundingClientRect().height : 0;
+    const localHeight = window.matchMedia('(max-width: 759px)').matches
+      ? mobileIndex.getBoundingClientRect().height
+      : window.matchMedia('(max-width: 1439px)').matches
+        ? tabletIndex.getBoundingClientRect().height
+        : 0;
+    return commandHeight + localHeight + 16;
+  }
+
+  function setActive(id) {
+    if (!sections.some((item) => item.id === id)) return;
+    activeId = id;
+    const item = sections.find((section) => section.id === id);
+    document.querySelectorAll('[data-data-index-target]').forEach((button) => {
+      const active = button.dataset.dataIndexTarget === id;
+      button.classList.toggle('is-active', active);
+      if (active) button.setAttribute('aria-current', 'location');
+      else button.removeAttribute('aria-current');
+    });
+    mobileLabel.textContent = item.shortTitle.toUpperCase();
+    const activeTabletButton = tabletTrack.querySelector('[data-data-index-target="' + id + '"]');
+    if (activeTabletButton && getComputedStyle(tabletMount).display !== 'none') {
+      const mountRect = tabletTrack.getBoundingClientRect();
+      const buttonRect = activeTabletButton.getBoundingClientRect();
+      if (buttonRect.left < mountRect.left + 8 || buttonRect.right > mountRect.right - 8) {
+        tabletTrack.scrollTo({
+          left: Math.max(0, tabletTrack.scrollLeft + buttonRect.left + buttonRect.width / 2 - mountRect.left - mountRect.width / 2),
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        });
+      }
+    }
+    requestAnimationFrame(updateTabletOverflow);
+  }
+
+  function updateTabletOverflow() {
+    const maxScroll = Math.max(0, tabletTrack.scrollWidth - tabletTrack.clientWidth);
+    tabletMount.classList.toggle('has-overflow-left', tabletTrack.scrollLeft > 4);
+    tabletMount.classList.toggle('has-overflow-right', tabletTrack.scrollLeft < maxScroll - 4);
+  }
+
+  function closeMobileMenu(restoreFocus) {
+    if (mobileMenu.hidden) return;
+    mobileMenu.hidden = true;
+    mobileTrigger.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('is-dao-index-menu-open');
+    if (restoreFocus) mobileTrigger.focus({ preventScroll: true });
+  }
+
+  function navigateTo(id, updateHash, instant) {
+    const item = sections.find((section) => section.id === id);
+    if (!item) return;
+    closeMobileMenu(false);
+    setActive(id);
+    const root = scrollRoot();
+    const offset = stickyOffset();
+    const behavior = instant || window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+    navigationLockUntil = performance.now() + (behavior === 'smooth' ? 1800 : 120);
+    if (root) {
+      const top = root.scrollTop + item.target.getBoundingClientRect().top - root.getBoundingClientRect().top - offset;
+      root.scrollTo({ top: Math.max(0, top), behavior });
+    } else {
+      const top = window.scrollY + item.target.getBoundingClientRect().top - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior });
+    }
+    if (updateHash) history.replaceState(null, '', '#' + id);
+    if (behavior === 'instant') {
+      requestAnimationFrame(() => {
+        navigationLockUntil = 0;
+        scheduleGeometryUpdate();
+      });
+    }
+  }
+
+  document.querySelectorAll('[data-data-index-target]').forEach((button) => {
+    button.addEventListener('click', () => navigateTo(button.dataset.dataIndexTarget, true));
+  });
+
+  mobileTrigger.addEventListener('click', () => {
+    const willOpen = mobileMenu.hidden;
+    mobileMenu.hidden = !willOpen;
+    mobileTrigger.setAttribute('aria-expanded', String(willOpen));
+    document.body.classList.toggle('is-dao-index-menu-open', willOpen);
+    if (willOpen) mobileMenu.querySelector('[aria-current="location"]')?.focus({ preventScroll: true });
+  });
+  mobileMount.querySelector('[data-data-index-mobile-close]').addEventListener('click', () => closeMobileMenu(true));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !mobileMenu.hidden) closeMobileMenu(true);
+  });
+  document.addEventListener('click', (event) => {
+    if (!mobileMenu.hidden && !mobileMount.contains(event.target)) closeMobileMenu(false);
+  });
+  document.addEventListener('atlas:panel-open', () => closeMobileMenu(false));
+  tabletTrack.addEventListener('scroll', updateTabletOverflow, { passive: true });
+
+  function updateFromGeometry() {
+    animationFrame = 0;
+    if (performance.now() < navigationLockUntil) return;
+    const offset = stickyOffset() + 12;
+    const passed = sections.map((item) => ({ item, top: item.target.getBoundingClientRect().top })).filter((entry) => entry.top <= offset);
+    let candidate = sections[0];
+    if (passed.length) {
+      candidate = passed.reduce((latest, entry) => entry.top > latest.top ? entry : latest).item;
+    }
+    const hashItem = sections.find((item) => '#' + item.id === location.hash);
+    let hashItemVisible = false;
+    if (hashItem) {
+      const hashRect = hashItem.target.getBoundingClientRect();
+      hashItemVisible = hashRect.top < window.innerHeight * 0.55 && hashRect.bottom > offset;
+      if (hashItemVisible) candidate = hashItem;
+    }
+    const finalRow = sections.slice(-2);
+    const root = scrollRoot();
+    const scrollingElement = root || document.scrollingElement;
+    const atEnd = scrollingElement.scrollTop + scrollingElement.clientHeight >= scrollingElement.scrollHeight - 4;
+    if (atEnd && !hashItemVisible) {
+      candidate = finalRow[finalRow.length - 1];
+    }
+    if (candidate.id !== activeId) setActive(candidate.id);
+  }
+
+  function scheduleGeometryUpdate() {
+    if (!animationFrame) animationFrame = requestAnimationFrame(updateFromGeometry);
+  }
+
+  const observer = new IntersectionObserver(scheduleGeometryUpdate, {
+    root: scrollRoot(),
+    rootMargin: '-' + Math.round(stickyOffset()) + 'px 0px -58% 0px',
+    threshold: [0, 0.01, 0.2, 0.6],
+  });
+  sections.forEach((item) => observer.observe(item.target));
+  window.addEventListener('scroll', scheduleGeometryUpdate, { passive: true });
+  main.addEventListener('scroll', scheduleGeometryUpdate, { passive: true });
+  window.addEventListener('resize', () => { scheduleGeometryUpdate(); updateTabletOverflow(); }, { passive: true });
+
+  setActive(activeId);
+  updateTabletOverflow();
+  if (location.hash && sections.some((item) => '#' + item.id === location.hash)) {
+    requestAnimationFrame(() => requestAnimationFrame(() => navigateTo(location.hash.slice(1), false, true)));
+  } else {
+    scheduleGeometryUpdate();
+  }
+}
+
+/* ── DAO detail participation explorer ───────────────────────────── */
+function initDaoParticipationExplorer() {
+  const root = document.querySelector('.dao-detail-dashboard');
+  if (!root) return;
+  const q = (selector) => root.querySelector(selector);
+  const escapeHtml = (value) => String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const formatNumber = (value) => Number(value).toLocaleString('en-US');
+  const formatPercent = (value) => Number(value).toLocaleString('en-US', { maximumFractionDigits: 2 }) + '%';
+  const formatPower = (value) => {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return String(value ?? 'Unavailable');
+    if (Math.abs(n) >= 1000000) return (n / 1000000).toLocaleString('en-US', { maximumFractionDigits: 2 }) + 'M';
+    if (Math.abs(n) >= 1000) return (n / 1000).toLocaleString('en-US', { maximumFractionDigits: 1 }) + 'k';
+    return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  };
+  const formatDate = (value) => new Date(value).toLocaleDateString('en-CA', { timeZone: 'UTC' });
+  const formatMonth = (value) => new Date(value + '-01T00:00:00Z').toLocaleDateString('en-US', { month: 'short', year: '2-digit', timeZone: 'UTC' });
+  const formatMonthLong = (value) => new Date(value + '-01T00:00:00Z').toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const formatDateTime = (value) => new Date(value).toLocaleString('en-GB', { timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short' }) + ' UTC';
+  const compactAddress = (value) => String(value).length > 16 ? String(value).slice(0, 8) + '…' + String(value).slice(-6) : String(value);
+  const formatCoverageStatus = (value) => String(value || 'unknown').replace(/_/g, '-');
+  const hasEncodedChoicePayloads = (choices) => choices.some((choice) => /^[{[]/.test(String(choice.label || '').trim()));
+  let sample = null;
+  let proposalRows = [];
+  let visibleLimit = 10;
+  let proposalTimeRange = 'recent';
+
+  fetch('backend-sample-uniswap.json', { cache: 'no-store' })
+    .then((response) => { if (!response.ok) throw new Error('Sample request failed'); return response.json(); })
+    .then((data) => {
+      sample = data;
+      proposalRows = buildProposalRows(data);
+      renderSample();
+    }, () => {
+      root.querySelectorAll('[data-overview-metrics],[data-proposal-rows],[data-voting-depth],[data-top-voters],[data-typical-power],[data-concentration-curve],[data-proposal-creators],[data-proposal-time-chart]').forEach((el) => {
+        el.innerHTML = '<div class="proposal-empty">Governance data is unavailable right now.</div>';
+      });
+    });
+
+  function buildProposalRows(data) {
+    const detailedById = new Map((data.proposalRows || []).map((row) => [row.id, row]));
+    const indexed = data.drilldowns?.indexedProposals || data.proposalRows || [];
+    return indexed.map((row) => {
+      const detail = detailedById.get(row.id);
+      const participation = row.participation || {};
+      const normalizedParticipation = {
+        ...participation,
+        totalEffectiveBallots: participation.totalEffectiveBallots ?? participation.effectiveBallots ?? 0,
+        quorumProgress: participation.quorumProgress ?? (participation.quorumProgressPercent == null ? null : participation.quorumProgressPercent / 100),
+      };
+      if (detail) {
+        return {
+          ...row,
+          ...detail,
+          participation: { ...normalizedParticipation, ...(detail.participation || {}) },
+        };
+      }
+      return {
+        ...row,
+        choices: [],
+        limitations: ['Per-choice distribution is not included in this evidence record.'],
+        participation: normalizedParticipation,
+      };
+    });
+  }
+
+  function renderSample() {
+    const dao = sample.dao;
+    const coverage = sample.coverage;
+    const asOf = formatDateTime(dao.dataAsOf);
+    const outcomeCounts = proposalRows.reduce((counts, row) => {
+      const outcome = row.outcome || 'unknown';
+      counts[outcome] = (counts[outcome] || 0) + 1;
+      return counts;
+    }, {});
+    const proposalCreatedDates = proposalRows
+      .map((row) => row.createdAt)
+      .filter(Boolean)
+      .sort((a, b) => new Date(a) - new Date(b));
+    const firstProposalAt = proposalCreatedDates[0];
+    const lastProposalAt = proposalCreatedDates[proposalCreatedDates.length - 1];
+    q('[data-dao-updated]').textContent = 'Snapshot · Data through ' + asOf;
+    root.querySelectorAll('[data-inline-as-of]').forEach((node) => { node.textContent = asOf; });
+    const metrics = [
+      ['Indexed proposals', dao.proposalCount],
+      ['Active', dao.activeProposalCount],
+      ['Participant addresses', formatNumber(dao.metrics.unique_voters), 'is-wide-value'],
+      ['Passed', outcomeCounts.passed || 0],
+      ['Failed', outcomeCounts.failed || 0],
+      ['No quorum', outcomeCounts.no_quorum || 0],
+      ['First proposal', firstProposalAt ? formatDate(firstProposalAt) : 'Unavailable', 'is-date'],
+      ['Last proposal', lastProposalAt ? formatDate(lastProposalAt) : 'Unavailable', 'is-date'],
+    ];
+    q('[data-overview-metrics]').innerHTML = metrics.map((m) => '<div class="dao-overview-metric' + (m[2] ? ' ' + escapeHtml(m[2]) : '') + '"><span>' + escapeHtml(m[0]) + '</span><strong>' + escapeHtml(m[1]) + '</strong></div>').join('');
+    renderHistogram();
+    renderControls();
+    renderRows();
+    renderTopVoters();
+    renderVotingDepth();
+    renderTypicalPower();
+    renderConcentration();
+    renderProposalCreators();
+    renderProposalTime();
+    const mechanismTrigger = q('[data-governance-mechanism]');
+    if (mechanismTrigger && sample.governanceMechanism) {
+      mechanismTrigger.addEventListener('click', () => EventPanel.openGovernanceSetup(sample.governanceMechanism, mechanismTrigger));
+    }
+  }
+
+  function renderHistogram() {
+    const months = sample.drilldowns.proposalActivityMonths;
+    const max = Math.max(...months.map((bucket) => bucket.proposalCount));
+    const midpoint = Math.ceil(max / 2);
+    const histogram = q('[data-proposal-histogram]');
+    histogram.style.setProperty('--histogram-months', months.length);
+    histogram.innerHTML = '<div class="proposal-histogram-y-title" aria-hidden="true">Indexed proposals</div>' +
+      '<div class="proposal-histogram-y-axis" aria-hidden="true"><span>' + max + '</span><span>' + midpoint + '</span><span>0</span></div>' +
+      '<div class="proposal-histogram-plot" data-proposal-histogram-plot>' +
+        '<i class="proposal-histogram-gridline is-top" aria-hidden="true"></i><i class="proposal-histogram-gridline is-mid" aria-hidden="true"></i>' +
+        '<output class="proposal-histogram-tooltip" data-proposal-histogram-tooltip aria-live="polite"></output>' +
+        months.map((bucket) => '<button class="proposal-histogram-bar" type="button" data-proposal-month="' + escapeHtml(bucket.month) + '" data-proposal-label="' + escapeHtml(formatMonth(bucket.month)) + '" data-histogram-count="' + bucket.proposalCount + '" style="--histogram-height:' + Math.max(6, bucket.proposalCount / max * 100) + '%" aria-label="Open proposal list for ' + escapeHtml(formatMonth(bucket.month)) + ': ' + bucket.proposalCount + ' indexed proposals"><span class="proposal-histogram-month">' + escapeHtml(formatMonth(bucket.month)) + '</span></button>').join('') +
+      '</div><div class="proposal-histogram-x-title" aria-hidden="true">UTC month →</div>';
+    const tooltip = histogram.querySelector('[data-proposal-histogram-tooltip]');
+    const showTooltip = (button) => {
+      tooltip.innerHTML = '<strong>' + escapeHtml(button.dataset.proposalLabel) + '</strong><em>' + escapeHtml(button.dataset.histogramCount) + ' proposals</em><small>Click to open</small>';
+      tooltip.classList.add('is-visible');
+    };
+    const hideTooltip = () => tooltip.classList.remove('is-visible');
+    histogram.querySelectorAll('[data-proposal-month]').forEach((button) => {
+      button.addEventListener('click', () => openProposalMonth(button.dataset.proposalMonth, button));
+      button.addEventListener('pointerenter', () => showTooltip(button));
+      button.addEventListener('pointerleave', hideTooltip);
+      button.addEventListener('focus', () => showTooltip(button));
+      button.addEventListener('blur', hideTooltip);
+      button.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        const bars = [...histogram.querySelectorAll('[data-proposal-month]')];
+        const nextIndex = Math.max(0, Math.min(bars.length - 1, bars.indexOf(button) + (event.key === 'ArrowRight' ? 1 : -1)));
+        bars[nextIndex].focus();
+      });
+    });
+  }
+
+  function renderControls() {
+    const sources = [...new Set(proposalRows.map((row) => row.source))].sort();
+    const select = q('[name="source"]');
+    sources.forEach((source) => select.insertAdjacentHTML('beforeend', '<option value="' + escapeHtml(source) + '">' + escapeHtml(source) + '</option>'));
+    q('[data-proposal-controls]').addEventListener('input', () => { visibleLimit = 10; renderRows(); });
+    q('[data-proposal-controls]').addEventListener('change', () => { visibleLimit = 10; renderRows(); });
+    q('[data-proposal-controls]').addEventListener('submit', (event) => event.preventDefault());
+    q('[data-proposal-load-more]').addEventListener('click', () => {
+      visibleLimit = Math.min(visibleLimit + 20, filteredRows().length);
+      renderRows();
+    });
+    root.querySelectorAll('[data-proposal-time-range]').forEach((button) => {
+      button.addEventListener('click', () => {
+        proposalTimeRange = button.dataset.proposalTimeRange;
+        root.querySelectorAll('[data-proposal-time-range]').forEach((item) => {
+          const active = item === button;
+          item.classList.toggle('is-active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+        renderProposalTime();
+      });
+    });
+  }
+
+  function filteredRows() {
+    const form = new FormData(q('[data-proposal-controls]'));
+    const search = String(form.get('search') || '').trim().toLowerCase();
+    const status = String(form.get('status'));
+    const outcome = String(form.get('outcome'));
+    const source = String(form.get('source'));
+    const sort = String(form.get('sort'));
+    const rows = proposalRows.filter((row) => (!search || (row.title + ' ' + row.source).toLowerCase().includes(search)) && (status === 'all' || row.lifecycleStatus === status) && (outcome === 'all' || row.outcome === outcome) && (source === 'all' || row.source === source));
+    rows.sort((a,b) => sort === 'oldest' ? new Date(a.createdAt) - new Date(b.createdAt) : sort === 'voters' ? b.participation.uniqueVoters - a.participation.uniqueVoters : sort === 'power' ? Number(b.participation.totalVotingPower) - Number(a.participation.totalVotingPower) : new Date(b.createdAt) - new Date(a.createdAt));
+    return rows;
+  }
+
+  function renderRows() {
+    const rows = filteredRows();
+    const visible = rows.slice(0, visibleLimit);
+    q('[data-proposal-rows]').innerHTML = visible.map(rowMarkup).join('');
+    q('[data-proposal-empty]').hidden = rows.length > 0;
+    const load = q('[data-proposal-load-more]');
+    load.hidden = visible.length >= rows.length;
+    const remaining = Math.max(0, rows.length - visible.length);
+    load.textContent = 'Load ' + Math.min(20, remaining) + ' more proposals';
+    q('[data-proposal-rows]').querySelectorAll('.proposal-row').forEach((button) => {
+      button.addEventListener('click', () => {
+        const row = proposalRows.find((item) => item.id === button.dataset.proposalId);
+        if (!row) return;
+        const detail = sample.proposalDetail && sample.proposalDetail.id === row.id ? { ...row, ...sample.proposalDetail } : row;
+        EventPanel.openProposalDecision(detail, button, { eventData: { id: row.id, title: row.title } });
+      });
+    });
+  }
+
+  function rowMarkup(row) {
+    const p = row.participation;
+    const displayOutcome = row.lifecycleStatus === 'active' ? 'active' : row.outcome;
+    const outcomeClass = displayOutcome === 'no_quorum' ? 'no-quorum' : displayOutcome;
+    return '<button class="proposal-row" type="button" role="listitem" data-proposal-id="' + escapeHtml(row.id) + '" aria-label="Open indexed proposal: ' + escapeHtml(row.title) + '"><time class="proposal-row-cell proposal-date" datetime="' + escapeHtml(row.createdAt) + '">' + escapeHtml(formatDate(row.createdAt)) + '</time><span class="proposal-row-cell proposal-identity"><strong>' + escapeHtml(row.title) + '</strong></span><span class="proposal-row-cell proposal-participation"><strong>' + formatNumber(p.uniqueVoters) + '</strong><span>voters</span></span><span class="proposal-row-cell proposal-outcome"><span class="proposal-outcome-badge is-' + outcomeClass + '">' + escapeHtml(displayOutcome.replace(/_/g,' ')) + '</span></span></button>';
+  }
+
+  const snapshotSource = [{ label: 'Uniswap governance on Snapshot', url: 'https://snapshot.org/#/uniswapgovernance.eth' }];
+  const dataAsOf = () => formatDateTime(sample.dao.dataAsOf);
+
+  function openProposalMonth(month, trigger) {
+    const bucket = sample.drilldowns.proposalActivityMonths.find((item) => item.month === month);
+    if (!bucket) return;
+    const records = bucket.proposals
+      .map((proposal) => proposalRows.find((row) => row.id === proposal.id) || proposal)
+      .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+    EventPanel.openProposalActivityMonth({
+      title: formatMonthLong(month) + ' proposals',
+      proposalCount: bucket.proposalCount,
+      month,
+      records,
+      contextLabel: q('#proposal-activity .eyebrow')?.textContent?.trim(),
+      source: snapshotSource[0],
+      dataAsOf: dataAsOf(),
+    }, trigger);
+  }
+
+  function openVoter(address, trigger) {
+    const profile = sample.drilldowns.voterProfiles[String(address).toLowerCase()];
+    if (!profile) return;
+    EventPanel.openEstablishedVoter({
+      ...profile,
+      contextLabel: q('#top-voters .eyebrow')?.textContent?.trim(),
+      source: snapshotSource[0],
+      dataAsOf: dataAsOf(),
+    }, trigger);
+  }
+
+  function openParticipationCohort(index, trigger) {
+    const cohort = sample.drilldowns.participationDepthCohorts[index];
+    if (!cohort) return;
+    EventPanel.openParticipationFrequency({
+      ...cohort,
+      contextLabel: q('#voting-depth .eyebrow')?.textContent?.trim(),
+      source: snapshotSource[0],
+      dataAsOf: dataAsOf(),
+    }, trigger);
+  }
+
+  function openPowerCohort(index, trigger) {
+    const cohort = sample.drilldowns.typicalPowerCohorts[index];
+    if (!cohort) return;
+    EventPanel.openTypicalPower({
+      ...cohort,
+      contextLabel: q('#power-distribution .eyebrow')?.textContent?.trim(),
+      source: snapshotSource[0],
+      dataAsOf: dataAsOf(),
+    }, trigger);
+  }
+
+  function openConcentrationCohort(count, trigger) {
+    const data = sample.drilldowns.observedPowerConcentration;
+    const point = data.points.find((item) => item.voterCount === count);
+    if (!point) return;
+    EventPanel.openPowerConcentration({
+      selectedCount: count,
+      ...point,
+      rankedVoterCount: data.rankedVoterCount,
+      voteCoveredProposalCount: data.voteCoveredProposalCount,
+      topVoters: data.topVoters,
+      contextLabel: q('#voter-concentration .eyebrow')?.textContent?.trim(),
+      source: snapshotSource[0],
+      dataAsOf: dataAsOf(),
+    }, trigger);
+  }
+
+  function openCreator(address, trigger) {
+    const profile = sample.drilldowns.creatorProfiles[String(address).toLowerCase()];
+    if (!profile) return;
+    EventPanel.openProposalCreator({
+      ...profile,
+      contextLabel: q('#proposal-creators .eyebrow')?.textContent?.trim(),
+      source: snapshotSource[0],
+      dataAsOf: dataAsOf(),
+    }, trigger);
+  }
+
+
+  function openTimelineProposal(id, trigger) {
+    const indexed = sample.drilldowns.indexedProposals.find((row) => row.id === id);
+    const base = proposalRows.find((row) => row.id === id) || indexed;
+    if (!base) return;
+    const detail = sample.proposalDetail && sample.proposalDetail.id === id ? { ...base, ...sample.proposalDetail } : { ...base, choices: base.choices || [], limitations: base.limitations || [] };
+    EventPanel.openProposalParticipation(detail, trigger);
+  }
+
+  function renderVotingDepth() {
+    const cohorts = sample.drilldowns.participationDepthCohorts;
+    q('[data-voting-depth-total]').textContent = formatNumber(sample.dao.metrics.unique_voters) + ' participant addresses';
+    q('[data-voting-depth]').innerHTML = cohorts.map((bucket, index) => '<button class="voting-depth-bar evidence-trigger" type="button" data-depth-cohort="' + index + '" aria-label="Open evidence for ' + escapeHtml(bucket.label) + ' participation cohort"><span>' + escapeHtml(bucket.label) + '</span><i aria-hidden="true"><b style="--depth-share:' + Math.max(0.8, bucket.share) + '%"></b></i><strong>' + formatNumber(bucket.voterCount) + '</strong><em>' + formatPercent(bucket.share) + '</em></button>').join('');
+    q('[data-voting-depth]').querySelectorAll('[data-depth-cohort]').forEach((button) => button.addEventListener('click', () => openParticipationCohort(Number(button.dataset.depthCohort), button)));
+  }
+
+  function renderTopVoters() {
+    const rows = sample.voterAnalytics.consistentTopVoters.slice(0, 10);
+    q('[data-top-voters]').innerHTML = '<div class="top-voter-ledger-row top-voter-ledger-head" aria-hidden="true"><span>#</span><span>Address</span><span>Average Snapshot VP</span><span>Proposals</span></div>' + rows.map((row) => '<button type="button" class="top-voter-ledger-row evidence-ledger-row" data-voter-evidence="' + escapeHtml(row.voterAddress) + '" aria-label="Open evidence for voter ' + escapeHtml(row.voterAddress) + '" title="' + escapeHtml(row.voterAddress) + '"><span class="top-voter-ledger-rank">' + row.establishedRank + '</span><span class="top-voter-address"><span>' + escapeHtml(compactAddress(row.displayLabel)) + '</span></span><span title="' + escapeHtml(row.averageVotingPower) + ' Snapshot VP">' + formatPower(row.averageVotingPowerNum) + ' VP</span><span title="' + row.shareProposalCount + ' of ' + row.analyzedProposalCount + ' covered proposals">' + formatNumber(row.proposalsVoted) + '</span></button>').join('');
+    q('[data-top-voters]').querySelectorAll('[data-voter-evidence]').forEach((button) => button.addEventListener('click', () => openVoter(button.dataset.voterEvidence, button)));
+  }
+
+  function renderTypicalPower() {
+    q('[data-typical-power]').innerHTML = sample.drilldowns.typicalPowerCohorts.map((bucket, index) => '<button type="button" class="typical-power-row evidence-trigger" data-power-cohort="' + index + '" aria-label="Open evidence for average ' + escapeHtml(bucket.label) + ' Snapshot VP cohort"><span>' + escapeHtml(bucket.label) + ' VP</span><i aria-hidden="true"><b style="--power-share:' + Math.max(0.8, bucket.voterSharePercent) + '%"></b></i><strong>' + formatNumber(bucket.voterCount) + ' addresses</strong><em>' + formatPercent(bucket.voterSharePercent) + '</em></button>').join('');
+    q('[data-typical-power]').querySelectorAll('[data-power-cohort]').forEach((button) => button.addEventListener('click', () => openPowerCohort(Number(button.dataset.powerCohort), button)));
+  }
+
+  function renderConcentration() {
+    const data = sample.voterAnalytics.observedPowerConcentration;
+    const keys = [1, 5, 10, 25, 100].map((count) => data.points.find((row) => row.voterCount === count)).filter(Boolean);
+    q('[data-concentration-highlights]').innerHTML = keys.map((row) => '<button type="button" class="evidence-trigger" data-concentration-cohort="' + row.voterCount + '" aria-label="Open evidence for top ' + row.voterCount + ' observed voting power cohort"><span>Top ' + row.voterCount + '</span><strong>' + formatPercent(row.cumulativeObservedVotingPowerPercent) + '</strong><em>' + formatPercent(row.voterPercent) + ' of participants</em></button>').join('');
+    q('[data-concentration-highlights]').querySelectorAll('[data-concentration-cohort]').forEach((button) => button.addEventListener('click', () => openConcentrationCohort(Number(button.dataset.concentrationCohort), button)));
+    const width = 820;
+    const height = 220;
+    const left = 58;
+    const right = 20;
+    const top = 30;
+    const bottom = 40;
+    const maxLog = Math.log10(data.rankedVoterCount);
+    const point = (row) => [
+      left + Math.log10(Math.max(1, row.voterCount)) / maxLog * (width - left - right),
+      top + (100 - row.cumulativeObservedVotingPowerPercent) / 100 * (height - top - bottom),
+    ];
+    const points = data.points.map(point);
+    const grid = [0, 25, 50, 75, 100].map((value) => {
+      const y = top + (100 - value) / 100 * (height - top - bottom);
+      return '<g><line x1="' + left + '" x2="' + (width - right) + '" y1="' + y + '" y2="' + y + '"></line><text x="' + (left - 10) + '" y="' + (y + 4) + '" text-anchor="end">' + value + '%</text></g>';
+    }).join('');
+    const xTickCounts = [1, 10, 100, 1000, 10000]
+      .filter((count) => count <= data.rankedVoterCount && (count === 1 || data.rankedVoterCount / count >= 1.8))
+      .concat(data.rankedVoterCount)
+      .filter((count, index, values) => values.indexOf(count) === index);
+    const xGrid = xTickCounts.map((count, index) => {
+      const x = left + Math.log10(Math.max(1, count)) / maxLog * (width - left - right);
+      const anchor = index === 0 ? 'start' : index === xTickCounts.length - 1 ? 'end' : 'middle';
+      const label = count === data.rankedVoterCount ? formatNumber(count) : count >= 1000 ? formatNumber(count / 1000) + 'k' : formatNumber(count);
+      return '<g><line x1="' + x + '" x2="' + x + '" y1="' + top + '" y2="' + (height - bottom) + '" stroke-dasharray="2 5"></line><text x="' + x + '" y="' + (height - 15) + '" text-anchor="' + anchor + '">' + label + '</text></g>';
+    }).join('');
+    const area = left + ',' + (height - bottom) + ' ' + points.map((item) => item.join(',')).join(' ') + ' ' + (width - right) + ',' + (height - bottom);
+    const marks = data.points.map((row, index) => '<circle cx="' + points[index][0] + '" cy="' + points[index][1] + '" r="3"><title>Top ' + formatNumber(row.voterCount) + ' addresses (' + formatPercent(row.voterPercent) + ' of participants) · ' + formatPercent(row.cumulativeObservedVotingPowerPercent) + ' cumulative observed Snapshot VP</title></circle>').join('');
+    const keyLabels = keys.map((row) => {
+      const index = data.points.indexOf(row);
+      const x = points[index][0];
+      const y = points[index][1];
+      const placeBelow = row.voterCount >= 25;
+      return '<g class="concentration-key-label" aria-hidden="true"><circle cx="' + x + '" cy="' + y + '" r="5"></circle><text x="' + (x + 8) + '" y="' + (y + (placeBelow ? 16 : -8)) + '">' + formatPercent(row.cumulativeObservedVotingPowerPercent) + '</text></g>';
+    }).join('');
+    q('[data-concentration-curve]').innerHTML = '<svg viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Cumulative share of observed Snapshot voting power by participating address count"><text class="concentration-chart-title" x="' + left + '" y="16">CUMULATIVE OBSERVED VP</text><g class="concentration-grid">' + grid + xGrid + '</g><polygon points="' + area + '" opacity=".55"></polygon><polyline points="' + points.map((item) => item.join(',')).join(' ') + '"></polyline>' + marks + keyLabels + '<text class="concentration-axis-label" x="' + (width - right) + '" y="' + (height - 2) + '" text-anchor="end">RANKED ADDRESSES · LOG SCALE</text></svg>';
+  }
+
+  function renderProposalCreators() {
+    const data = sample.proposalCreators;
+    q('[data-creator-coverage]').textContent = data.matchedSourceProposals + ' of ' + data.backendIndexedProposals + ' linked to creators';
+    q('[data-proposal-creators]').innerHTML = '<div class="creator-ledger-row creator-ledger-head" aria-hidden="true"><span>#</span><span>Creator</span><span>Indexed proposals</span><span>Share</span><span>Latest proposal</span></div>' + data.topCreators.slice(0, 5).map((row, index) => '<button type="button" class="creator-ledger-row evidence-ledger-row" data-creator-evidence="' + escapeHtml(row.address) + '" aria-label="Open proposal history for creator ' + escapeHtml(row.address) + '" title="' + escapeHtml(row.address) + '"><span>' + (index + 1) + '</span><span class="creator-address">' + escapeHtml(compactAddress(row.address)) + '</span><span class="creator-count"><strong>' + row.proposals + ' proposals</strong></span><span>' + formatPercent(row.shareOfKnownPercent) + '</span><time datetime="' + escapeHtml(row.latestCreatedAt) + '">' + escapeHtml(formatDate(row.latestCreatedAt)) + '</time></button>').join('');
+    q('[data-creator-note]').textContent = 'Top 5 shown · select a creator to see all indexed proposals.';
+    q('[data-proposal-creators]').querySelectorAll('[data-creator-evidence]').forEach((button) => button.addEventListener('click', () => openCreator(button.dataset.creatorEvidence, button)));
+  }
+
+  function renderProposalTime() {
+    const allRows = sample.readyAnalytics.proposalParticipation.series;
+    const rows = proposalTimeRange === 'all' ? allRows : allRows.slice(-32);
+    const max = Math.max(...rows.map((row) => row.uniqueVoters));
+    const tickEvery = proposalTimeRange === 'all' ? 12 : 4;
+    q('[data-proposal-time-chart]').innerHTML = '<div class="proposal-time-y" aria-hidden="true"><span>' + formatNumber(max) + '</span><span>' + formatNumber(Math.round(max / 2)) + '</span><span>0</span></div><div class="proposal-time-plot" style="--proposal-count:' + rows.length + '">' + rows.map((row, index) => {
+      const outcome = row.lifecycleStatus === 'active' ? 'active' : row.outcome;
+      const title = row.title + ' · ' + formatDateTime(row.eventAt) + ' · ' + row.lifecycleStatus + ' / ' + row.outcome.replace(/_/g, ' ') + ' · ' + formatNumber(row.uniqueVoters) + ' unique voters · ' + formatNumber(row.effectiveBallots) + ' effective ballots';
+      return '<button type="button" class="proposal-time-point is-' + escapeHtml(outcome.replace(/_/g, '-')) + '" data-timeline-evidence="' + escapeHtml(row.id) + '" style="--proposal-height:' + Math.max(1, row.uniqueVoters / max * 100) + '%" title="' + escapeHtml(title) + '" aria-label="Open proposal evidence: ' + escapeHtml(title) + '"><i></i>' + (index % tickEvery === 0 || index === rows.length - 1 ? '<time datetime="' + escapeHtml(row.eventAt) + '">' + escapeHtml(formatDate(row.eventAt).slice(0, 7)) + '</time>' : '') + '</button>';
+    }).join('') + '</div>';
+    q('[data-proposal-time-chart]').querySelectorAll('[data-timeline-evidence]').forEach((button) => button.addEventListener('click', () => openTimelineProposal(button.dataset.timelineEvidence, button)));
+    q('[data-proposal-time-caption]').textContent = proposalTimeRange === 'all' ? 'All ' + allRows.length + ' indexed proposals' : 'Recent ' + rows.length + ' of ' + allRows.length + ' indexed';
+  }
+
+}
+
+function initGovernanceFeedProposalDetails() {
+  const triggers = [...document.querySelectorAll("[data-feed-proposal-detail]")];
+  if (!triggers.length) return;
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const subject = trigger.querySelector(".bulletin-subject");
+      const daoName = subject?.querySelector(".signal-dao-name")?.textContent?.trim() || "DAO";
+      const title = subject?.lastElementChild?.textContent?.trim() || "Governance proposal";
+      const id = trigger.dataset.odId || "governance-feed-proposal";
+      const lifecycleStatus = trigger.dataset.feedLifecycle || "closed";
+      const outcome = trigger.dataset.feedOutcome || "unknown";
+      const eventStatus = lifecycleStatus === "active" ? "active" : outcome === "failed" ? "defeated" : outcome;
+      const eventData = { id, type: "proposal", daoName, title, status: eventStatus, proposal: null, links: {} };
+      const proposalRow = {
+        id,
+        daoName,
+        title,
+        source: "governance feed",
+        lifecycleStatus,
+        outcome,
+        choices: [],
+        coverageStatus: "Signal-level record",
+        limitations: ["This governance feed signal does not include proposal-level vote counts, choice totals, quorum, or source links."],
+      };
+      EventPanel.open(id, trigger, { eventData, proposalRow });
+    });
+  });
+}
+
 /* ── Bootstrap ────────────────────────────────────────────────────── */
 
 function initAtlasPrototype() {
   initDaoSearch();
   initEventPanelTriggers();
+  initGovernanceFeedProposalDetails();
   initOlderProposalsPanel();
+  initDaoDataIndex();
+  initDaoParticipationExplorer();
 }
 
 if (document.readyState === "loading") {
