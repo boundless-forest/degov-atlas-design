@@ -14192,7 +14192,6 @@ body,
   grid-template-columns: repeat(var(--histogram-months), minmax(22px, 1fr));
   align-items: end;
   gap: 3px;
-  border-bottom: 1px solid var(--atlas-ink);
   border-left: 1px solid var(--atlas-ink);
 }
 

@@ -2796,14 +2796,71 @@ function initDaoParticipationExplorer() {
   const hasEncodedChoicePayloads = (choices) => choices.some((choice) => /^[{[]/.test(String(choice.label || '').trim()));
   let sample = null;
   let proposalRows = [];
+  let proposalActivityMonths = [];
   let visibleLimit = 10;
-  let proposalTimeRange = 'recent';
+  let proposalTimeRange = 'all';
+
+  function buildProposalActivityMonths(data) {
+    const indexedMonths = data.drilldowns?.proposalActivityMonths || [];
+    const prototypeCounts = [3, 5, 2, 7, 4, 6, 3, 8, 5, 2, 6, 4, 9, 3, 7, 5, 4];
+    const prototypeTitles = [
+      '[Temperature Check] Cross-chain deployment proposal',
+      '[RFC] Governance process update',
+      'Treasury delegation framework',
+      'Protocol grants program renewal',
+      'Fee switch research proposal',
+      'Community governance working group',
+      'Liquidity incentives pilot',
+      'Delegate accountability framework',
+      'Protocol security budget',
+      'Governance tooling improvement proposal',
+    ];
+    const prototypeProposers = [
+      '0x18d12A64f3D22C2cA7B6A8E76Db38b2f03bB1A21',
+      '0x4A7f3B5dC92E0a6A29E79cD34fD70dF8c4B8A930',
+      '0x82C1dE43a7C0A9E81B62CF2E5C8D2D10B4B9E770',
+      '0xB71e4E2B3F8F5a1d0D8C1B7eE5C83a1F65A29442',
+    ];
+    const prototypeOutcomes = ['passed', 'passed', 'unknown', 'failed'];
+    const prototypeMonths = prototypeCounts.map((proposalCount, monthIndex) => {
+      const monthDate = new Date(Date.UTC(2022, monthIndex, 1));
+      const month = monthDate.toISOString().slice(0, 7);
+      const proposals = Array.from({ length: proposalCount }, (_, proposalIndex) => {
+        const createdDay = Math.min(26, 3 + proposalIndex * 4);
+        const createdAt = new Date(Date.UTC(monthDate.getUTCFullYear(), monthDate.getUTCMonth(), createdDay, 12));
+        const endAt = new Date(createdAt.getTime() + 5 * 24 * 60 * 60 * 1000);
+        const uniqueVoters = 180 + ((monthIndex * 137 + proposalIndex * 83) % 2900);
+        const totalVotingPower = 1800000 + ((monthIndex * 925000 + proposalIndex * 475000) % 28000000);
+        return {
+          id: 'uniswapgovernance-eth:snapshot:mock:' + month + ':' + (proposalIndex + 1),
+          title: prototypeTitles[(monthIndex * 2 + proposalIndex) % prototypeTitles.length],
+          source: 'snapshot',
+          proposerId: prototypeProposers[(monthIndex + proposalIndex) % prototypeProposers.length],
+          lifecycleStatus: 'closed',
+          outcome: prototypeOutcomes[(monthIndex + proposalIndex) % prototypeOutcomes.length],
+          createdAt: createdAt.toISOString(),
+          endAt: endAt.toISOString(),
+          participation: {
+            uniqueVoters,
+            effectiveBallots: uniqueVoters,
+            totalVotingPower: String(totalVotingPower),
+            quorumRequired: null,
+            quorumProgressPercent: null,
+            quorumReached: null,
+          },
+        };
+      });
+      return { month, proposalCount, proposals, isPrototypeMock: true };
+    });
+    return [...prototypeMonths, ...indexedMonths];
+  }
 
   fetch('backend-sample-uniswap.json', { cache: 'no-store' })
     .then((response) => { if (!response.ok) throw new Error('Sample request failed'); return response.json(); })
     .then((data) => {
       sample = data;
       proposalRows = buildProposalRows(data);
+      proposalActivityMonths = buildProposalActivityMonths(data);
       renderSample();
     }, () => {
       root.querySelectorAll('[data-overview-metrics],[data-proposal-rows],[data-voting-depth],[data-top-voters],[data-typical-power],[data-concentration-curve],[data-proposal-creators],[data-proposal-time-chart]').forEach((el) => {
@@ -2882,7 +2939,7 @@ function initDaoParticipationExplorer() {
   }
 
   function renderHistogram() {
-    const months = sample.drilldowns.proposalActivityMonths;
+    const months = proposalActivityMonths;
     const max = Math.max(...months.map((bucket) => bucket.proposalCount));
     const midpoint = Math.ceil(max / 2);
     const histogram = q('[data-proposal-histogram]');
@@ -2893,7 +2950,7 @@ function initDaoParticipationExplorer() {
         '<i class="proposal-histogram-gridline is-top" aria-hidden="true"></i><i class="proposal-histogram-gridline is-mid" aria-hidden="true"></i>' +
         '<output class="proposal-histogram-tooltip" data-proposal-histogram-tooltip aria-live="polite"></output>' +
         months.map((bucket) => '<button class="proposal-histogram-bar" type="button" data-proposal-month="' + escapeHtml(bucket.month) + '" data-proposal-label="' + escapeHtml(formatMonth(bucket.month)) + '" data-histogram-count="' + bucket.proposalCount + '" style="--histogram-height:' + Math.max(6, bucket.proposalCount / max * 100) + '%" aria-label="Open proposal list for ' + escapeHtml(formatMonth(bucket.month)) + ': ' + bucket.proposalCount + ' indexed proposals"><span class="proposal-histogram-month">' + escapeHtml(formatMonth(bucket.month)) + '</span></button>').join('') +
-      '</div><div class="proposal-histogram-x-title" aria-hidden="true">UTC month →</div>';
+      '</div>';
     const tooltip = histogram.querySelector('[data-proposal-histogram-tooltip]');
     const showTooltip = (button) => {
       tooltip.innerHTML = '<strong>' + escapeHtml(button.dataset.proposalLabel) + '</strong><em>' + escapeHtml(button.dataset.histogramCount) + ' proposals</em><small>Click to open</small>';
@@ -2927,17 +2984,7 @@ function initDaoParticipationExplorer() {
       visibleLimit = Math.min(visibleLimit + 20, filteredRows().length);
       renderRows();
     });
-    root.querySelectorAll('[data-proposal-time-range]').forEach((button) => {
-      button.addEventListener('click', () => {
-        proposalTimeRange = button.dataset.proposalTimeRange;
-        root.querySelectorAll('[data-proposal-time-range]').forEach((item) => {
-          const active = item === button;
-          item.classList.toggle('is-active', active);
-          item.setAttribute('aria-pressed', String(active));
-        });
-        renderProposalTime();
-      });
-    });
+
   }
 
   function filteredRows() {
@@ -2982,7 +3029,7 @@ function initDaoParticipationExplorer() {
   const dataAsOf = () => formatDateTime(sample.dao.dataAsOf);
 
   function openProposalMonth(month, trigger) {
-    const bucket = sample.drilldowns.proposalActivityMonths.find((item) => item.month === month);
+    const bucket = proposalActivityMonths.find((item) => item.month === month);
     if (!bucket) return;
     const records = bucket.proposals
       .map((proposal) => proposalRows.find((row) => row.id === proposal.id) || proposal)
@@ -3139,15 +3186,16 @@ function initDaoParticipationExplorer() {
   function renderProposalTime() {
     const allRows = sample.readyAnalytics.proposalParticipation.series;
     const rows = proposalTimeRange === 'all' ? allRows : allRows.slice(-32);
+    q('[data-proposal-time-total]').textContent = formatNumber(allRows.length) + ' proposals';
     const max = Math.max(...rows.map((row) => row.uniqueVoters));
     const tickEvery = proposalTimeRange === 'all' ? 12 : 4;
     q('[data-proposal-time-chart]').innerHTML = '<div class="proposal-time-y" aria-hidden="true"><span>' + formatNumber(max) + '</span><span>' + formatNumber(Math.round(max / 2)) + '</span><span>0</span></div><div class="proposal-time-plot" style="--proposal-count:' + rows.length + '">' + rows.map((row, index) => {
       const outcome = row.lifecycleStatus === 'active' ? 'active' : row.outcome;
-      const title = row.title + ' · ' + formatDateTime(row.eventAt) + ' · ' + row.lifecycleStatus + ' / ' + row.outcome.replace(/_/g, ' ') + ' · ' + formatNumber(row.uniqueVoters) + ' unique voters · ' + formatNumber(row.effectiveBallots) + ' effective ballots';
-      return '<button type="button" class="proposal-time-point is-' + escapeHtml(outcome.replace(/_/g, '-')) + '" data-timeline-evidence="' + escapeHtml(row.id) + '" style="--proposal-height:' + Math.max(1, row.uniqueVoters / max * 100) + '%" title="' + escapeHtml(title) + '" aria-label="Open proposal evidence: ' + escapeHtml(title) + '"><i></i>' + (index % tickEvery === 0 || index === rows.length - 1 ? '<time datetime="' + escapeHtml(row.eventAt) + '">' + escapeHtml(formatDate(row.eventAt).slice(0, 7)) + '</time>' : '') + '</button>';
+      const title = row.title;
+      const accessibleLabel = title + ' · ' + formatDateTime(row.eventAt) + ' · ' + row.lifecycleStatus + ' / ' + row.outcome.replace(/_/g, ' ') + ' · ' + formatNumber(row.uniqueVoters) + ' unique voters · ' + formatNumber(row.effectiveBallots) + ' effective ballots';
+      return '<button type="button" class="proposal-time-point is-' + escapeHtml(outcome.replace(/_/g, '-')) + '" data-timeline-evidence="' + escapeHtml(row.id) + '" style="--proposal-height:' + Math.max(1, row.uniqueVoters / max * 100) + '%" title="' + escapeHtml(title) + '" aria-label="Open proposal evidence: ' + escapeHtml(accessibleLabel) + '"><i></i>' + (index % tickEvery === 0 || index === rows.length - 1 ? '<time datetime="' + escapeHtml(row.eventAt) + '">' + escapeHtml(formatDate(row.eventAt).slice(0, 7)) + '</time>' : '') + '</button>';
     }).join('') + '</div>';
     q('[data-proposal-time-chart]').querySelectorAll('[data-timeline-evidence]').forEach((button) => button.addEventListener('click', () => openTimelineProposal(button.dataset.timelineEvidence, button)));
-    q('[data-proposal-time-caption]').textContent = proposalTimeRange === 'all' ? 'All ' + allRows.length + ' indexed proposals' : 'Recent ' + rows.length + ' of ' + allRows.length + ' indexed';
   }
 
 }
