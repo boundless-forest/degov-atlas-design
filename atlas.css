@@ -46,6 +46,7 @@
 
   /* Layout */
   --atlas-sidebar-width: 244px;
+  --atlas-side-panel-width: 700px;
   --atlas-command-strip-sticky-offset: 79px;
   --atlas-focus: rgba(59, 130, 246, 0.5);
 
@@ -2730,7 +2731,7 @@ summary:focus-visible {
 .event-panel-content {
   position: relative;
   box-sizing: border-box;
-  width: min(560px, calc(100vw - 24px));
+  width: min(var(--atlas-side-panel-width), calc(100vw - 24px));
   height: calc(100vh - 24px);
   margin: 12px 12px 12px 0;
   overflow-y: auto;
@@ -8404,7 +8405,7 @@ summary:focus-visible {
   padding: 5px 9px;
 }
 .event-detail-panel[data-panel-mode="timeline"] .event-panel-content {
-  width: min(680px, calc(100vw - 24px));
+  width: min(var(--atlas-side-panel-width), calc(100vw - 24px));
 }
 .proposal-timeline-panel {
   display: grid;
@@ -12480,7 +12481,7 @@ body,
   right: 0;
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr);
-  width: min(560px, calc(100vw - 24px));
+  width: min(var(--atlas-side-panel-width), calc(100vw - 24px));
   height: 100%;
   padding: 18px;
   border-left: 1px solid var(--atlas-line);
@@ -15152,7 +15153,7 @@ body,
 }
 
 body:has(.dao-detail-dashboard) .event-panel-content {
-  width: min(700px, calc(100vw - 24px));
+  width: min(var(--atlas-side-panel-width), calc(100vw - 24px));
 }
 
 body:has(.dao-detail-dashboard) .event-panel-close-row {
@@ -16507,7 +16508,7 @@ body.is-event-panel-open .dao-detail-stage > .dao-section-selector {
 
 
 .event-detail-panel[data-panel-mode="detail"] .event-panel-content {
-  width: min(820px, calc(100vw - 24px));
+  width: min(var(--atlas-side-panel-width), calc(100vw - 24px));
 }
 
 .evidence-detail-panel .event-panel-title {
@@ -16757,20 +16758,20 @@ body.is-event-panel-open .dao-detail-stage > .dao-section-selector {
 /* DAO detail compact card-specific panels: shared shell, dedicated data contracts. */
 .event-detail-panel[data-panel-mode="dao-proposal-decision"] .event-panel-content,
 .event-detail-panel[data-panel-mode="dao-proposal-participation"] .event-panel-content {
-  width: min(560px, calc(100vw - 24px));
+  width: min(var(--atlas-side-panel-width), calc(100vw - 24px));
 }
 
 .event-detail-panel[data-panel-mode="dao-proposal-creator"] .event-panel-content,
 .event-detail-panel[data-panel-mode="dao-governance-setup"] .event-panel-content,
 .event-detail-panel[data-panel-mode="dao-established-voter"] .event-panel-content,
 .event-detail-panel[data-panel-mode="dao-power-concentration"] .event-panel-content {
-  width: min(500px, calc(100vw - 24px));
+  width: min(var(--atlas-side-panel-width), calc(100vw - 24px));
 }
 
 .event-detail-panel[data-panel-mode="dao-participation-frequency"] .event-panel-content,
 .event-detail-panel[data-panel-mode="dao-proposal-activity-month"] .event-panel-content,
 .event-detail-panel[data-panel-mode="dao-typical-power"] .event-panel-content {
-  width: min(440px, calc(100vw - 24px));
+  width: min(var(--atlas-side-panel-width), calc(100vw - 24px));
 }
 
 .event-detail-panel[data-panel-mode^="dao-"] .event-panel-body {
